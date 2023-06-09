@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 18:43:26 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 20:11:17 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "../libft/libft.h"
 
 # define PI					3.1415926535
+# define HALF_PI			PI / 2
 # define DR					0.0174533
 # define WIDTH				750
 # define HEIGHT				WIDTH

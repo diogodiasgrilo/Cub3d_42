@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:12:01 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/04 12:56:37 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 20:08:31 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,8 @@
 
 typedef struct s_lay
 {
-	char		**map_cpy_split;
-	char		*map_cpy;
 	int			n_row;
 	int			n_col;
-	int			n_exit;
 	int			n_pl;
 	int			n_gh;
 	int			n_collect;

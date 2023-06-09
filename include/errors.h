@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:18:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/04 11:35:22 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 20:08:54 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ typedef struct s_err
 	int	inv_rowlen;
 	int	inv_char;
 	int	inv_n_players;
-	int	inv_n_collect;
-	int	inv_n_exits;
 	int	inv_borders;
-	int	inv_path;
 }				t_err;
 
 t_err	ft_newmap_error(void);

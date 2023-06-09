@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:03:46 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 18:44:47 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 20:10:11 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_game
 	void			*player;
 	t_lay			*lay;
 	t_lay			lay_bak;
+	char			direction;
 	char			**map;
 	
 }				t_game;
