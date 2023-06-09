@@ -6,12 +6,26 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:02:23 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/04 12:19:08 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:37:48 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLORS_H
 # define COLORS_H
+
+typedef	struct	s_determine_color
+{
+	float max_distance;
+	float min_distance;
+    float height;
+	float ratio;
+    int white;
+    int grey;
+    int red;
+    int green;
+    int blue;
+}				t_determine_color;
+
 
 /* Color codes for printf  */
 # define DEFAULT "\033[0;39m"
