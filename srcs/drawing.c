@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 18:29:12 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:44:21 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	draw_rays(t_game *g)
 	mlx_clear_image(&g->scene, 0xFF000000, WIDTH, HEIGHT);
 	mlx_clear_image(&g->map_buffer, 0xFF000000, g->lay->n_col * MAP_SIZE, g->lay->n_row * MAP_SIZE);
 	draw_map(&g->map_buffer, g->lay, g->map);
-	g->prev_height = 0;
-	g->offset = 0;
 	while (++i < NUM_RAYS)
 	{
 		pdx = (double)cos(ray_angle) * WALL_HEIGHT;

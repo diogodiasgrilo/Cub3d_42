@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:18:47 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 18:38:48 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:43:04 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void    determine_color (t_put_on_screen        *sc)
     dc.max_distance = 0.0f;
     dc.min_distance = 200.0f;
     dc.height = 0.0f;
-
     sc->color = 0xFFFFFF;
     if (sc->proj_height > dc.min_distance) {
         dc.height = dc.min_distance;
@@ -70,5 +69,4 @@ void	put_on_screen(t_game *g, t_line_drawing *rs, float ray_angle, int ray)
 		my_mlx_pixel_put(&g->scene,(ray * SCALE), sc.y + floor(HALF_HEIGHT - sc.proj_height / 2), sc.color);
 		my_mlx_pixel_put(&g->scene,(ray * SCALE) + 1, sc.y + floor(HALF_HEIGHT - sc.proj_height / 2), sc.color);
 	}
-    g->prev_height = sc.proj_height;
 }
