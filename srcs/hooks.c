@@ -34,7 +34,7 @@ void	handle_angles(t_game *g, int key)
 {
 	if (key == 100)
 	{
-		g->pa += 0.1;
+		g->pa += 0.15;
 		if (g->pa > 2 * PI)
 			g->pa -= g->pa;
 		g->pdx = cos(g->pa) * MINIMAP_RATIO;
@@ -42,7 +42,7 @@ void	handle_angles(t_game *g, int key)
 	}
 	else if (key == 97)
 	{
-		g->pa -= 0.1;
+		g->pa -= 0.15;
 		if (g->pa < 0)
 			g->pa = 2 * PI;
 		g->pdx = cos(g->pa) * MINIMAP_RATIO;
