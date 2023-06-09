@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:03:46 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/07 16:37:33 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:44:47 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,24 +33,21 @@ typedef struct s_image_creator
 /* Main attributes for the game */
 typedef struct s_game
 {
-	int			width;
-	int			height;
-	int			px;
-	int			py;
-	float		pdx;
-	float		pdy;
-	float		pa;
-	void		*id;
-	void		*w_id;
+	int				width;
+	int				height;
+	int				px;
+	int				py;
+	float			pdx;
+	float			pdy;
+	float			pa;
+	void			*id;
+	void			*w_id;
 	t_image_creator	map_buffer;
-	void		*black_back;
 	t_image_creator	scene;
-	void		*player;
-	t_lay		*lay;
-	t_lay		lay_bak;
-	char		**map;
-	float		prev_height;
-	int			offset;
+	void			*player;
+	t_lay			*lay;
+	t_lay			lay_bak;
+	char			**map;
 	
 }				t_game;
 
