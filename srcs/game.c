@@ -6,11 +6,23 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 18:08:50 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 20:30:12 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/raycasting.h"
+
+void	find_angle_direction(t_game *g)
+{
+	if (g->direction == 'E')
+		g->pa = PI * 2;
+	else if (g->direction == 'W')
+		g->pa = PI;
+	else if (g->direction == 'N')
+		g->pa = PI * 3 / 2;
+	else if (g->direction == 'S')
+		g->pa = PI / 2;
+}
 
 void	start_game(char **map, t_lay lay)
 {
@@ -33,6 +45,7 @@ void	start_game(char **map, t_lay lay)
 		g.px * MINIMAP_RATIO, g.py * MINIMAP_RATIO);
 	g.pdx = (cos(g.pa) * MINIMAP_RATIO);
 	g.pdy = (sin(g.pa) * MINIMAP_RATIO);
+	find_angle_direction(&g);
 	draw_rays(&g);
 	mlx_hook(g.w_id, 17, 0, free_map_exit, &g);
 	mlx_key_hook(g.w_id, *ft_input, &g);
@@ -45,7 +58,6 @@ void	ft_newgame(t_game *g, char **m, t_lay *lay)
 	g->height = lay->n_row * MINIMAP_RATIO;
 	g->lay = lay;
 	g->map = m;
-	g->pa = PI * 2;
 }
 
 void	find_player(t_game *g, char **map)
@@ -59,8 +71,9 @@ void	find_player(t_game *g, char **map)
 		j = -1;
 		while (map[i][++j])
 		{
-			if (map[i][j] == 'P')
+			if (ft_strchr("NSWE", map[i][j]))
 			{
+				g->direction = map[i][j];
 				g->px = j;
 				g->py = i;
 				return ;

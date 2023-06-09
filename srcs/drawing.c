@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 18:44:21 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 20:31:18 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ void	draw_line(t_game *g, float pdx, float pdy, float ray_angle, int ray)
 {
 	t_line_drawing	rs;
 
-	rs.x1 = (g->px * MAP_SIZE) + 2;
-	rs.y1 = (g->py * MAP_SIZE) + 2;
-	rs.x2 = ((g->px + pdx) * MAP_SIZE) + 2;
-	rs.y2 = ((g->py + pdy) * MAP_SIZE) + 2;
+	rs.x1 = (g->px * MAP_SIZE) + 4;
+	rs.y1 = (g->py * MAP_SIZE) + 4;
+	rs.x2 = ((g->px + pdx) * MAP_SIZE) + 4;
+	rs.y2 = ((g->py + pdy) * MAP_SIZE) + 4;
 	rs.dx = abs((rs.x2 - rs.x1));
 	rs.dy = -abs((rs.y2 - rs.y1));
 	rs.err = rs.dx + rs.dy;

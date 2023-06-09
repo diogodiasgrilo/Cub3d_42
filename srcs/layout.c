@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:28:07 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/04 11:38:41 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 19:22:48 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_lay	ft_newlayout(void)
 
 	lay.n_row = 0;
 	lay.n_col = 0;
-	lay.n_exit = 0;
 	lay.n_pl = 0;
 	lay.n_collect = 0;
 	return (lay);
@@ -82,15 +81,14 @@ int	ft_checklayout(char *line, t_err *map_err, t_lay *lay, int is_last)
 	if (line[0] != '1' || line[lay->n_col - 1] != '1' || \
 			(ft_countchar(line, '1') != lay->n_col && is_last))
 		map_err->inv_borders = 1;
-	lay->n_exit += ft_countchar(line, 'E');
-	lay->n_pl += ft_countchar(line, 'P');
+	lay->n_pl += ft_countchar(line, 'N');
+	lay->n_pl += ft_countchar(line, 'S');
+	lay->n_pl += ft_countchar(line, 'E');
+	lay->n_pl += ft_countchar(line, 'W');
 	lay->n_gh += ft_countchar(line, 'G');
-	lay->n_collect += ft_countchar(line, 'C');
-	map_err->inv_n_exits = (lay->n_exit < 1 || lay->n_exit > 1);
 	map_err->inv_n_players = (lay->n_pl < 1 || lay->n_pl > 1);
-	map_err->inv_n_collect = lay->n_collect < 1;
 	while (line && *line)
-		if (!ft_strchr("01CEPG\n", *(line++)))
+		if (!ft_strchr("01NSEW\n", *(line++)))
 			return (1);
 	return (0);
 }

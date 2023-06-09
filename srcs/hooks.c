@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 18:09:10 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 20:25:15 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	handle_angles(t_game *g, int key)
 	{
 		g->pa += 0.1;
 		if (g->pa > 2 * PI)
-			g->pa -= 2 * PI;
+			g->pa -= g->pa;
 		g->pdx = cos(g->pa) * MINIMAP_RATIO;
 		g->pdy = sin(g->pa) * MINIMAP_RATIO;
 	}

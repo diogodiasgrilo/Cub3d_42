@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/04 11:38:27 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 20:09:18 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	find_s(char **map, int which)
 		x = -1;
 		while (map[y][++x])
 		{
-			if (map[y][x] == 'P')
+			if (ft_strchr("NSWE", map[y][x]))
 			{
 				if (!which)
 					return (y);
@@ -52,35 +52,23 @@ t_err	ft_newmap_error(void)
 
 	map_err.inv_borders = 0;
 	map_err.inv_char = 0;
-	map_err.inv_n_exits = 0;
-	map_err.inv_n_collect = 0;
 	map_err.inv_rowlen = 0;
 	map_err.inv_n_players = 0;
-	map_err.inv_path = 0;
 	return (map_err);
 }
 
 char	**check_map(int fd, t_lay *lay)
 {
-	int		c;
 	char	*map_str;
 	char	**map;
 	t_err	map_err;
 
-	c = 0;
 	map = 0;
 	map_str = 0;
 	map_err = ft_newmap_error();
 	*lay = ft_newlayout();
 	ft_readlayout(fd, &map_err, lay, &map_str);
 	ft_print_map_error(&map_err, &map_str);
-	lay->map_cpy = ft_strdup(map_str);
-	lay->map_cpy_split = ft_split(lay->map_cpy, '\n');
-	find_path(lay->map_cpy_split, find_s(lay->map_cpy_split, 1), \
-		find_s(lay->map_cpy_split, 0), &c);
-	map_err.inv_path = (c != lay->n_collect + 1);
-	free(lay->map_cpy);
-	free_split(lay->map_cpy_split);
 	ft_print_map_error(&map_err, &map_str);
 	map = ft_split(map_str, '\n');
 	free(map_str);
@@ -104,8 +92,8 @@ char	**check_params(int argc, char **argv, t_lay *lay)
 		i++;
 	while (argv[1][i] && argv[1][i] != '.')
 		i++;
-	if (ft_strncmp(argv[1] + i, ".ber", 4) || ft_strncmp(argv[1] + i, ".ber",
+	if (ft_strncmp(argv[1] + i, ".cub", 4) || ft_strncmp(argv[1] + i, ".cub",
 			ft_strlen(argv[1] + i)))
-		error_msg_params("Invalid file type, use .ber!", 0);
+		error_msg_params("Invalid file type, use .cub!", 0);
 	return (check_map(fd, lay));
 }
