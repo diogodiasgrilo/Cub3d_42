@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 21:10:57 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 21:13:06 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	ft_input(int key, void *param)
 	t_game	*g;
 
 	g = (t_game *)param;
-	printf("key: %d\n", key);
 	if (key == 65363 || key == 65361)
 		handle_angles(g, key);
 	else if (key == 119)
