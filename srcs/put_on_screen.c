@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:18:47 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/08 13:04:13 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:33:35 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void    determine_color (t_put_on_screen        *sc)
 {
     float max_distance = 0.0f;
-    float min_distance = 600.0f;
+    float min_distance = 200.0f;
     float height = 0.0f;
 
     sc->color = 0xFFFFFF;
@@ -35,7 +35,7 @@ void    determine_color (t_put_on_screen        *sc)
     sc->color = (red << 16) | (green << 8) | blue;
 }
 
-void	put_on_screen(t_game *g, t_line_drawing *rs, int *column_n, float ray_angle)
+void	put_on_screen(t_game *g, t_line_drawing *rs, float ray_angle, int ray)
 {	
     t_put_on_screen        sc;
     
@@ -44,7 +44,7 @@ void	put_on_screen(t_game *g, t_line_drawing *rs, int *column_n, float ray_angle
 	while (1)
 	{
 		my_mlx_pixel_put(&g->map_buffer, rs->x1, rs->y1, NEWWHITE);
-		if (g->map[rs->y1 / MAP_SIZE][rs->x1 / MAP_SIZE] == '1')
+		if (g->map[(rs->y1 + 1) / MAP_SIZE][(rs->x1 + 1) / MAP_SIZE] == '1')
 			break ;
 		rs->e2 = 2 * rs->err;
 		if (rs->e2 >= rs->dy)
@@ -60,15 +60,13 @@ void	put_on_screen(t_game *g, t_line_drawing *rs, int *column_n, float ray_angle
 	}
 	sc.distance = sqrt(pow((rs->x1 - sc.starting_x), 2) + pow((rs->y1 - sc.starting_y), 2));
 	sc.distance *= cos(g->pa - ray_angle);
-	sc.half_width = (int)WIDTH / 2;  
-	sc.half_height = (int)HEIGHT / 2;
-	sc.screen_dis = sc.half_width / tan(RAY_ANGLE / 2);
-	sc.proj_height = (float)(sc.screen_dis / (sc.distance + 0.0001) * SIZE);
-	sc.scale = (int)(WIDTH) / (RAY_ANGLE);
+	sc.proj_height = (SCREEN_DIST / (sc.distance + 0.0001)) * WALL_HEIGHT;
     determine_color (&sc);
     sc.y = -1;
     while (++sc.y < sc.proj_height)
-        my_mlx_pixel_put(&g->scene,((*column_n / (N_RAYS_PER_ANGLE)) * sc.scale), sc.y + sc.half_height - (int)(sc.proj_height / 2.0), sc.color);
-    *column_n += 1;
+	{
+		my_mlx_pixel_put(&g->scene,(ray * SCALE), sc.y + floor(HALF_HEIGHT - sc.proj_height / 2), sc.color);
+		my_mlx_pixel_put(&g->scene,(ray * SCALE) + 1, sc.y + floor(HALF_HEIGHT - sc.proj_height / 2), sc.color);
+	}
     g->prev_height = sc.proj_height;
 }

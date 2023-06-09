@@ -6,13 +6,13 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/07 17:18:40 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 18:29:12 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/raycasting.h"
 
-void	draw_line(t_game *g, float pdx, float pdy, int *column_n, float ray_angle)
+void	draw_line(t_game *g, float pdx, float pdy, float ray_angle, int ray)
 {
 	t_line_drawing	rs;
 
@@ -31,7 +31,7 @@ void	draw_line(t_game *g, float pdx, float pdy, int *column_n, float ray_angle)
 		rs.sy = 1;
 	else
 		rs.sy = -1;
-	put_on_screen(g, &rs, column_n, ray_angle);
+	put_on_screen(g, &rs, ray_angle, ray);
 }
 
 void	draw_map(t_image_creator *ic, t_lay *lay, char **map)
@@ -47,31 +47,24 @@ void	draw_map(t_image_creator *ic, t_lay *lay, char **map)
 
 void	draw_rays(t_game *g)
 {
-	int		column_n;
 	int		i;
-	float	n_rays;
 	float	ray_angle;
 	float	pdx;
 	float	pdy;
 
 	i = -1;
-	column_n = 1;
-	ray_angle = g->pa - (DR * (RAY_ANGLE / 2));
+	ray_angle = g->pa - HALF_FOV + 0.0001;
 	mlx_clear_image(&g->scene, 0xFF000000, WIDTH, HEIGHT);
 	mlx_clear_image(&g->map_buffer, 0xFF000000, g->lay->n_col * MAP_SIZE, g->lay->n_row * MAP_SIZE);
 	draw_map(&g->map_buffer, g->lay, g->map);
 	g->prev_height = 0;
 	g->offset = 0;
-	while (++i < RAY_ANGLE)
+	while (++i < NUM_RAYS)
 	{
-		n_rays = -1.0;
-		while (++n_rays <= N_RAYS_PER_ANGLE)
-		{
-			pdx = (double)cos(ray_angle) * SIZE;
-			pdy = (double)sin(ray_angle) * SIZE;
-			draw_line(g, pdx, pdy, &column_n, ray_angle);
-			ray_angle += DR / N_RAYS_PER_ANGLE;
-		}
+		pdx = (double)cos(ray_angle) * WALL_HEIGHT;
+		pdy = (double)sin(ray_angle) * WALL_HEIGHT;
+		draw_line(g, pdx, pdy, ray_angle, i);
+		ray_angle += DELTA_ANGLE;
 	}
 	mlx_put_image_to_window(g->id, g->w_id, g->scene.img, 0, 0);
 	mlx_put_image_to_window(g->id, g->w_id, g->map_buffer.img, 0, 0);
