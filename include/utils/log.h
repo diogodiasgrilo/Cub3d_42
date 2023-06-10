@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   log.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:18:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/10 19:11:43 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/10 18:43:21 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/10 18:43:35 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#ifndef LOG_H
+# define LOG_H
 
-typedef struct s_err
-{
-	int	inv_rowlen;
-	int	inv_char;
-	int	inv_n_players;
-	int	inv_borders;
-}				t_err;
-
-t_err	ft_newmap_error(void);
-int		error_msg_params(char *msg, char **map_str);
-int		ft_print_map_error(t_err *map_err, char **map_str);
+# define LOG_TRACE "[\033[95mTRACE\033[39m] "
+# define LOG_INFO "[\033[94mINFO\033[39m] "
+# define LOG_WARN "[\033[33mWARN\033[39m] "
+# define LOG_ERROR "[\033[91mERROR\033[39m] "
+# define LOG_SUCCESS "[\033[92mSUCCESS\033[39m] "
 
 #endif

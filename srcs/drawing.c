@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:31:18 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:14:28 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/raycasting.h"
+#include "raycasting.h"
 
 void	draw_line(t_game *g, float pdx, float pdy, float ray_angle, int ray)
 {

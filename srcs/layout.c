@@ -6,11 +6,11 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:28:07 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/10 19:07:58 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:15:32 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/raycasting.h"
+#include "raycasting.h"
 
 t_lay	ft_newlayout(void)
 {
@@ -51,10 +51,8 @@ void	ft_readlayout(int fd, t_err *map_err, t_lay *lay, char **map_str)
 	while (1)
 	{
 		line = get_next_line(fd);
-		printf("gnl -> %p\n", line);
 		if (!line)
 		{
-			printf("ncol -> %d\n", lay->n_col);
 			if (!lay->n_col)
 				empty_map(line, last_line, map_str);
 			else
@@ -67,7 +65,6 @@ void	ft_readlayout(int fd, t_err *map_err, t_lay *lay, char **map_str)
 			invalid_char(map_err, map_str, line);
 		last_line = ft_strjoin(line, "\n");
 		*map_str = ft_strjoin_free(*map_str, last_line);
-		printf("l -> str -> %s\n", *map_str);
 		ft_strrep(&last_line, ft_strlen(last_line) - 1, 1, "");
 		lay->n_row++;
 		free(line);

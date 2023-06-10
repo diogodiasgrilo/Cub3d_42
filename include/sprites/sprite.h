@@ -1,37 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   layout.h                                           :+:      :+:    :+:   */
+/*   sprite.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:12:01 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/10 19:13:17 by martiper         ###   ########.fr       */
+/*   Created: 2023/04/22 23:06:20 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/10 18:59:27 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LAYOUT_H
-# define LAYOUT_H
+#ifndef SPRITE_H
+# define SPRITE_H
 
-# include "errors.h"
+# include <vec2.h>
+# include <game.h>
 
-# ifndef ANIMATION_FRAMES
-#  define ANIMATION_FRAMES 2
-# endif
-
-typedef struct s_lay
+typedef struct s_sprite
 {
-	int			n_row;
-	int			n_col;
-	int			n_pl;
-	int			n_gh;
-	int			n_collect;
-}				t_lay;
+	char		*path;
+	t_vec2		dimensions;
+	t_mlx_image	*image;
+}				t_sprite;
 
-t_lay			ft_newlayout(void);
-void			ft_readlayout(int fd, t_err *map_err, t_lay *lay,
-					char **map_str);
-int				ft_checklayout(char *line, t_err *map_err, t_lay *lay, \
-				int is_last);
+/*
+		* Loads a sprite from a file.
+		* Returns a pointer to the sprite.
+ */
+t_sprite		*new_sprite(char *path);
+void			free_sprite(t_sprite *sprite);
 
 #endif

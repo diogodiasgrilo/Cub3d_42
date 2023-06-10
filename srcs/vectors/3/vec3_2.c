@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   vec3_2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:18:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/10 19:11:43 by martiper         ###   ########.fr       */
+/*   Created: 2023/05/06 10:46:42 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/10 19:05:35 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "vec2.h"
 
-typedef struct s_err
+t_vec3	vec3_div(t_vec3 a, t_vec3 b)
 {
-	int	inv_rowlen;
-	int	inv_char;
-	int	inv_n_players;
-	int	inv_borders;
-}				t_err;
+	t_vec3	vec;
 
-t_err	ft_newmap_error(void);
-int		error_msg_params(char *msg, char **map_str);
-int		ft_print_map_error(t_err *map_err, char **map_str);
+	vec.x = a.x / b.x;
+	vec.y = a.y / b.y;
+	return (vec);
+}
 
-#endif
+t_vec3	vec3_div_scal(t_vec3 a, double constant)
+{
+	t_vec3	vec;
+
+	vec.x = a.x / constant;
+	vec.y = a.y / constant;
+	return (vec);
+}
+
+double	vec3_dist(t_vec3 a, t_vec3 b)
+{
+	return (sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2)));
+}

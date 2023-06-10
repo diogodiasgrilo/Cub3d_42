@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/11 11:00:52 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/11 11:01:50 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_put_on_screen
 	float	distance;
 	float	proj_height;
 }				t_put_on_screen;
-
 
 void			draw_rays(t_game *g);
 void			*create_player(void *mlx);

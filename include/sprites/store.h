@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   layout.h                                           :+:      :+:    :+:   */
+/*   store.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:12:01 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/10 19:13:17 by martiper         ###   ########.fr       */
+/*   Created: 2023/04/22 23:11:25 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/10 18:58:28 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LAYOUT_H
-# define LAYOUT_H
+#ifndef STORE_H
+# define STORE_H
 
-# include "errors.h"
+# include "sprite.h"
 
-# ifndef ANIMATION_FRAMES
-#  define ANIMATION_FRAMES 2
-# endif
+typedef t_list	t_sprite_store;
 
-typedef struct s_lay
-{
-	int			n_row;
-	int			n_col;
-	int			n_pl;
-	int			n_gh;
-	int			n_collect;
-}				t_lay;
-
-t_lay			ft_newlayout(void);
-void			ft_readlayout(int fd, t_err *map_err, t_lay *lay,
-					char **map_str);
-int				ft_checklayout(char *line, t_err *map_err, t_lay *lay, \
-				int is_last);
+t_sprite_store	*get_sprite_store(void);
+t_sprite		*get_sprite(char *path);
 
 #endif
