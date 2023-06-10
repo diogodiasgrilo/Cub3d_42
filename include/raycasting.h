@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/10 23:13:00 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/11 11:00:52 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
 
+# include "cross_compatibility.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -23,8 +24,8 @@
 # include "check.h"
 # include "errors.h"
 # include "colors.h"
-# include "../miniLBX/mlx.h"
-# include "../libft/libft.h"
+# include <mlx.h>
+# include <libft.h>
 
 # define PI					3.1415926535
 # define HALF_PI			PI / 2
