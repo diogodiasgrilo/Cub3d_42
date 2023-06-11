@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:11:17 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/10 23:13:00 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ void			draw_rays(t_game *g);
 void			*create_player(void *mlx);
 int				ft_input(int key, void *param);
 int				ft_input(int key, void *param);
+int				ft_release(int key, void *param);
 void			handle_angles(t_game *g, int key);
-void			handle_directions(t_game *g, int one_dif);
 t_image_creator	create_image(void *mlx, t_lay lay, char **map);
 void			draw_map(t_image_creator *ic, t_lay *lay, char **map);
 void			create_rows(t_image_creator *ic, t_lay lay, char **map);

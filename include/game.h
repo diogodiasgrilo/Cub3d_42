@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:03:46 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:10:11 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/09 21:52:14 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_game
 	t_lay			*lay;
 	t_lay			lay_bak;
 	char			direction;
+	int				keys[6];
 	char			**map;
 	
 }				t_game;
