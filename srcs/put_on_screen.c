@@ -6,15 +6,15 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:18:47 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/10 19:16:29 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/11 10:21:55 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 
-void	determine_color (t_put_on_screen	*sc)
+void	determine_color (t_put_on_screen *sc)
 {
-	t_determine_color dc;
+	t_determine_color	dc;
 
 	dc.max_distance = 0.0f;
 	dc.min_distance = 200.0f;

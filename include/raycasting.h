@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/11 11:01:50 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/11 11:03:07 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@
 # define WALL_HEIGHT		30
 # define MINIMAP_RATIO		30
 # define MAP_SIZE			10
+# define RAY_ANGLE			FOV / NUM_RAYS
+# define N_RAYS_PER_ANGLE	NUM_RAYS / FOV
+# define SIZE				10
+
+# define PLAYER_CAMERA_SPEED	0.01
 
 typedef struct s_line_drawing
 {
@@ -67,20 +72,24 @@ typedef struct s_put_on_screen
 	float	starting_y;
 	float	distance;
 	float	proj_height;
+	float	half_width;
+	float	half_height;
+	float	screen_dis;
+	int		scale;
 }				t_put_on_screen;
 
-void			draw_rays(t_game *g);
-void			*create_player(void *mlx);
-int				ft_input(int key, void *param);
-int				ft_input(int key, void *param);
-int				ft_release(int key, void *param);
-void			handle_angles(t_game *g, int key);
-t_image_creator	create_image(void *mlx, t_lay lay, char **map);
-void			draw_map(t_image_creator *ic, t_lay *lay, char **map);
-void			create_rows(t_image_creator *ic, t_lay lay, char **map);
-void			my_mlx_pixel_put(t_image_creator *data, float x, float y, int color);
-void			mlx_clear_image (t_image_creator *data, int color, int width, int height);
-void			draw_line(t_game *g, float pdx, float pdy, float ray_angle, int ray);
-void			put_on_screen(t_game *g, t_line_drawing *rs, float ray_angle, int ray);
+void		draw_rays(t_game *g);
+void		*create_player(void *mlx);
+int			ft_input(int key, void *param);
+int			ft_release(int key, void *param);
+void		handle_angles(t_game *g, int key);
+t_mlx_image	create_image(void *mlx, t_lay lay, char **map);
+void		draw_map(t_mlx_image *ic, t_lay *lay, char **map);
+void		create_rows(t_mlx_image *ic, t_lay lay, char **map);
+void		my_mlx_pixel_put(t_mlx_image *data, float x, float y, int color);
+void		mlx_clear_image (t_mlx_image *data, int color, int width, int height);
+void		draw_line(t_game *g, float pdx, float pdy, float ray_angle, int ray);
+void		put_on_screen(t_game *g, t_line_drawing *rs, int *column_n, float ray_angle);
+int			on_new_frame(void);
 
 #endif

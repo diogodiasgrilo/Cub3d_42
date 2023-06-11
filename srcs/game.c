@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/10 19:15:22 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/11 10:57:19 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	start_game(char **map, t_lay lay)
 	draw_rays(g);
 	mlx_hook(g->w_id, 17, 0, free_map_exit, g);
 	mlx_hook(g->w_id, 2, 1L << 0, ft_input, g);
+	mlx_loop_hook(g->id, on_new_frame, NULL);
 	mlx_loop(g->id);
 }
 

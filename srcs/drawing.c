@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/10 19:14:28 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/11 10:39:36 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	draw_line(t_game *g, float pdx, float pdy, float ray_angle, int ray)
 		rs.sy = 1;
 	else
 		rs.sy = -1;
-	put_on_screen(g, &rs, ray_angle, ray);
+	put_on_screen(g, &rs, &ray, ray_angle);
 }
 
 void	draw_map(t_image_creator *ic, t_lay *lay, char **map)

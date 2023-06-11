@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 21:13:06 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/11 10:58:23 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/raycasting.h"
+#include "raycasting.h"
+#include <vectors.h>
 
 int	free_map_exit(void *game)
 {
@@ -100,5 +101,39 @@ int	ft_input(int key, void *param)
 	else if (key == 65307)
 		exit(0);
 	draw_rays(g);
+	return (0);
+}
+
+static void	on_mouse_move(int dir)
+{
+	t_game	*game;
+
+	game = get_game();
+	if (!game)
+		return ;
+	if (dir * PLAYER_CAMERA_SPEED > 0.1 || dir * PLAYER_CAMERA_SPEED < -0.1)
+		return ;
+	game->pa += dir * PLAYER_CAMERA_SPEED;
+	if (game->pa < 0)
+		game->pa = 2 * PI + game->pa;
+	else if (game->pa > 2 * PI)
+		game->pa = fmod(game->pa, 2 * PI);
+	game->pdx = cos(game->pa) * MINIMAP_RATIO;
+	game->pdy = sin(game->pa) * MINIMAP_RATIO;
+	draw_rays(game);
+}
+
+int	on_new_frame(void)
+{
+	t_game	*game;
+	t_vec2	mouse_pos;
+
+	game = get_game();
+	if (!game)
+		return (0);
+	mlx_mouse_get_pos(game->id, game->w_id, &mouse_pos.x, &mouse_pos.y);
+	if (mouse_pos.x < 0 || mouse_pos.x > WIDTH || mouse_pos.y < 0 || mouse_pos.y > HEIGHT)
+		return (0);
+	on_mouse_move(mouse_pos.x - WIDTH / 2);
 	return (0);
 }

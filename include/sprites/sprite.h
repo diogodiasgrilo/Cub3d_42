@@ -6,14 +6,14 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 23:06:20 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/10 18:59:27 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/11 10:55:19 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SPRITE_H
 # define SPRITE_H
 
-# include <vec2.h>
+# include <vectors.h>
 # include <game.h>
 
 typedef struct s_sprite

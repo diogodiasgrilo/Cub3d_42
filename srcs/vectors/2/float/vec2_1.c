@@ -6,11 +6,11 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 22:33:50 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/10 18:36:03 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/11 10:55:19 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec2.h"
+#include "vectors.h"
 
 t_vec2f	vec2f_scale(t_vec2f a, double scale)
 {

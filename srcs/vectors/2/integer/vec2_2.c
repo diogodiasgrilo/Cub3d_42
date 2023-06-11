@@ -6,11 +6,11 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 10:46:42 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/10 18:31:52 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/11 10:55:19 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec2.h"
+#include "vectors.h"
 
 t_vec2	vec2i_div(t_vec2 a, t_vec2 b)
 {

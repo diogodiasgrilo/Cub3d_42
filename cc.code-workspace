@@ -31,7 +31,7 @@
 	},
 	"files.associations": {
 		".env.production": "dotenv",
-		"vec2.h": "c",
+		"vectors.h": "c",
 		"sprite.h": "c",
 		"array": "c",
 		"*.tcc": "c",
@@ -51,7 +51,8 @@
 		"layout.h": "c",
 		"check.h": "c",
 		"errors.h": "c",
-		"colors.h": "c"
+		"colors.h": "c",
+		"mlx.h": "c"
 	}
   }
 }
