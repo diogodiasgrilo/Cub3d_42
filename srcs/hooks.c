@@ -6,12 +6,26 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/11 10:58:23 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/11 12:03:58 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
 #include <vectors.h>
+
+typedef enum e_keycodes
+{
+	KEYCODE_ESCAPE = 65307,
+	KEYCODE_W = 119,
+	KEYCODE_A = 97,
+	KEYCODE_S = 115,
+	KEYCODE_D = 100,
+	KEYCODE_ARROW_UP = 65362,
+	KEYCODE_ARROW_LEFT = 65361,
+	KEYCODE_ARROW_DOWN = 65364,
+	KEYCODE_ARROW_RIGHT = 65363,
+	KEYCODE_E = 101,
+}						t_keycodes;
 
 int	free_map_exit(void *game)
 {
@@ -51,36 +65,23 @@ void	handle_angles(t_game *g, int key)
 	}
 }
 
-void	handle_directions_1(t_game *g, int one_dif)
+/*
+	dir is a vector based on the player's direction
+ */
+void	handle_directions(t_game *g, t_vec2f dir)
 {
-	if (g->map[g->py][g->px - one_dif] != '1' && \
-		g->pa < 3.983188 && g->pa > 1.883189)
-		g->px -= one_dif;
-	else if (g->map[g->py][g->px + one_dif] != '1' \
-		&& (g->pa < 0.800000 || g->pa > 5.983186))
-		g->px += one_dif;
-	else if (g->map[g->py - one_dif][g->px] != '1' \
-		&& g->pa < 5.983186 && g->pa > 3.983188)
-		g->py -= one_dif;
-	else if (g->map[(g->py + one_dif)][g->px] != '1' \
-		&& g->pa < 1.883189 && g->pa > 0.783189)
-		g->py += one_dif;
-}
+	t_vec2f	new_pos;
+	t_vec2f	player_dir;
 
-void	handle_directions_2(t_game *g, int one_dif)
-{
-	if (g->map[g->py - one_dif][g->px] != '1' && \
-		(g->pa > 5.983186 || g->pa < 0.800000))
-		g->py -= one_dif;
-	else if (g->map[g->py + one_dif][g->px] != '1' \
-		&& (g->pa < 3.983188 && g->pa > 1.883189))
-		g->py += one_dif;
-	else if (g->map[g->py][g->px - one_dif] != '1' \
-		&& g->pa < 5.983186 && g->pa > 3.983188)
-		g->px -= one_dif;
-	else if (g->map[(g->py)][g->px + one_dif] != '1' \
-		&& g->pa < 1.883189 && g->pa > 0.783189)
-		g->px += one_dif;
+	player_dir = vec2f(cos(g->pa), sin(g->pa));
+	dir = vec2f_mul_scal(dir, PLAYER_SPEED);
+	dir = vec2f_mul(dir, player_dir);
+	new_pos = vec2f_add(vec2f(g->px, g->py), dir);
+	if (g->map[(int)new_pos.y][(int)new_pos.x] != '1')
+	{
+		g->px = (int)new_pos.x;
+		g->py = (int)new_pos.y;
+	}
 }
 
 int	ft_input(int key, void *param)
@@ -88,30 +89,28 @@ int	ft_input(int key, void *param)
 	t_game	*g;
 
 	g = (t_game *)param;
-	if (key == 65363 || key == 65361)
+	if (key == KEYCODE_ARROW_RIGHT || key == KEYCODE_ARROW_LEFT)
 		handle_angles(g, key);
-	else if (key == 119)
-		handle_directions_1(g, 1);
-	else if (key == 115)
-		handle_directions_1(g, -1);
-	else if (key == 97)
-		handle_directions_2(g, 1);
-	else if (key == 100)
-		handle_directions_2(g, -1);
-	else if (key == 65307)
+	else if (key == KEYCODE_W)
+		handle_directions(g, vec2f(1.0f, 1.0f));
+	else if (key == KEYCODE_S)
+		handle_directions(g, vec2f(1.0f, 0.0f));
+	else if (key == KEYCODE_A)
+		handle_directions(g, vec2f(-1.0f, 0.0f));
+	else if (key == KEYCODE_D)
+		handle_directions(g, vec2f(-1.0f, -1.0f));
+	else if (key == KEYCODE_ESCAPE)
 		exit(0);
 	draw_rays(g);
 	return (0);
 }
 
-static void	on_mouse_move(int dir)
+static void	on_mouse_move(float dir)
 {
 	t_game	*game;
 
 	game = get_game();
 	if (!game)
-		return ;
-	if (dir * PLAYER_CAMERA_SPEED > 0.1 || dir * PLAYER_CAMERA_SPEED < -0.1)
 		return ;
 	game->pa += dir * PLAYER_CAMERA_SPEED;
 	if (game->pa < 0)
@@ -120,6 +119,7 @@ static void	on_mouse_move(int dir)
 		game->pa = fmod(game->pa, 2 * PI);
 	game->pdx = cos(game->pa) * MINIMAP_RATIO;
 	game->pdy = sin(game->pa) * MINIMAP_RATIO;
+	ft_printf("pa: %f\n", (2 * PI - game->pa) * 180 / PI);
 	draw_rays(game);
 }
 
@@ -127,13 +127,20 @@ int	on_new_frame(void)
 {
 	t_game	*game;
 	t_vec2	mouse_pos;
+	// static t_vec2	last_mouse_pos;
 
 	game = get_game();
 	if (!game)
 		return (0);
 	mlx_mouse_get_pos(game->id, game->w_id, &mouse_pos.x, &mouse_pos.y);
 	if (mouse_pos.x < 0 || mouse_pos.x > WIDTH || mouse_pos.y < 0 || mouse_pos.y > HEIGHT)
+	{
+		mlx_mouse_move(game->id, game->w_id, HALF_WIDTH, HALF_HEIGHT);
 		return (0);
-	on_mouse_move(mouse_pos.x - WIDTH / 2);
+	}
+	if (fabs(mouse_pos.x - HALF_WIDTH) < MOUSE_SENSITIVITY)
+		return (0);
+	on_mouse_move((mouse_pos.x - HALF_WIDTH) / (float)(HALF_WIDTH));
+	// last_mouse_pos = mouse_pos;
 	return (0);
 }

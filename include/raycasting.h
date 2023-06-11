@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/11 11:03:07 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/11 11:28:48 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@
 # define WALL_HEIGHT		30
 # define MINIMAP_RATIO		30
 # define MAP_SIZE			10
-# define RAY_ANGLE			FOV / NUM_RAYS
-# define N_RAYS_PER_ANGLE	NUM_RAYS / FOV
-# define SIZE				10
 
+# define PLAYER_SPEED		1
+# define MOUSE_SENSITIVITY	0.01 * WIDTH
 # define PLAYER_CAMERA_SPEED	0.01
 
 typedef struct s_line_drawing
@@ -89,7 +88,7 @@ void		create_rows(t_mlx_image *ic, t_lay lay, char **map);
 void		my_mlx_pixel_put(t_mlx_image *data, float x, float y, int color);
 void		mlx_clear_image (t_mlx_image *data, int color, int width, int height);
 void		draw_line(t_game *g, float pdx, float pdy, float ray_angle, int ray);
-void		put_on_screen(t_game *g, t_line_drawing *rs, int *column_n, float ray_angle);
+void		put_on_screen(t_game *g, t_line_drawing *rs, float ray_angle, int ray);
 int			on_new_frame(void);
 
 #endif
