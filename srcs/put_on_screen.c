@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:18:47 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/11 11:07:01 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:24:56 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void	put_on_screen(t_game *g, t_line_drawing *rs, float ray_angle, int ray)
 	while (1)
 	{
 		my_mlx_pixel_put(&g->map_buffer, rs->x1, rs->y1, NEWWHITE);
-		if (g->map[(rs->y1 + 1) / MAP_SIZE][(rs->x1 + 1) / MAP_SIZE] == '1')
+		if (/* rs->x1 >= g->lay->n_row || rs->y1 >= g->lay->n_col || */ \
+			rs->x1 < 0 || rs->y1 < 0 || \
+			g->map[(rs->y1 + 1) / MAP_SIZE][(rs->x1 + 1) / MAP_SIZE] == '1')
 			break ;
 		rs->e2 = 2 * rs->err;
 		if (rs->e2 >= rs->dy)

@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/11 10:57:19 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:18:26 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	start_game(char **map, t_lay lay)
 	ft_newgame(g, map, &lay);
 	find_player(g, map);
 	mlx_put_image_to_window(g->id, g->w_id, g->player, \
-		g->px * MINIMAP_RATIO, g->py * MINIMAP_RATIO);
+		(int)g->px * MINIMAP_RATIO, (int)g->py * MINIMAP_RATIO);
 	g->pdx = (cos(g->pa) * MINIMAP_RATIO);
 	g->pdy = (sin(g->pa) * MINIMAP_RATIO);
 	find_angle_direction(g);
@@ -85,8 +85,8 @@ void	find_player(t_game *g, char **map)
 			if (ft_strchr("NSWE", map[i][j]))
 			{
 				g->direction = map[i][j];
-				g->px = j;
-				g->py = i;
+				g->px = (double)j;
+				g->py = (double)i;
 				return ;
 			}
 		}

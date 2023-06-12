@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/11 12:14:13 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:18:03 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	draw_line(t_game *g, float pdx, float pdy, float ray_angle, int ray)
 {
 	t_line_drawing	rs;
 
-	rs.x1 = (g->px * MAP_SIZE) + 4;
-	rs.y1 = (g->py * MAP_SIZE) + 4;
-	rs.x2 = ((g->px + pdx) * MAP_SIZE) + 4;
-	rs.y2 = ((g->py + pdy) * MAP_SIZE) + 4;
+	rs.x1 = (int)(g->px * MAP_SIZE) + 4;
+	rs.y1 = (int)(g->py * MAP_SIZE) + 4;
+	rs.x2 = (int)((g->px + pdx) * MAP_SIZE) + 4;
+	rs.y2 = (int)((g->py + pdy) * MAP_SIZE) + 4;
 	rs.dx = abs((rs.x2 - rs.x1));
 	rs.dy = -abs((rs.y2 - rs.y1));
 	rs.err = rs.dx + rs.dy;
@@ -65,16 +65,6 @@ void	draw_rays(t_game *g)
 		draw_line(g, pdx, pdy, ray_angle, i);
 		ray_angle += DELTA_ANGLE;
 	}
-
-	float map_offset = MAP_SIZE / 2;
-	gfx_draw_line((t_gfx_line){
-		.buffer = &g->map_buffer,
-		.color = 0xFFFF0000,
-		.start = vec2f(g->px * MAP_SIZE + map_offset, g->py * MAP_SIZE + map_offset),
-		.direction = vec2f(g->pdx, g->pdy),
-		.length = 10,
-		.thickness = 1
-	});
 	draw_line(g, g->pdx, g->pdy, g->pa, 1);
 	mlx_put_image_to_window(g->id, g->w_id, g->scene.img, 0, 0);
 	mlx_put_image_to_window(g->id, g->w_id, g->map_buffer.img, 0, 0);

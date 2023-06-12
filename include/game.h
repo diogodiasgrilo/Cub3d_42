@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:03:46 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/11 11:03:24 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:15:29 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_game
 {
 	int				width;
 	int				height;
-	int				px;
-	int				py;
+	double			px;
+	double			py;
 	float			pdx;
 	float			pdy;
 	float			pa;

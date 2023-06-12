@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 11:39:01 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/11 12:17:08 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:06:00 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ void	gfx_draw_line(t_gfx_line line)
 	t_vec2	iter;
 	t_vec2	dir;
 
+	line.direction = vec2f_normalize(line.direction);
+	dir = vec2i((int)line.direction.x, (int)line.direction.y);
 	end = vec2f_add(line.start, vec2f_mul_scal(line.direction, line.length));
 	end = vec2f_clamp(end, vec2f(0, 0), vec2f(line.buffer->width, line.buffer->height));
-	dir = vec2i((int)line.direction.x, (int)line.direction.y);
 	iter = vec2i((int)line.start.x, (int)line.start.y);
 	while (iter.x != (int)end.x)
 	{

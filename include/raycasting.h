@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/11 11:28:48 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:19:52 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define MINIMAP_RATIO		30
 # define MAP_SIZE			10
 
-# define PLAYER_SPEED		1
+# define PLAYER_SPEED		0.1
 # define MOUSE_SENSITIVITY	0.01 * WIDTH
 # define PLAYER_CAMERA_SPEED	0.01
 
