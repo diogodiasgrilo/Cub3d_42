@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 03:19:52 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/12 18:02:39 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RAYCASTING_H
 # define RAYCASTING_H
 
-# include "cross_compatibility.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -24,8 +23,8 @@
 # include "check.h"
 # include "errors.h"
 # include "colors.h"
-# include <mlx.h>
-# include <libft.h>
+# include "../miniLBX/mlx.h"
+# include "../libft/libft.h"
 
 # define PI					3.1415926535
 # define HALF_PI			PI / 2
@@ -34,7 +33,7 @@
 # define HEIGHT				WIDTH
 # define FOV				PI / 3
 # define HALF_FOV			FOV / 2
-# define NUM_RAYS			floor(WIDTH / 2)
+# define NUM_RAYS			(WIDTH)
 # define HALF_NUM_RAYS		floor(NUM_RAYS / 2)
 # define DELTA_ANGLE		FOV / NUM_RAYS
 # define HALF_WIDTH			floor(WIDTH / 2)
@@ -44,10 +43,14 @@
 # define WALL_HEIGHT		30
 # define MINIMAP_RATIO		30
 # define MAP_SIZE			10
+# define MAX_DEPTH			100
 
-# define PLAYER_SPEED		0.1
-# define MOUSE_SENSITIVITY	0.01 * WIDTH
-# define PLAYER_CAMERA_SPEED	0.01
+# define PLAYER_SIZE		WIDTH / 80
+# define HALF_PLAYER_SIZE	PLAYER_SIZE / 2
+
+// DRAW STUFF
+# define DRAW_MINIMAP 0
+# define DRAW_WORLD 1
 
 typedef struct s_line_drawing
 {
@@ -63,6 +66,35 @@ typedef struct s_line_drawing
 	int	e2;
 }				t_line_drawing;
 
+typedef struct s_gfx_line
+{
+	int				start_x;
+	int				start_y;
+	float			direction_x;
+	float			direction_y;
+	double			length;
+	unsigned int	color;
+	t_image_creator	*buffer;
+}	t_gfx_line;
+
+typedef struct t_gfx_point
+{
+	int				x;
+	int				y;
+	unsigned int	color;
+	t_image_creator	*buffer;
+}	t_gfx_point;
+
+typedef struct t_gfx_rect
+{
+	int				start_x;
+	int				start_y;
+	int				width;
+	int				height;
+	unsigned int	color;
+	t_image_creator	*buffer;
+}	t_gfx_rect;
+
 typedef struct s_put_on_screen
 {
 	int		color;
@@ -71,24 +103,22 @@ typedef struct s_put_on_screen
 	float	starting_y;
 	float	distance;
 	float	proj_height;
-	float	half_width;
-	float	half_height;
-	float	screen_dis;
-	int		scale;
 }				t_put_on_screen;
 
-void		draw_rays(t_game *g);
-void		*create_player(void *mlx);
-int			ft_input(int key, void *param);
-int			ft_release(int key, void *param);
-void		handle_angles(t_game *g, int key);
-t_mlx_image	create_image(void *mlx, t_lay lay, char **map);
-void		draw_map(t_mlx_image *ic, t_lay *lay, char **map);
-void		create_rows(t_mlx_image *ic, t_lay lay, char **map);
-void		my_mlx_pixel_put(t_mlx_image *data, float x, float y, int color);
-void		mlx_clear_image (t_mlx_image *data, int color, int width, int height);
-void		draw_line(t_game *g, float pdx, float pdy, float ray_angle, int ray);
-void		put_on_screen(t_game *g, t_line_drawing *rs, float ray_angle, int ray);
-int			on_new_frame(void);
+void			draw_rays(t_game *g);
+void			*create_player(void *mlx);
+int				ft_input(int key, void *param);
+int				ft_input(int key, void *param);
+int				ft_release(int key, void *param);
+void			handle_angles(t_game *g, int key);
+t_image_creator	create_image(void *mlx, t_lay lay, char **map);
+void			draw_map(t_image_creator *ic, t_lay *lay, char **map);
+void			create_rows(t_image_creator *ic, t_lay lay, char **map);
+void			my_mlx_pixel_put(t_image_creator *data, float x, float y, int color);
+void			draw_simple_line(t_game *g, int x1, int y1, int x2, int y2, int color);
+void			mlx_clear_image (t_image_creator *data, int color, int width, int height);
+void			draw_line(t_gfx_line line);
+void			put_on_screen(t_game *g, t_line_drawing *rs, float ray_angle, int ray);
+void    		determine_color (t_put_on_screen        *sc);
 
 #endif

@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:18:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:08:54 by diogpere         ###   ########.fr       */
+/*   Created: 2023/03/05 14:37:38 by diogpere          #+#    #+#             */
+/*   Updated: 2023/04/11 13:43:32 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "libft.h"
 
-# include "raycasting.h"
-
-typedef struct s_err
+int	ft_lstsize(t_list *lst)
 {
-	int	inv_rowlen;
-	int	inv_char;
-	int	inv_n_players;
-	int	inv_borders;
-}				t_err;
+	int	i;
 
-t_err	ft_newmap_error(void);
-int		error_msg_params(char *msg, char **map_str);
-int		ft_print_map_error(t_err *map_err, char **map_str);
-
-#endif
+	i = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		i++;
+	}
+	return (i);
+}

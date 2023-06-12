@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:18:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:08:54 by diogpere         ###   ########.fr       */
+/*   Created: 2023/02/26 14:00:27 by diogpere          #+#    #+#             */
+/*   Updated: 2023/04/11 13:43:57 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "libft.h"
 
-# include "raycasting.h"
-
-typedef struct s_err
+void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	int	inv_rowlen;
-	int	inv_char;
-	int	inv_n_players;
-	int	inv_borders;
-}				t_err;
+	t_list	*last;
 
-t_err	ft_newmap_error(void);
-int		error_msg_params(char *msg, char **map_str);
-int		ft_print_map_error(t_err *map_err, char **map_str);
-
-#endif
+	if (lst == NULL || new == NULL)
+		return ;
+	if (*lst == NULL)
+	{
+		*lst = new;
+		return ;
+	}
+	last = ft_lstlast(*lst);
+	last->next = new;
+}

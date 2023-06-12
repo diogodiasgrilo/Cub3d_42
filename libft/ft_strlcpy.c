@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:18:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:08:54 by diogpere         ###   ########.fr       */
+/*   Created: 2023/03/05 14:43:42 by diogpere          #+#    #+#             */
+/*   Updated: 2023/05/04 09:20:24 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "libft.h"
 
-# include "raycasting.h"
-
-typedef struct s_err
+unsigned long int	ft_strlcpy(char *dst, const char *src, \
+		unsigned long int dstsize)
 {
-	int	inv_rowlen;
-	int	inv_char;
-	int	inv_n_players;
-	int	inv_borders;
-}				t_err;
+	unsigned long int	i;
 
-t_err	ft_newmap_error(void);
-int		error_msg_params(char *msg, char **map_str);
-int		ft_print_map_error(t_err *map_err, char **map_str);
-
-#endif
+	i = 0;
+	if (dstsize <= 0)
+		return (ft_strlen(src));
+	while (src && src[i] && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	while (src && src[i])
+		i++;
+	return (i);
+}

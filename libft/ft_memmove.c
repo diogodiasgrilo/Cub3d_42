@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:18:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:08:54 by diogpere         ###   ########.fr       */
+/*   Created: 2023/03/05 14:42:46 by diogpere          #+#    #+#             */
+/*   Updated: 2023/04/11 16:29:30 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "libft.h"
 
-# include "raycasting.h"
-
-typedef struct s_err
+void	*ft_memmove(void *dst, const void *src, int len)
 {
-	int	inv_rowlen;
-	int	inv_char;
-	int	inv_n_players;
-	int	inv_borders;
-}				t_err;
+	char	*c_dst;
+	char	*c_src;
 
-t_err	ft_newmap_error(void);
-int		error_msg_params(char *msg, char **map_str);
-int		ft_print_map_error(t_err *map_err, char **map_str);
-
-#endif
+	c_dst = (char *)dst;
+	c_src = (char *)src;
+	if (dst == src)
+		return (dst);
+	if (!dst && !src)
+		return (0);
+	if (dst > src)
+		while (len--)
+			c_dst[len] = c_src[len];
+	else
+		ft_memcpy(c_dst, c_src, len);
+	return ((void *)c_dst);
+}

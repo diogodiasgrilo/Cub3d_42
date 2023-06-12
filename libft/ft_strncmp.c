@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:18:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:08:54 by diogpere         ###   ########.fr       */
+/*   Created: 2023/03/05 14:43:55 by diogpere          #+#    #+#             */
+/*   Updated: 2023/05/04 07:51:38 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "libft.h"
 
-# include "raycasting.h"
-
-typedef struct s_err
+int	ft_strncmp(const char *s1, const char *s2, int n)
 {
-	int	inv_rowlen;
-	int	inv_char;
-	int	inv_n_players;
-	int	inv_borders;
-}				t_err;
+	unsigned char	c1;
+	unsigned char	c2;
+	int				i;
 
-t_err	ft_newmap_error(void);
-int		error_msg_params(char *msg, char **map_str);
-int		ft_print_map_error(t_err *map_err, char **map_str);
-
-#endif
+	i = 0;
+	if ((!s1 && !s2) || n == 0 || (!*s1 && !*s2))
+		return (0);
+	if (n < 0)
+		return (-1);
+	while (s1 && s2 && s1[i] == s2[i] && i < n - 1 && s1[i] && s2[i])
+		i++;
+	c1 = s1[i];
+	c2 = s2[i];
+	return (c1 - c2);
+}

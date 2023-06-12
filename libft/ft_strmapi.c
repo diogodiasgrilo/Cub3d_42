@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 16:18:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:08:54 by diogpere         ###   ########.fr       */
+/*   Created: 2023/03/05 14:43:51 by diogpere          #+#    #+#             */
+/*   Updated: 2023/03/05 14:43:53 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include "libft.h"
 
-# include "raycasting.h"
-
-typedef struct s_err
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	int	inv_rowlen;
-	int	inv_char;
-	int	inv_n_players;
-	int	inv_borders;
-}				t_err;
+	int		i;
+	int		length;
+	char	*changed;
 
-t_err	ft_newmap_error(void);
-int		error_msg_params(char *msg, char **map_str);
-int		ft_print_map_error(t_err *map_err, char **map_str);
-
-#endif
+	i = 0;
+	length = ft_strlen((char *)s);
+	changed = (char *)malloc((sizeof(char) * length) + 1);
+	if (!changed || !*f)
+		return (0);
+	while (s[i] != '\0')
+	{
+		changed[i] = f(i, s[i]);
+		i++;
+	}
+	changed[i] = '\0';
+	return (changed);
+}
