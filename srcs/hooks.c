@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 03:15:50 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:36:59 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	handle_directions(t_game *g, char dir)
 		new_dir = vec2f_invert(right);
 	else if (dir == 'r')
 		new_dir = right;
+	else
+		return ;
 	new_pos = vec2f_add(\
 		(t_vec2f){g->px, g->py}, \
 		vec2f_mul_scal(new_dir, PLAYER_SPEED) \
