@@ -9,7 +9,9 @@
 				"${workspaceFolder}/libs/mlx_Linux",
 				"${workspaceFolder}/libs/libft/includes"
             ],
-            "defines": [],
+            "defines": [
+				"STM32F411xx"
+			],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",
             "cppStandard": "c++14",

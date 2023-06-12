@@ -1,38 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   component.h                                        :+:      :+:    :+:   */
+/*   c_physics.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 13:12:18 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 19:50:36 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/12 19:30:57 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/12 20:27:55 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPONENT_H
-# define COMPONENT_H
+#ifndef C_PHYSICS_H
+# define C_PHYSICS_H
 
-# include <std.h>
+#include <math/vec.h>
 
-typedef struct s_component	t_component;
-typedef enum e_comp_labels	t_comp_labels;
+typedef struct s_physics_component	t_physics_component;
 
-enum e_comp_labels
+struct s_physics_component
 {
-	COMPONENT_IDENTITY,
-	COMPONENT_TRANSFORM,
-	COMPONENT_CAMERA,
-	COMPONENT_COLLIDER,
-	COMPONENT_PHYSICS
+	double	mass;
+	t_vec3f	velocity;
+	t_vec3f	acceleration;
+	void	(*update)(void);
+	void	(*apply_force)(t_vec3f direction, double force);
+	void	(*halt)(void);
 };
 
-struct s_component
-{
-	u_int64_t		__id;
-	t_comp_labels	__tag;
-	bool			__frozen;
-	void			*__data;
-};
+t_physics_component	*new_physics_component(double mass);
 
 #endif

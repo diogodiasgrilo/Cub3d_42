@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   component.h                                        :+:      :+:    :+:   */
+/*   c_camera.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 13:12:18 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 19:50:36 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/12 14:45:44 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/12 15:33:08 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPONENT_H
-# define COMPONENT_H
+#ifndef C_CAMERA_H
+# define C_CAMERA_H
 
 # include <std.h>
 
-typedef struct s_component	t_component;
-typedef enum e_comp_labels	t_comp_labels;
+typedef struct s_camera_component	t_camera_component;
 
-enum e_comp_labels
+struct s_camera_component
 {
-	COMPONENT_IDENTITY,
-	COMPONENT_TRANSFORM,
-	COMPONENT_CAMERA,
-	COMPONENT_COLLIDER,
-	COMPONENT_PHYSICS
+	double	fov;
+	bool	primary;
 };
 
-struct s_component
-{
-	u_int64_t		__id;
-	t_comp_labels	__tag;
-	bool			__frozen;
-	void			*__data;
-};
+t_camera_component	*new_camera_component(double fov, bool primary);
 
 #endif

@@ -1,38 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   component.h                                        :+:      :+:    :+:   */
+/*   log.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 13:12:18 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 19:50:36 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/10 18:43:21 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/10 18:43:35 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPONENT_H
-# define COMPONENT_H
+#ifndef LOG_H
+# define LOG_H
 
-# include <std.h>
-
-typedef struct s_component	t_component;
-typedef enum e_comp_labels	t_comp_labels;
-
-enum e_comp_labels
-{
-	COMPONENT_IDENTITY,
-	COMPONENT_TRANSFORM,
-	COMPONENT_CAMERA,
-	COMPONENT_COLLIDER,
-	COMPONENT_PHYSICS
-};
-
-struct s_component
-{
-	u_int64_t		__id;
-	t_comp_labels	__tag;
-	bool			__frozen;
-	void			*__data;
-};
+# define LOG_TRACE "[\033[95mTRACE\033[39m] "
+# define LOG_INFO "[\033[94mINFO\033[39m] "
+# define LOG_WARN "[\033[33mWARN\033[39m] "
+# define LOG_ERROR "[\033[91mERROR\033[39m] "
+# define LOG_SUCCESS "[\033[92mSUCCESS\033[39m] "
 
 #endif

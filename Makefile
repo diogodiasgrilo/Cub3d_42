@@ -12,6 +12,7 @@ ENGINE_SRC_FILES = \
 	engine/component.c \
 	engine/components/transform.c \
 	engine/components/identity.c \
+	engine/components/camera.c \
 	engine/object.c
 
 MATH_SRC_FILES = \

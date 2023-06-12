@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:57:41 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 14:27:53 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/12 20:25:16 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ struct s_new_object
 	double			rotation;
 };
 
-typedef bool				(*t_object_a_comp)(t_comp_labels label, void *data, bool frozen);
+typedef bool				(*t_object_a_comp)(\
+	t_comp_labels label, \
+	void *data, \
+	bool frozen \
+);
 typedef bool				(*t_object_r_comp)(t_comp_labels label);
 typedef void				*(*t_object_g_comp)(t_comp_labels label);
 typedef bool				(*t_object_h_comp)(t_comp_labels label);
@@ -64,6 +68,6 @@ t_object	*object(void);
 t_object	*obj(void);
 t_object	*this(void);
 
-t_object  *new_object(t_new_object definition);
+t_object	*new_object(t_new_object definition);
 
 #endif

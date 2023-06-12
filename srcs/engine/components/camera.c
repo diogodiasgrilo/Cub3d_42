@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   component.h                                        :+:      :+:    :+:   */
+/*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 13:12:18 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 19:50:36 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/12 15:34:09 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/12 15:35:29 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPONENT_H
-# define COMPONENT_H
+#include <std.h>
+#include "engine/components/c_camera.h"
 
-# include <std.h>
-
-typedef struct s_component	t_component;
-typedef enum e_comp_labels	t_comp_labels;
-
-enum e_comp_labels
+t_camera_component	*new_camera_component(double fov, bool primary)
 {
-	COMPONENT_IDENTITY,
-	COMPONENT_TRANSFORM,
-	COMPONENT_CAMERA,
-	COMPONENT_COLLIDER,
-	COMPONENT_PHYSICS
-};
+	t_camera_component	*camera;
 
-struct s_component
-{
-	u_int64_t		__id;
-	t_comp_labels	__tag;
-	bool			__frozen;
-	void			*__data;
-};
-
-#endif
+	camera = ft_calloc(1, sizeof(t_camera_component));
+	if (!camera)
+		return (NULL);
+	camera->fov = fov;
+	camera->primary = primary;
+	return (camera);
+}

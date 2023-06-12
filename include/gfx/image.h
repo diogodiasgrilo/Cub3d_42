@@ -1,38 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   component.h                                        :+:      :+:    :+:   */
+/*   image.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 13:12:18 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 19:50:36 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/12 20:57:10 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/12 23:40:20 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPONENT_H
-# define COMPONENT_H
+#ifndef IMAGE_H
+# define IMAGE_H
 
-# include <std.h>
-
-typedef struct s_component	t_component;
-typedef enum e_comp_labels	t_comp_labels;
-
-enum e_comp_labels
+typedef struct s_mlx_image
 {
-	COMPONENT_IDENTITY,
-	COMPONENT_TRANSFORM,
-	COMPONENT_CAMERA,
-	COMPONENT_COLLIDER,
-	COMPONENT_PHYSICS
-};
-
-struct s_component
-{
-	u_int64_t		__id;
-	t_comp_labels	__tag;
-	bool			__frozen;
-	void			*__data;
-};
+	char	*data;
+	void	*img;
+	int		pix_index;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int		width;
+	int		height;
+}	t_mlx_image;
 
 #endif

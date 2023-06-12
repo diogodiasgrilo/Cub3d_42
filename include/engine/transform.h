@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:58:29 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 13:05:30 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:38:58 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ struct s_transform
 {
 	t_vec3f	position;
 	double	rotation;
+	t_vec3f	scale;
 };
 
 #endif
