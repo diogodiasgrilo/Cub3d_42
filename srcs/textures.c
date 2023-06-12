@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 10:48:30 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/20 21:00:33 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:07:10 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/raycasting.h"
 
-void put_sky(t_game *g) 
+void put_sky(t_game *g)
 {
     int y;
     int x;
@@ -21,10 +21,10 @@ void put_sky(t_game *g)
     int color;
 
     y = -1;
-    while (++y < HEIGHT / 2) 
-    { 
+    while (++y < HEIGHT / 2)
+    {
         x = -1;
-        while (++x < WIDTH) 
+        while (++x < WIDTH)
         {
             sky_x = ((int)(x + g->sky_offset_x) % g->textures->sky->width \
 				+ g->textures->sky->width) % g->textures->sky->width;
@@ -66,7 +66,7 @@ void put_portal_gun(t_game *g)
 void	*create_floor_sky(t_game *g, t_put_on_screen proj, int i)
 {
 	t_image_creator	ic;
-	
+
 	ic.y = 0;
 	// UN-COMMENT TO CREATE THE CEILING COLOR IN FILE
 	while (ic.y <= (proj.y - proj.proj_height) + 3)
@@ -82,7 +82,7 @@ void	*create_floor_sky(t_game *g, t_put_on_screen proj, int i)
 		put_pixel(&g->scene, i, ic.y, g->parsed->floor_color);
 		ic.y--;
 	}
-	return (ic.img);
+	return (NULL);
 }
 
 void	init_textures(t_game *g)
@@ -96,7 +96,7 @@ void	init_textures(t_game *g)
 }
 
 void	load_textures(t_game *g, t_map_errors *parsed)
-{	
+{
 	init_textures(g);
 	g->textures->portal_gun->img = mlx_xpm_file_to_image(g->id, \
 		"./resources/textures/portal_gun.xpm", &g->textures->portal_gun->width, &g->textures->portal_gun->height);

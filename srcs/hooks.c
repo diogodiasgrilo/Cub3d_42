@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/20 20:55:18 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:02:54 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	finalize_directions(t_handle_directions *direc, t_game *g)
 void	handle_directions(t_game *g, char dir)
 {
 	t_handle_directions direc;
-	
+
 	direc.fx = g->pdx;
 	direc.fy = g->pdy;
 	direc.rx = -direc.fy;
@@ -152,5 +152,44 @@ int	ft_release(int key, void *param)
 	else if (key == 100)
 		g->keys[3] = 0;
 	draw_rays(g);
+	return (0);
+}
+
+static void	on_mouse_move(float dir)
+{
+	t_game	*game;
+
+	game = get_game();
+	if (!game)
+		return ;
+	game->pa += dir * PLAYER_CAMERA_SPEED;
+	if (game->pa < 0)
+		game->pa = 2 * PI;
+	else if (game->pa > 2 * PI)
+		game->pa -= game->pa;
+	game->sky_offset_x = fmodf(game->sky_offset_x + 4.5 * (dir * PLAYER_CAMERA_SPEED), WIDTH) * 1.1;
+	game->pdx = cos(game->pa) + 0.0001;
+	game->pdy = sin(game->pa) + 0.0001;
+	draw_rays(game);
+}
+
+int	on_new_frame(void)
+{
+	t_game	*game;
+	int		mx;
+	int		my;
+
+	game = get_game();
+	if (!game)
+		return (0);
+	mlx_mouse_get_pos(game->id, game->w_id, &mx, &my);
+	if (mx < 0 || mx > WIDTH || my < 0 || my > HEIGHT)
+	{
+		mlx_mouse_move(game->id, game->w_id, HALF_WIDTH, HALF_HEIGHT);
+		return (0);
+	}
+	if (fabs(mx - HALF_WIDTH) < MOUSE_SENSITIVITY)
+		return (0);
+	on_mouse_move((mx - HALF_WIDTH) / (float)(HALF_WIDTH));
 	return (0);
 }

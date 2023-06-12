@@ -1,0 +1,58 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+  ],
+  "settings": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false,
+    "editor.renderWhitespace": "all",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "editor.minimap.enabled": false,
+    "explorer.confirmDragAndDrop": false,
+    "telemetry.telemetryLevel": "off",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.smoothScrolling": true,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "window.zoomLevel": 0,
+	"[c]": {
+	},
+	"42norminette.command": "norminette -R CheckDefine",
+	"files.exclude": {
+		"**/*.o": true,
+		"libs": false,
+	},
+	"files.readonlyInclude": {
+		"objs": true,
+		"libs/**/*": true
+	},
+	"files.associations": {
+		".env.production": "dotenv",
+		"vectors.h": "c",
+		"sprite.h": "c",
+		"array": "c",
+		"*.tcc": "c",
+		"string": "c",
+		"vector": "c",
+		"string_view": "c",
+		"functional": "c",
+		"limits": "c",
+		"ostream": "c",
+		"streambuf": "c",
+		"tuple": "c",
+		"store.h": "c",
+		"atomic": "c",
+		"raycasting.h": "c",
+		"libft.h": "c",
+		"game.h": "c",
+		"layout.h": "c",
+		"check.h": "c",
+		"errors.h": "c",
+		"colors.h": "c",
+		"mlx.h": "c"
+	}
+  }
+}

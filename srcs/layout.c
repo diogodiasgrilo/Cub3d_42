@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   layout.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:28:07 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 11:05:23 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:05:26 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ void	ft_readlayout(int fd, t_err *map_err, t_lay *lay, char **map_str)
 		// change_spaces_to_ones(&line);
 		if (ft_checklayout(line, map_err, lay))
 			invalid_char(map_err, map_str, line);
-		last_line = ft_substr(line, 0, ft_strlen(line));
-		*map_str = ft_strenlarge(*map_str, line);
+		last_line = ft_strdup(line);
+		line = ft_strjoin_free(line, "\n");
+		*map_str = ft_strjoin_free(*map_str, line);
 		lay->n_row++;
 		free(line);
 	}
@@ -83,7 +84,7 @@ void	ft_readlayout(int fd, t_err *map_err, t_lay *lay, char **map_str)
 int	ft_checklayout(char *line, t_err *map_err, t_lay *lay)
 {
 	if (!lay->n_col)
-		lay->n_col = ft_strlen(line) - 1;
+	lay->n_col = ft_strlen(line);
 	lay->n_pl += ft_countchar(line, 'N');
 	lay->n_pl += ft_countchar(line, 'S');
 	lay->n_pl += ft_countchar(line, 'E');

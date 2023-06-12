@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/20 20:56:14 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:02:17 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	draw_line(t_gfx_line line)
 	if (rs.y1 < rs.y2)
 		rs.sy = 1;
 	else
-		rs.sy = -1;	
+		rs.sy = -1;
 	while (1)
 	{
 		put_pixel(line.buffer, rs.x1, rs.y1, line.color);
@@ -135,13 +135,13 @@ void	draw_rays(t_game *g)
 		}
 		g->depth_hor = (g->y_hor - g->py) / g->sin_a;
 		g->x_hor = g->px + g->depth_hor * g->cos_a;
-		
+
 		g->delta_depth = g->dy / g->sin_a;
 		g->dx = g->delta_depth * g->cos_a;
-		
+
 		j = -1;
 		while (++j < WIDTH * 5)
-		{ 
+		{
 			if (g->y_hor >= g->lay->n_row || g->x_hor >= \
 				ft_strlen(g->map[(int)g->y_hor]) || \
 				g->y_hor < 0 || g->x_hor < 0 || \
@@ -171,7 +171,7 @@ void	draw_rays(t_game *g)
 
 		g->delta_depth = g->dx / g->cos_a;
 		g->dy = g->delta_depth * g->sin_a;
-		
+
 		j = -1;
 		while (++j < WIDTH * 5)
 		{
@@ -188,7 +188,7 @@ void	draw_rays(t_game *g)
 			g->y_vert += g->dy;
 			g->depth_vert += g->delta_depth;
 		}
-		
+
 		t_texture	*texture;
 
 		if (g->depth_vert < g->depth_hor)
@@ -203,9 +203,9 @@ void	draw_rays(t_game *g)
 			}
 			else
 			{
-				g->textures->offset = 1 - g->y_vert;	
+				g->textures->offset = 1 - g->y_vert;
 				texture = g->textures->east;
-			}		
+			}
 		}
 		else
 		{
@@ -233,9 +233,9 @@ void	draw_rays(t_game *g)
 			.color = 0xFFFFFFFF
 		});
 		g->depth *= cos(g->ray_angle - g->pa);
-		
+
 		t_put_on_screen	proj;
-		
+
 		proj.color = 0xFFFFFFFF;
 		proj.proj_height = SCREEN_DIST / (g->depth + 0.0001);
 		proj.texture_y = (int)(g->textures->offset * (texture->height - SCALE));
@@ -255,5 +255,5 @@ void	draw_rays(t_game *g)
 	mlx_put_image_to_window(g->id, g->w_id, g->scene.img, 0, 0);
 	mlx_put_image_to_window(g->id, g->w_id, g->map_buffer.img, 0, 0);
 	mlx_put_image_to_window(g->id, g->w_id, g->player, \
-		g->px * MAP_SIZE - HALF_PLAYER_SIZE, g->py * MAP_SIZE - HALF_PLAYER_SIZE); 
+		g->px * MAP_SIZE - HALF_PLAYER_SIZE, g->py * MAP_SIZE - HALF_PLAYER_SIZE);
 }

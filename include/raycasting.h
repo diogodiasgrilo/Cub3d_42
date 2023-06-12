@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/20 20:52:14 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:01:22 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 # include "errors.h"
 # include "colors.h"
 # include "textures.h"
-# include "../miniLBX/mlx.h"
-# include "../libft/libft.h"
+# include <mlx.h>
+# include <libft.h>
 
 # define PI					3.1415926535
 # define HALF_PI			PI / 2
 # define DR					0.0174533
-# define WIDTH				750
+# define WIDTH				1000
 # define HEIGHT				WIDTH
 # define FOV				PI / 3
 # define HALF_FOV			FOV / 2
@@ -46,6 +46,10 @@
 # define MAX_DEPTH			100
 # define PLAYER_SIZE		4
 # define HALF_PLAYER_SIZE	PLAYER_SIZE / 2
+
+# define PLAYER_SPEED		0.1
+# define MOUSE_SENSITIVITY	0.01 * WIDTH
+# define PLAYER_CAMERA_SPEED	0.05
 
 typedef struct s_line_drawing
 {
@@ -121,5 +125,7 @@ void			*create_floor_sky(t_game *g, t_put_on_screen proj, int i);
 void			put_pixel(t_image_creator *image, int x, int y, int color);
 void			my_mlx_pixel_put(t_image_creator *data, float x, float y, int color);
 void			mlx_clear_image (t_image_creator *data, int color, int width, int height);
+int	on_new_frame(void);
+t_game	*get_game(void);
 
 #endif

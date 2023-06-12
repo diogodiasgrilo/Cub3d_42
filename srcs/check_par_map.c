@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_par_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 14:22:11 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:31:05 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		check_top_bottom_row(char **map, int *y, int x)
 {
 	x = 0;
-	
+
 	while (map[*y][x] && map[*y][x] == 32)
 		x++;
 	if (!map[*y][x])
@@ -32,7 +32,7 @@ int		check_walls(char **map, t_lay *lay)
 {
 	int	y;
 	int	x;
-	
+
 	y = 0;
 	x = 0;
 	if (check_top_bottom_row(map, &y, x))
