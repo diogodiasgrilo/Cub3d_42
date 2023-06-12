@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   std.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 12:42:56 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 12:43:07 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/12 12:12:22 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/12 13:56:24 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av)
-{
-	(void)ac;
-	(void)av;
-	return (0);
-}
+#ifndef STD_H
+# define STD_H
+
+# include <stdbool.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <libft.h>
+# include <sys/file.h>
+# include <mlx.h>
+# include <math.h>
+# include <time.h>
+
+#endif

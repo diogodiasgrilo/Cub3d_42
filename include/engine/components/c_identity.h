@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   c_identity.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 12:42:56 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 12:43:07 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/12 13:19:34 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/12 14:11:39 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av)
+#ifndef C_IDENTITY_H
+# define C_IDENTITY_H
+
+# include <std.h>
+
+typedef struct s_identity_component	t_identity_component;
+
+struct s_identity_component
 {
-	(void)ac;
-	(void)av;
-	return (0);
-}
+	u_int32_t	id;
+	char		*tag;
+};
+
+t_identity_component	*new_identity_component(const char *tag);
+
+#endif

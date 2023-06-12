@@ -1,18 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   transform.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 12:42:56 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 12:43:07 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/12 12:58:29 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/12 13:05:30 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av)
+#ifndef TRANSFORM_H
+# define TRANSFORM_H
+
+# include <math/vec.h>
+
+typedef struct s_transform	t_transform;
+
+struct s_transform
 {
-	(void)ac;
-	(void)av;
-	return (0);
-}
+	t_vec3f	position;
+	double	rotation;
+};
+
+#endif

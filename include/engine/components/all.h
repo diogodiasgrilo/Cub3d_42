@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   all.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 12:42:56 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 12:43:07 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/12 13:45:44 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/12 13:46:25 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av)
-{
-	(void)ac;
-	(void)av;
-	return (0);
-}
+#ifndef ALL_H
+# define ALL_H
+
+# include "c_identity.h"
+# include "c_transform.h"
+
+#endif

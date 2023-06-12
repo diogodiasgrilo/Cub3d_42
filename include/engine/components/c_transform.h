@@ -1,18 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3D.c                                            :+:      :+:    :+:   */
+/*   c_transform.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 12:42:56 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 12:43:07 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/12 13:16:24 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/12 14:11:22 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	main(int ac, char **av)
-{
-	(void)ac;
-	(void)av;
-	return (0);
-}
+#ifndef C_TRANSFORM_H
+# define C_TRANSFORM_H
+
+# include <engine/transform.h>
+
+typedef t_transform	t_transform_component;
+
+t_transform_component	*new_transform_component(t_vec3f position, double rotation);
+
+#endif

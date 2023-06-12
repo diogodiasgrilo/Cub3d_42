@@ -30,29 +30,8 @@
 		"libs/**/*": true
 	},
 	"files.associations": {
-		".env.production": "dotenv",
-		"vectors.h": "c",
-		"sprite.h": "c",
-		"array": "c",
-		"*.tcc": "c",
-		"string": "c",
-		"vector": "c",
-		"string_view": "c",
-		"functional": "c",
-		"limits": "c",
-		"ostream": "c",
-		"streambuf": "c",
-		"tuple": "c",
-		"store.h": "c",
-		"atomic": "c",
-		"raycasting.h": "c",
-		"libft.h": "c",
-		"game.h": "c",
-		"layout.h": "c",
-		"check.h": "c",
-		"errors.h": "c",
-		"colors.h": "c",
-		"mlx.h": "c"
+		"**/*.c": "c",
+		"**/*.h": "c",
 	}
   }
 }

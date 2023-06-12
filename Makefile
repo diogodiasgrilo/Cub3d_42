@@ -4,14 +4,29 @@ SRC_PATH = srcs
 
 ## MODULES ##
 
-SPRITES_SRC_FILES = sprites/sprite.c sprites/store.c
-VECTORS_SRC_FILES = vectors/2/float/vec2.c vectors/2/float/vec2_1.c vectors/2/float/vec2_2.c \
-					vectors/2/integer/vec2.c vectors/2/integer/vec2_1.c vectors/2/integer/vec2_2.c \
-					vectors/3/vec3.c vectors/3/vec3_1.c vectors/3/vec3_2.c
-GFX_SRC_FILES =		gfx.c
-OTHER_SRC_FILES =	check.c create_objects.c drawing.c errors.c \
-					game.c hooks.c layout.c main.c my_mlx.c put_on_screen.c
-SRC_FILES =  $(OTHER_SRC_FILES)# $(VECTORS_SRC_FILES) $(SPRITES_SRC_FILES) $(GFX_SRC_FILES)
+CONTEXT_SRC_FILES = context/context.c
+
+OOP_SRC_FILES = oop/oop.c
+
+ENGINE_SRC_FILES = \
+	engine/component.c \
+	engine/components/transform.c \
+	engine/components/identity.c \
+	engine/object.c
+
+MATH_SRC_FILES = \
+	math/vectors/2/float/vec2.c math/vectors/2/float/vec2_1.c \
+	math/vectors/2/float/vec2_2.c math/vectors/2/integer/vec2.c \
+	math/vectors/2/integer/vec2_1.c math/vectors/2/integer/vec2_2.c \
+	math/vectors/3/vec3.c math/vectors/3/vec3_1.c \
+	math/vectors/3/vec3_2.c
+
+SRC_FILES = \
+	$(CONTEXT_SRC_FILES) \
+	$(OOP_SRC_FILES) \
+	$(ENGINE_SRC_FILES) \
+	$(MATH_SRC_FILES) \
+	main.c
 
 SRCS = $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ_DIR = objs
