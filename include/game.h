@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:03:46 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 21:52:14 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 03:15:29 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
 # define GAME_H
 
-# include "raycasting.h"
-
+# include <libft.h>
+# include <mlx.h>
+# include <layout.h>
 
 typedef struct s_image_creator
 {
@@ -30,13 +31,15 @@ typedef struct s_image_creator
 	int		height;
 }				t_image_creator;
 
+typedef t_image_creator	t_mlx_image;
+
 /* Main attributes for the game */
 typedef struct s_game
 {
 	int				width;
 	int				height;
-	int				px;
-	int				py;
+	double			px;
+	double			py;
 	float			pdx;
 	float			pdy;
 	float			pa;
@@ -50,11 +53,13 @@ typedef struct s_game
 	char			direction;
 	int				keys[6];
 	char			**map;
-	
+	float			prev_height;
+	int				offset;
+	t_list			*sprite_store;
 }				t_game;
 
+t_game			*get_game(void);
 int				free_map_exit(void *game);
 void			start_game(char **map, t_lay lay);
 void			ft_newgame(t_game *g, char **m, t_lay *lay);
-
 #endif

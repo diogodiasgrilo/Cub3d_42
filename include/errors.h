@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:18:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:08:54 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:11:43 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERRORS_H
 # define ERRORS_H
-
-# include "raycasting.h"
 
 typedef struct s_err
 {

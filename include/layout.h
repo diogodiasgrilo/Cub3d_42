@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   layout.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 16:12:01 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:08:31 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:13:17 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LAYOUT_H
 
 # include "errors.h"
-# include "raycasting.h"
 
 # ifndef ANIMATION_FRAMES
 #  define ANIMATION_FRAMES 2

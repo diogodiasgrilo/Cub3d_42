@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:09:18 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:09:32 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/raycasting.h"
-
-void	free_split(char **strs)
-{
-	int	i;
-
-	i = -1;
-	while (strs && strs[++i])
-		free(strs[i]);
-	if (strs)
-		free(strs);
-}
+#include "raycasting.h"
 
 int	find_s(char **map, int which)
 {
@@ -57,6 +46,18 @@ t_err	ft_newmap_error(void)
 	return (map_err);
 }
 
+/* static void	print_map(char **map)
+{
+	size_t	idx;
+
+	idx = 0;
+	while (map[idx])
+	{
+		printf("%s\n", map[idx]);
+		idx++;
+	}
+} */
+
 char	**check_map(int fd, t_lay *lay)
 {
 	char	*map_str;
@@ -69,8 +70,7 @@ char	**check_map(int fd, t_lay *lay)
 	*lay = ft_newlayout();
 	ft_readlayout(fd, &map_err, lay, &map_str);
 	ft_print_map_error(&map_err, &map_str);
-	ft_print_map_error(&map_err, &map_str);
-	map = ft_split(map_str, '\n');
+	map = ft_split(map_str, "\n");
 	free(map_str);
 	if (!map)
 		error_msg_params("Memory allocation error!", 0);
