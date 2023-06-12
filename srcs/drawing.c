@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 18:04:33 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:19:15 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	draw_line(t_gfx_line line)
 	if (rs.y1 < rs.y2)
 		rs.sy = 1;
 	else
-		rs.sy = -1;	
+		rs.sy = -1;
 	while (1)
 	{
 		put_pixel(line.buffer, rs.x1, rs.y1, line.color);
@@ -77,8 +77,22 @@ void	draw_line(t_gfx_line line)
 	}
 }
 
-void	draw_rect(t_gfx_rect rest)
+void	draw_rect(t_gfx_rect rect)
 {
+	int	x;
+	int	y;
+
+	y = rect.start_y;
+	while (y < rect.start_y + rect.height)
+	{
+		x = rect.start_x;
+		while (x < rect.start_x + rect.width)
+		{
+			put_pixel(rect.buffer, x, y, rect.color);
+			x++;
+		}
+		y++;
+	}
 }
 
 void	draw_map(t_image_creator *ic, t_lay *lay, char **map)
@@ -104,7 +118,7 @@ void	draw_rays(t_game *g)
 	draw_map(&g->map_buffer, g->lay, g->map);
 	g->x_map = (int)g->px;
 	g->y_map = (int)g->py;
-	
+
 	while (++i < NUM_RAYS)
 	{
 		g->x_hor = g->px;
@@ -127,13 +141,13 @@ void	draw_rays(t_game *g)
 		}
 		g->depth_hor = (g->y_hor - g->py) / g->sin_a;
 		g->x_hor = g->px + g->depth_hor * g->cos_a;
-		
+
 		g->delta_depth = g->dy / g->sin_a;
 		g->dx = g->delta_depth * g->cos_a;
-		
+
 		j = -1;
 		while (++j < WIDTH * 2)
-		{ 
+		{
 			if (g->y_hor >= g->lay->n_row || g->x_hor >= g->lay->n_col || g->y_hor < 0 || g->x_hor < 0 || g->map[(int)g->y_hor][(int)g->x_hor] == '1')
 				break ;
 			g->x_hor += g->dx;
@@ -157,7 +171,7 @@ void	draw_rays(t_game *g)
 
 		g->delta_depth = g->dx / g->cos_a;
 		g->dy = g->delta_depth * g->sin_a;
-		
+
 		j = -1;
 		while (++j < WIDTH * 2)
 		{
@@ -167,11 +181,28 @@ void	draw_rays(t_game *g)
 			g->y_vert += g->dy;
 			g->depth_vert += g->delta_depth;
 		}
-		
+
+		// double tex_offset;
 		if (g->depth_vert < g->depth_hor)
+		{
 			g->depth = g->depth_vert;
+			g->y_vert = fmod(g->y_vert, 1);
+			// if (g->cos_a > 0)
+			// 	tex_offset = g->y_vert;
+			// else
+			// 	tex_offset = 1 - g->y_vert;
+		}
 		else
+		{
 			g->depth = g->depth_hor;
+			g->x_hor = fmod(g->x_hor, 1);
+			// if (g->sin_a > 0)
+			// 	tex_offset = 1 - g->x_hor;
+			// else
+			// 	tex_offset = g->x_hor;
+		}
+
+
 		#if DRAW_MINIMAP
 			draw_line((t_gfx_line){
 				.buffer = &g->map_buffer,
@@ -186,13 +217,21 @@ void	draw_rays(t_game *g)
 		#if DRAW_WORLD
 			g->depth *= cos(g->ray_angle - g->pa);
 			t_put_on_screen	projection;
-			
+
 			projection.color = 0xFFFFFFFF;
 			projection.proj_height = SCREEN_DIST / (g->depth + 0.0001);
 			if (projection.proj_height > HEIGHT)
 				projection.proj_height = HEIGHT;
 			determine_color(&projection);
-			draw_line((t_gfx_line){
+			draw_rect((t_gfx_rect){
+				.buffer = &g->scene,
+				.start_x = i * SCALE,
+				.start_y = HALF_HEIGHT - (int)(projection.proj_height / 2),
+				.width = SCALE,
+				.height = (int)projection.proj_height,
+				.color = projection.color
+			});
+			/* draw_line((t_gfx_line){
 				.buffer = &g->scene,
 				.start_x = i * SCALE,
 				.start_y = (HALF_HEIGHT - (int)(projection.proj_height / 2)),
@@ -200,7 +239,7 @@ void	draw_rays(t_game *g)
 				.direction_x = 0,
 				.direction_y = 1,
 				.color = projection.color
-			});
+			}); */
 		#endif
 		g->ray_angle += DELTA_ANGLE;
 	}

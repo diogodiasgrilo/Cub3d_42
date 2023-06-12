@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 20:09:18 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 08:14:01 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	**check_map(int fd, t_lay *lay)
 	ft_readlayout(fd, &map_err, lay, &map_str);
 	ft_print_map_error(&map_err, &map_str);
 	ft_print_map_error(&map_err, &map_str);
-	map = ft_split(map_str, '\n');
+	map = ft_split(map_str, "\1");
 	free(map_str);
 	if (!map)
 		error_msg_params("Memory allocation error!", 0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   layout.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:28:07 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 19:22:48 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 08:19:22 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ void	ft_readlayout(int fd, t_err *map_err, t_lay *lay, char **map_str)
 		free(last_line);
 		if (ft_checklayout(line, map_err, lay, !lay->n_row))
 			invalid_char(map_err, map_str, line);
-		last_line = ft_substr(line, 0, ft_strlen(line));
-		*map_str = ft_strenlarge(*map_str, line);
+		last_line = ft_strdup(line);
+		line = ft_strjoin_free(line, "\1");
+		*map_str = ft_strjoin_free(*map_str, line);
 		lay->n_row++;
 		free(line);
 	}
@@ -73,10 +74,8 @@ void	ft_readlayout(int fd, t_err *map_err, t_lay *lay, char **map_str)
 int	ft_checklayout(char *line, t_err *map_err, t_lay *lay, int is_last)
 {
 	if (!lay->n_col)
-		lay->n_col = ft_strlen(line) - 1;
-	if (lay->n_col && ((lay->n_col != (int)ft_strlen(line) - 1 && \
-			ft_strchr(line, '\n')) || (lay->n_col != (int)ft_strlen(line) && \
-			!ft_strchr(line, '\n'))))
+		lay->n_col = ft_strlen(line);
+	if (lay->n_col && lay->n_col != (int)ft_strlen(line))
 		map_err->inv_rowlen = 1;
 	if (line[0] != '1' || line[lay->n_col - 1] != '1' || \
 			(ft_countchar(line, '1') != lay->n_col && is_last))

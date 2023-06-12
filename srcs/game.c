@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 17:12:17 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 09:21:29 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,21 @@ void	start_game(char **map, t_lay lay)
 			&g.scene.size_line, &g.scene.endian);
 	g.scene.width = WIDTH * 2;
 	g.scene.height = HEIGHT * 2;
+	g.demo_tex.img = mlx_xpm_file_to_image(g.id, "textures/demo.xpm",
+			&g.demo_tex.width, &g.demo_tex.height);
+	g.demo_tex.data = mlx_get_data_addr(g.demo_tex.img, &g.demo_tex.bpp,
+			&g.demo_tex.size_line, &g.demo_tex.endian);
 	g.map_buffer = create_image(g.id, lay, map);
 	g.player = create_player(g.id);
 	ft_newgame(&g, map, &lay);
 	find_player(&g, map);
-	mlx_put_image_to_window(g.id, g.w_id, g.player, \
-		g.px * MINIMAP_RATIO, g.py * MINIMAP_RATIO);
-	g.pdx = (cos(g.pa) * MINIMAP_RATIO);
-	g.pdy = (sin(g.pa) * MINIMAP_RATIO);
 	find_angle_direction(&g);
+	g.pdx = cos(g.pa);
+	g.pdy = sin(g.pa);
 	draw_rays(&g);
 	mlx_hook(g.w_id, 17, 0, free_map_exit, &g);
-	mlx_hook(g.w_id, 2, 1L<<0, *ft_input, &g);
-	mlx_hook(g.w_id, 3, 1L<<1, *ft_release, &g);
+	mlx_hook(g.w_id, 2, 1L << 0, *ft_input, &g);
+	mlx_hook(g.w_id, 3, 1L << 1, *ft_release, &g);
 	mlx_loop(g.id);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 18:02:39 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 08:29:43 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
 # include "check.h"
 # include "errors.h"
 # include "colors.h"
-# include "../miniLBX/mlx.h"
-# include "../libft/libft.h"
+# include <mlx.h>
+# include <libft.h>
 
 # define PI					3.1415926535
 # define HALF_PI			PI / 2
 # define DR					0.0174533
-# define WIDTH				750
+# define WIDTH				1000
 # define HEIGHT				WIDTH
 # define FOV				PI / 3
 # define HALF_FOV			FOV / 2

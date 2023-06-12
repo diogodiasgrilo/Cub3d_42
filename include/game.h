@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:03:46 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 15:31:49 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 08:54:25 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_game
 	t_image_creator	map_buffer;
 	void		*black_back;
 	t_image_creator	scene;
+	t_image_creator	demo_tex;
 	void		*player;
 	t_lay		*lay;
 	t_lay		lay_bak;
@@ -68,7 +69,7 @@ typedef struct s_game
 	int			offset;
 	int			direction;
 	int			keys[6];
-	
+
 }				t_game;
 
 int				free_map_exit(void *game);
