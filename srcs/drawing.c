@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 18:04:33 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:35:12 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,6 @@ static void	put_pixel(t_image_creator *image, int x, int y, int color)
 		return ;
 	pixel = get_pixel_address(image, x, y);
 	*(unsigned int *)pixel = color;
-}
-
-void	draw_point(t_gfx_point point)
-{
-	put_pixel(point.buffer, point.x, point.y, point.color);
 }
 
 void	draw_line(t_gfx_line line)
@@ -77,10 +72,6 @@ void	draw_line(t_gfx_line line)
 	}
 }
 
-void	draw_rect(t_gfx_rect rest)
-{
-}
-
 void	draw_map(t_image_creator *ic, t_lay *lay, char **map)
 {
 	ic->y = 0;
@@ -113,7 +104,6 @@ void	draw_rays(t_game *g)
 		g->y_vert = g->py;
 		g->sin_a = sin(g->ray_angle);
 		g->cos_a = cos(g->ray_angle);
-
 		// Horizontal Lines
 		if (g->sin_a > 0)
 		{
@@ -132,7 +122,7 @@ void	draw_rays(t_game *g)
 		g->dx = g->delta_depth * g->cos_a;
 		
 		j = -1;
-		while (++j < WIDTH * 2)
+		while (++j < WIDTH * 5)
 		{ 
 			if (g->y_hor >= g->lay->n_row || g->x_hor >= g->lay->n_col || g->y_hor < 0 || g->x_hor < 0 || g->map[(int)g->y_hor][(int)g->x_hor] == '1')
 				break ;
@@ -140,7 +130,6 @@ void	draw_rays(t_game *g)
 			g->y_hor += g->dy;
 			g->depth_hor += g->delta_depth;
 		}
-
 		// Vertical Lines
 		if (g->cos_a > 0)
 		{
@@ -159,7 +148,7 @@ void	draw_rays(t_game *g)
 		g->dy = g->delta_depth * g->sin_a;
 		
 		j = -1;
-		while (++j < WIDTH * 2)
+		while (++j < WIDTH * 5)
 		{
 			if (g->y_vert >= g->lay->n_row || g->x_vert >= g->lay->n_col || g->y_vert < 0 || g->x_vert < 0 || g->map[(int)g->y_vert][(int)g->x_vert] == '1')
 				break ;
@@ -172,57 +161,36 @@ void	draw_rays(t_game *g)
 			g->depth = g->depth_vert;
 		else
 			g->depth = g->depth_hor;
-		#if DRAW_MINIMAP
-			draw_line((t_gfx_line){
-				.buffer = &g->map_buffer,
-				.start_x = g->px * MAP_SIZE,
-				.start_y = g->py * MAP_SIZE,
-				.direction_x = g->cos_a,
-				.direction_y = g->sin_a,
-				.length = g->depth * MAP_SIZE,
-				.color = 0xFFFFFFFF
-			});
-		#endif
-		#if DRAW_WORLD
-			g->depth *= cos(g->ray_angle - g->pa);
-			t_put_on_screen	projection;
-			
-			projection.color = 0xFFFFFFFF;
-			projection.proj_height = SCREEN_DIST / (g->depth + 0.0001);
-			if (projection.proj_height > HEIGHT)
-				projection.proj_height = HEIGHT;
-			determine_color(&projection);
-			draw_line((t_gfx_line){
-				.buffer = &g->scene,
-				.start_x = i * SCALE,
-				.start_y = (HALF_HEIGHT - (int)(projection.proj_height / 2)),
-				.length = projection.proj_height,
-				.direction_x = 0,
-				.direction_y = 1,
-				.color = projection.color
-			});
-		#endif
+		draw_line((t_gfx_line){
+			.buffer = &g->map_buffer,
+			.start_x = g->px * MAP_SIZE,
+			.start_y = g->py * MAP_SIZE,
+			.direction_x = g->cos_a,
+			.direction_y = g->sin_a,
+			.length = g->depth * MAP_SIZE,
+			.color = 0xFFFFFFFF
+		});
+		g->depth *= cos(g->ray_angle - g->pa);
+		t_put_on_screen	projection;
+		
+		projection.color = 0xFFFFFFFF;
+		projection.proj_height = SCREEN_DIST / (g->depth + 0.0001);
+		if (projection.proj_height > HEIGHT)
+			projection.proj_height = HEIGHT;
+		determine_color(&projection);
+		draw_line((t_gfx_line){
+			.buffer = &g->scene,
+			.start_x = i * SCALE,
+			.start_y = (HALF_HEIGHT - (int)(projection.proj_height / 2)),
+			.length = projection.proj_height,
+			.direction_x = 0,
+			.direction_y = 1,
+			.color = projection.color
+		});
 		g->ray_angle += DELTA_ANGLE;
 	}
-	draw_line((t_gfx_line){
-		.buffer = &g->map_buffer,
-		.start_x = g->px * MAP_SIZE,
-		.start_y = g->py * MAP_SIZE,
-		.direction_x = cos(g->pa),
-		.direction_y = sin(g->pa),
-		.length = 10,
-		.color = 0xFFFF0000
-	});
-	//anti_aliasing_top_left(g);
-	//anti_aliasing_bottom_left(g);
-	//anti_aliasing_top_right(g);
-	//anti_aliasing_bottom_right(g);
-	#if DRAW_WORLD
-		mlx_put_image_to_window(g->id, g->w_id, g->scene.img, 0, 0);
-	#endif
-	#if DRAW_MINIMAP
-		mlx_put_image_to_window(g->id, g->w_id, g->map_buffer.img, 0, 0);
-	#endif
-	/* mlx_put_image_to_window(g->id, g->w_id, g->player, \
-		g->px * MAP_SIZE - HALF_PLAYER_SIZE, g->py * MAP_SIZE - HALF_PLAYER_SIZE); */
+	mlx_put_image_to_window(g->id, g->w_id, g->scene.img, 0, 0);
+	mlx_put_image_to_window(g->id, g->w_id, g->map_buffer.img, 0, 0);
+	mlx_put_image_to_window(g->id, g->w_id, g->player, \
+		g->px * MAP_SIZE - HALF_PLAYER_SIZE, g->py * MAP_SIZE - HALF_PLAYER_SIZE); 
 }

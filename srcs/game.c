@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 17:12:17 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:22:30 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	start_game(char **map, t_lay lay)
 	ft_newgame(&g, map, &lay);
 	find_player(&g, map);
 	mlx_put_image_to_window(g.id, g.w_id, g.player, \
-		g.px * MINIMAP_RATIO, g.py * MINIMAP_RATIO);
-	g.pdx = (cos(g.pa) * MINIMAP_RATIO);
-	g.pdy = (sin(g.pa) * MINIMAP_RATIO);
+		g.px * MAP_SIZE, g.py * MAP_SIZE);
+	g.pdx = (cos(g.pa) * MAP_SIZE);
+	g.pdy = (sin(g.pa) * MAP_SIZE);
 	find_angle_direction(&g);
 	draw_rays(&g);
 	mlx_hook(g.w_id, 17, 0, free_map_exit, &g);
@@ -55,8 +55,8 @@ void	start_game(char **map, t_lay lay)
 
 void	ft_newgame(t_game *g, char **m, t_lay *lay)
 {
-	g->width = lay->n_col * MINIMAP_RATIO;
-	g->height = lay->n_row * MINIMAP_RATIO;
+	g->width = lay->n_col * MAP_SIZE;
+	g->height = lay->n_row * MAP_SIZE;
 	g->lay = lay;
 	g->map = m;
 }

@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 18:02:39 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:34:07 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,10 @@
 # define SCREEN_DIST		HALF_WIDTH / tan(HALF_FOV)
 # define SCALE				floor(WIDTH / NUM_RAYS)
 # define WALL_HEIGHT		30
-# define MINIMAP_RATIO		30
-# define MAP_SIZE			10
+# define MAP_SIZE			7
 # define MAX_DEPTH			100
-
-# define PLAYER_SIZE		WIDTH / 80
+# define PLAYER_SIZE		4
 # define HALF_PLAYER_SIZE	PLAYER_SIZE / 2
-
-// DRAW STUFF
-# define DRAW_MINIMAP 0
-# define DRAW_WORLD 1
 
 typedef struct s_line_drawing
 {
@@ -107,18 +101,16 @@ typedef struct s_put_on_screen
 
 void			draw_rays(t_game *g);
 void			*create_player(void *mlx);
+void			draw_line(t_gfx_line line);
 int				ft_input(int key, void *param);
 int				ft_input(int key, void *param);
 int				ft_release(int key, void *param);
 void			handle_angles(t_game *g, int key);
+void    		determine_color (t_put_on_screen *sc);
 t_image_creator	create_image(void *mlx, t_lay lay, char **map);
 void			draw_map(t_image_creator *ic, t_lay *lay, char **map);
 void			create_rows(t_image_creator *ic, t_lay lay, char **map);
 void			my_mlx_pixel_put(t_image_creator *data, float x, float y, int color);
-void			draw_simple_line(t_game *g, int x1, int y1, int x2, int y2, int color);
 void			mlx_clear_image (t_image_creator *data, int color, int width, int height);
-void			draw_line(t_gfx_line line);
-void			put_on_screen(t_game *g, t_line_drawing *rs, float ray_angle, int ray);
-void    		determine_color (t_put_on_screen        *sc);
 
 #endif

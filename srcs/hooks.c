@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 17:23:10 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/12 19:08:27 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,23 @@ void	handle_directions(t_game *g, char dir)
 	ry = fx;
 	if (dir == 'f')
 	{
-		ndx = fx;
-		ndy = fy;
+		ndx = fx * 3;
+		ndy = fy * 3;
 	}
 	else if (dir == 'b')
 	{
-		ndx = -fx;
-		ndy = -fy;
+		ndx = -fx * 3;
+		ndy = -fy * 3;
 	}
 	else if (dir == 'l')
 	{
-		ndx = -rx;
-		ndy = -ry;
+		ndx = -rx * 3;
+		ndy = -ry * 3;
 	}
 	else if (dir == 'r')
 	{
-		ndx = rx;
-		ndy = ry;
+		ndx = rx * 3;
+		ndy = ry * 3;
 	}
 	else
 		return ;
@@ -102,6 +102,8 @@ int	ft_input(int key, void *param)
 	t_game	*g;
 
 	g = (t_game *)param;
+	g->pdx = cos(g->pa);
+	g->pdy = sin(g->pa);
 	if (key == 65363 || key == 65361)
 		handle_angles(g, key);
 	else if (key == 119)
