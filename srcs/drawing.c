@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 19:35:12 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:42:13 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	*get_pixel_address(t_image_creator *image, int x, int y)
 	)));
 }
 
-static void	put_pixel(t_image_creator *image, int x, int y, int color)
+void	put_pixel(t_image_creator *image, int x, int y, int color)
 {
 	void	*pixel;
 
@@ -83,10 +83,28 @@ void	draw_map(t_image_creator *ic, t_lay *lay, char **map)
 	}
 }
 
+void	draw_rect(t_gfx_rect rect)
+{
+	int	x;
+	int	y;
+
+	y = rect.start_y;
+	while (y < rect.start_y + rect.height)
+	{
+		x = rect.start_x;
+		while (x < rect.start_x + rect.width)
+		{
+			put_pixel(rect.buffer, x, y, rect.color);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_rays(t_game *g)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 
 	i = -1;
 	g->ray_angle = g->pa - HALF_FOV + 0.0001;
@@ -95,7 +113,7 @@ void	draw_rays(t_game *g)
 	draw_map(&g->map_buffer, g->lay, g->map);
 	g->x_map = (int)g->px;
 	g->y_map = (int)g->py;
-	
+	put_sky(g);
 	while (++i < NUM_RAYS)
 	{
 		g->x_hor = g->px;
@@ -124,8 +142,13 @@ void	draw_rays(t_game *g)
 		j = -1;
 		while (++j < WIDTH * 5)
 		{ 
-			if (g->y_hor >= g->lay->n_row || g->x_hor >= g->lay->n_col || g->y_hor < 0 || g->x_hor < 0 || g->map[(int)g->y_hor][(int)g->x_hor] == '1')
+			if (g->y_hor >= g->lay->n_row || g->x_hor >= g->lay->n_col || \
+				g->y_hor < 0 || g->x_hor < 0 || \
+				g->map[(int)g->y_hor][(int)g->x_hor] == '1')
+			{
+				g->textures->texture_hor = g->textures->vwall;
 				break ;
+			}
 			g->x_hor += g->dx;
 			g->y_hor += g->dy;
 			g->depth_hor += g->delta_depth;
@@ -150,17 +173,52 @@ void	draw_rays(t_game *g)
 		j = -1;
 		while (++j < WIDTH * 5)
 		{
-			if (g->y_vert >= g->lay->n_row || g->x_vert >= g->lay->n_col || g->y_vert < 0 || g->x_vert < 0 || g->map[(int)g->y_vert][(int)g->x_vert] == '1')
+			if (g->y_vert >= g->lay->n_row || g->x_vert >= g->lay->n_col \
+				|| g->y_vert < 0 || g->x_vert < 0 || \
+				g->map[(int)g->y_vert][(int)g->x_vert] == '1')
+			{
+				g->textures->texture_vert = g->textures->vwall;
 				break ;
+			}
 			g->x_vert += g->dx;
 			g->y_vert += g->dy;
 			g->depth_vert += g->delta_depth;
 		}
 		
+		t_texture	*texture;
+
 		if (g->depth_vert < g->depth_hor)
+		{
+			g->textures->texture = g->textures->texture_vert;
 			g->depth = g->depth_vert;
+			g->y_vert = fmod(g->y_vert, 1);
+			if (g->cos_a > 0)
+			{
+				g->textures->offset = g->y_vert;
+				texture = g->textures->piping;
+			}
+			else
+			{
+				g->textures->offset = 1 - g->y_vert;	
+				texture = g->textures->port;
+			}		
+		}
 		else
+		{
+			g->textures->texture = g->textures->texture_hor;
 			g->depth = g->depth_hor;
+			g->x_hor = fmod(g->x_hor, 1);
+			if (g->sin_a > 0)
+			{
+				g->textures->offset = 1 - g->x_hor;
+				texture = g->textures->gate;
+			}
+			else
+			{
+				g->textures->offset = g->x_hor;
+				texture = g->textures->vwall;
+			}
+		}
 		draw_line((t_gfx_line){
 			.buffer = &g->map_buffer,
 			.start_x = g->px * MAP_SIZE,
@@ -171,24 +229,25 @@ void	draw_rays(t_game *g)
 			.color = 0xFFFFFFFF
 		});
 		g->depth *= cos(g->ray_angle - g->pa);
-		t_put_on_screen	projection;
 		
-		projection.color = 0xFFFFFFFF;
-		projection.proj_height = SCREEN_DIST / (g->depth + 0.0001);
-		if (projection.proj_height > HEIGHT)
-			projection.proj_height = HEIGHT;
-		determine_color(&projection);
-		draw_line((t_gfx_line){
-			.buffer = &g->scene,
-			.start_x = i * SCALE,
-			.start_y = (HALF_HEIGHT - (int)(projection.proj_height / 2)),
-			.length = projection.proj_height,
-			.direction_x = 0,
-			.direction_y = 1,
-			.color = projection.color
-		});
+		t_put_on_screen	proj;
+		
+		proj.color = 0xFFFFFFFF;
+		proj.proj_height = SCREEN_DIST / (g->depth + 0.0001);
+		proj.texture_y = (int)(g->textures->offset * (texture->height - SCALE));
+		proj.y = HALF_HEIGHT - (floor)(proj.proj_height / 2);
+		proj.end_y = HALF_HEIGHT + (floor)(proj.proj_height / 2);
+		while (proj.y < proj.end_y)
+		{
+			proj.texture_x = (proj.y - (HALF_HEIGHT - (int)(proj.proj_height / 2))) * (texture->width - SCALE) / (int)proj.proj_height;
+			proj.color = (*(unsigned int*)(texture->data + ((proj.texture_x * texture->size_line) + (proj.texture_y * (texture->bpp / 8)))));
+			put_pixel(&g->scene, i, proj.y, proj.color);
+			proj.y++;
+		}
+		create_floor(g, proj, i);
 		g->ray_angle += DELTA_ANGLE;
 	}
+	put_portal_gun(g);
 	mlx_put_image_to_window(g->id, g->w_id, g->scene.img, 0, 0);
 	mlx_put_image_to_window(g->id, g->w_id, g->map_buffer.img, 0, 0);
 	mlx_put_image_to_window(g->id, g->w_id, g->player, \

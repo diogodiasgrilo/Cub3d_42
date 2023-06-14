@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 19:22:30 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:13:37 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,14 @@ void	find_angle_direction(t_game *g)
 
 void	start_game(char **map, t_lay lay)
 {
-	t_game	g;
+	t_game		g;
+	t_textures textures;
 
 	g.lay_bak = lay;
+	g.textures = &textures;
+	g.sky_offset_x = 0;
 	g.id = mlx_init();
+	load_textures(&g);
 	g.w_id = mlx_new_window(g.id, WIDTH, HEIGHT,
 			"Raycaster");
 	g.scene.img = mlx_new_image(g.id, WIDTH * 2, HEIGHT * 2);

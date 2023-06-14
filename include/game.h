@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:03:46 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 15:31:49 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:23:51 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GAME_H
 
 # include "raycasting.h"
-
+# include "textures.h"
 
 typedef struct s_image_creator
 {
@@ -30,7 +30,6 @@ typedef struct s_image_creator
 	int		height;
 }				t_image_creator;
 
-/* Main attributes for the game */
 typedef struct s_game
 {
 	float		sin_a;
@@ -58,19 +57,32 @@ typedef struct s_game
 	void		*id;
 	void		*w_id;
 	t_image_creator	map_buffer;
-	void		*black_back;
 	t_image_creator	scene;
 	void		*player;
+	void		*sky;
 	t_lay		*lay;
 	t_lay		lay_bak;
 	char		**map;
 	float		prev_height;
-	int			offset;
 	int			direction;
 	int			keys[6];
-	
+	t_textures	*textures;
+	double		sky_offset_x;
 }				t_game;
 
+typedef struct s_handle_directions
+{
+	float	npx;
+	float	npy;
+	float	ndx;
+	float	ndy;
+	float	fx;
+	float	fy;
+	float	rx;
+	float	ry;
+}				t_handle_directions;
+
+void			load_textures(t_game *g);
 int				free_map_exit(void *game);
 void			start_game(char **map, t_lay lay);
 void			ft_newgame(t_game *g, char **m, t_lay *lay);

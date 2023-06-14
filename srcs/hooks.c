@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 19:08:27 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:30:08 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	handle_angles(t_game *g, int key)
 			g->pa = fmod(g->pa, 2 * PI);
 		g->pdx = cos(g->pa);
 		g->pdy = sin(g->pa);
+		g->sky_offset_x += 180;
 	}
 	else if (key == 65361)
 	{
@@ -49,52 +50,53 @@ void	handle_angles(t_game *g, int key)
 			g->pa = 2 * PI + g->pa;
 		g->pdx = cos(g->pa);
 		g->pdy = sin(g->pa);
+		g->sky_offset_x -= 180;
 	}
+}
+
+void	change_directions(float *newx, float *newy, float oldx, float oldy)
+{
+	*newx = oldx * 3;
+	*newy = oldy * 3;
+}
+
+void	finalize_directions(t_handle_directions *direc, t_game *g)
+{
+	direc->npx = g->px + direc->ndx * 0.1;
+	direc->npy = g->py + direc->ndy * 0.1;
+	if (direc->npx >= g->lay->n_col || direc->npy >= g->lay->n_col \
+		|| direc->npx < 0 || direc->npy < 0 || \
+		g->map[(int)direc->npy][(int)direc->npx] == '1')
+		return ;
+	g->px = direc->npx;
+	g->py = direc->npy;
 }
 
 void	handle_directions(t_game *g, char dir)
 {
-	float	npx;
-	float	npy;
-	float	ndx;
-	float	ndy;
-	float	fx;
-	float	fy;
-	float	rx;
-	float	ry;
-
-	fx = g->pdx;
-	fy = g->pdy;
-	rx = -fy;
-	ry = fx;
+	t_handle_directions direc;
+	
+	direc.fx = g->pdx;
+	direc.fy = g->pdy;
+	direc.rx = -direc.fy;
+	direc.ry = direc.fx;
 	if (dir == 'f')
-	{
-		ndx = fx * 3;
-		ndy = fy * 3;
-	}
+		change_directions(&direc.ndx, &direc.ndy, direc.fx, direc.fy);
 	else if (dir == 'b')
-	{
-		ndx = -fx * 3;
-		ndy = -fy * 3;
-	}
+		change_directions(&direc.ndx, &direc.ndy, -direc.fx, -direc.fy);
 	else if (dir == 'l')
 	{
-		ndx = -rx * 3;
-		ndy = -ry * 3;
+		change_directions(&direc.ndx, &direc.ndy, -direc.rx, -direc.ry);
+		g->sky_offset_x -= 1;
 	}
 	else if (dir == 'r')
 	{
-		ndx = rx * 3;
-		ndy = ry * 3;
+		change_directions(&direc.ndx, &direc.ndy, direc.rx, direc.ry);
+		g->sky_offset_x += 1;
 	}
 	else
 		return ;
-	npx = g->px + ndx * 0.1;
-	npy = g->py + ndy * 0.1;
-	if (npx >= g->lay->n_col || npy >= g->lay->n_col || npx < 0 || npy < 0 || g->map[(int)npy][(int)npx] == '1')
-		return ;
-	g->px = npx;
-	g->py = npy;
+	finalize_directions(&direc, g);
 }
 
 int	ft_input(int key, void *param)

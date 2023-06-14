@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 19:34:07 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:37:50 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <math.h>
+# include <unistd.h>
 # include "layout.h"
 # include "game.h"
 # include "check.h"
 # include "errors.h"
 # include "colors.h"
+# include "textures.h"
 # include "../miniLBX/mlx.h"
 # include "../libft/libft.h"
 
@@ -91,15 +92,20 @@ typedef struct t_gfx_rect
 
 typedef struct s_put_on_screen
 {
+	int		y;
+	int		end_y;
 	int		color;
-	float	y;
+	int		texture_x;
+	int		texture_y;
 	float	starting_x;
 	float	starting_y;
 	float	distance;
 	float	proj_height;
 }				t_put_on_screen;
 
+void			put_sky(t_game *g);
 void			draw_rays(t_game *g);
+void			put_portal_gun(t_game *g);
 void			*create_player(void *mlx);
 void			draw_line(t_gfx_line line);
 int				ft_input(int key, void *param);
@@ -110,6 +116,8 @@ void    		determine_color (t_put_on_screen *sc);
 t_image_creator	create_image(void *mlx, t_lay lay, char **map);
 void			draw_map(t_image_creator *ic, t_lay *lay, char **map);
 void			create_rows(t_image_creator *ic, t_lay lay, char **map);
+void			*create_floor(t_game *g, t_put_on_screen proj, int i);
+void			put_pixel(t_image_creator *image, int x, int y, int color);
 void			my_mlx_pixel_put(t_image_creator *data, float x, float y, int color);
 void			mlx_clear_image (t_image_creator *data, int color, int width, int height);
 
