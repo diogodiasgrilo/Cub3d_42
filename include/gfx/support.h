@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   engine.h                                           :+:      :+:    :+:   */
+/*   support.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/15 13:20:48 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 14:24:10 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/15 13:28:41 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/15 13:59:44 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ENGINE_H
-# define ENGINE_H
+#ifndef SUPPORT
+# define SUPPORT
 
-# include <gfx/window.h>
-
-typedef struct s_engine	t_engine;
-
-typedef bool			(*t_engine_init)(char *title, t_vec2 size);
-
-struct s_engine
+typedef enum e_gfx_os
 {
-	t_gfx_window	*gfx;
-	t_engine_init	init;
-	void			(*start)(void);
-};
+	OS_LINUX,
+	OS_DARWIN,
+	OS_WINDOWS
+}				t_gfx_os;
 
-t_engine	*engine(void);
+# ifndef __OS__
+#  define __OS__ OS_LINUX
+# endif
+
+# define IS_LINUX (__OS__ == OS_LINUX)
+# define IS_DARWIN (__OS__ == OS_DARWIN)
+# define IS_WINDOWS (__OS__ == OS_WINDOWS)
 
 #endif

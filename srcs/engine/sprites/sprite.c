@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 23:14:35 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 23:39:38 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:09:34 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static	t_sl_sprite	*define_sprite(t_sl_window *window, char *path)
 	if (!sprite)
 		return (NULL);
 	sprite->path = ft_strdup(path);
-	sprite->image = ft_calloc(1, sizeof(t_mlx_image));
+	sprite->image = ft_calloc(1, sizeof(t_gfx_image));
 	if (!sprite->image)
 	{
 		sl_free_sprite(sprite);

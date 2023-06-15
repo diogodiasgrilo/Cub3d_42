@@ -13,7 +13,17 @@ ENGINE_SRC_FILES = \
 	engine/components/transform.c \
 	engine/components/identity.c \
 	engine/components/camera.c \
-	engine/object.c
+	engine/object.c \
+	engine/engine.c
+
+GFX_SRC_FILES = \
+	gfx/window.c \
+	gfx/window_methods.c \
+	gfx/window_methods2.c \
+	gfx/image.c \
+	gfx/image2.c \
+	gfx/draw.c \
+
 
 MATH_SRC_FILES = \
 	math/vectors/2/float/vec2.c math/vectors/2/float/vec2_1.c \
@@ -22,11 +32,18 @@ MATH_SRC_FILES = \
 	math/vectors/3/vec3.c math/vectors/3/vec3_1.c \
 	math/vectors/3/vec3_2.c
 
+UTILS_SRC_FILES = \
+	utils/logger/ctx.c \
+	utils/logger/logger.c \
+	utils/logger/functions.c \
+
 SRC_FILES = \
 	$(CONTEXT_SRC_FILES) \
 	$(OOP_SRC_FILES) \
 	$(ENGINE_SRC_FILES) \
 	$(MATH_SRC_FILES) \
+	$(UTILS_SRC_FILES) \
+	$(GFX_SRC_FILES) \
 	main.c
 
 SRCS = $(addprefix $(SRC_PATH)/, $(SRC_FILES))
