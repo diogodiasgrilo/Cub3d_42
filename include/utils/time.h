@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sprite.h                                           :+:      :+:    :+:   */
+/*   time.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/22 23:06:20 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 17:20:18 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/15 18:23:35 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/15 18:43:25 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPRITE_H
-# define SPRITE_H
+#ifndef TIME_H
+# define TIME_H
 
 # include <std.h>
-# include <gfx/image.h>
 
-typedef struct s_sprite
-{
-	char		*path;
-	t_vec2		size;
-	t_gfx_image	*asset;
-}				t_engine_sprite;
-
-t_engine_sprite	*engine_sprites_load_sprite_from_disk(char *path);
-void			engine_sprites_free_sprite(t_engine_sprite *sprite);
+double			now(void);
+struct timeval	get_timer(void);
 
 #endif

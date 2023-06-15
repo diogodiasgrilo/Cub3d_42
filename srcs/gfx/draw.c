@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:10:13 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 14:43:42 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:08:12 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,17 @@ void	gfx_draw_rect(t_gfx_image *image, t_gfx_rect rect)
 	t_vec2	iter;
 	t_vec2	end;
 
-	if (!image)
-		return ;
-	iter = rect.start;
 	end = vec2i(rect.start.x + rect.size.x, rect.start.y + rect.size.y);
+	iter = rect.start;
 	while (iter.y < end.y)
 	{
 		iter.x = rect.start.x;
 		while (iter.x < end.x)
 		{
-			gfx_put_pixel_in_image(image, rect.start, rect.color, false);
+			if (rect.fill || \
+				iter.x == rect.start.x || iter.x == end.x - 1 || \
+				iter.y == rect.start.y || iter.y == end.y - 1)
+				gfx_put_pixel_in_image(image, iter, rect.color, false);
 			iter.x++;
 		}
 		iter.y++;
@@ -110,4 +111,43 @@ void	gfx_draw_circle(t_gfx_image *image, t_gfx_circle circle)
 		}
 		iter.y++;
 	}
+}
+
+/*
+	image: image to get the pixels from
+	pos: the canvas position to draw the image
+	rect: the rectangle to draw from the image
+	*apply nearest neighbor interpolation if rect size > image size
+ */
+void	gfx_draw_image_rect(\
+	t_gfx_image *render, \
+	t_gfx_image *image, \
+	t_vec2 pos, \
+	t_gfx_rect rect \
+)
+{
+	t_vec2	iter;
+	t_vec2	end;
+	t_vec2	img_pos;
+
+	if (!image || !render)
+		return ;
+	end = vec2i(rect.start.x + rect.size.x, rect.start.y + rect.size.y);
+	iter = rect.start;
+	while (iter.y < end.y)
+	{
+		iter.x = rect.start.x;
+		while (iter.x < end.x)
+		{
+			img_pos = vec2i(\
+				(int)(iter.x * image->width / rect.size.x), \
+				(int)(iter.y * image->height / rect.size.y) \
+			);
+			gfx_put_pixel_in_image(render, vec2i_add(pos, iter), \
+				gfx_get_pixel_from_image(image, img_pos), true);
+			iter.x++;
+		}
+		iter.y++;
+	}
+
 }

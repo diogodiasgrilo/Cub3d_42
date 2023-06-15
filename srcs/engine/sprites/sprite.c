@@ -6,70 +6,29 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 23:14:35 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 13:09:34 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:46:05 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <gfx/window.h>
+#include <engine/engine.h>
+#include "engine/sprites/sprite.h"
 #include <utils/log.h>
 
-void	sl_free_sprite(t_sl_sprite *sprite)
+void	engine_sprites_free_sprite(t_engine_sprite *sprite)
 {
-	t_sl_window	*window;
-
-	window = get_window_ctx();
-	if (!window)
-		return ;
 	if (!sprite)
-	{
-		ft_printf(LOG_ERROR"Attempted to free NULL sprite, how?\n");
-		return ;
-	}
-	ft_printf(
-		LOG_INFO
-		"Cleaning up sprite at path: %s\n",
-		sprite->path);
-	if (sprite->image && sprite->image->img)
-		mlx_destroy_image(window->mlx, sprite->image->img);
-	if (sprite->image)
-		free(sprite->image);
+		return (logger()->error("Attempted to free NULL sprite, how?"));
+	logger()->info("Cleaning up sprite at path: %s", sprite->path);
+	if (sprite->asset)
+		engine()->gfx->destroy_image(sprite->asset);
 	if (sprite->path)
 		free(sprite->path);
 	free(sprite);
 }
 
-static	t_sl_sprite	*define_sprite(t_sl_window *window, char *path)
+/* static void	add_sprite_to_store(t_list **store, t_engine_sprite *sprite)
 {
-	t_sl_sprite	*sprite;
-
-	sprite = ft_calloc(1, sizeof(t_sl_sprite));
-	if (!sprite)
-		return (NULL);
-	sprite->path = ft_strdup(path);
-	sprite->image = ft_calloc(1, sizeof(t_gfx_image));
-	if (!sprite->image)
-	{
-		sl_free_sprite(sprite);
-		return (NULL);
-	}
-	sprite->image->img = mlx_xpm_file_to_image(window->mlx, path,
-			(int *)&sprite->dimensions.x, (int *)&sprite->dimensions.y);
-	sprite->image->width = sprite->dimensions.x;
-	sprite->image->height = sprite->dimensions.y;
-	if (!sprite->image->img)
-	{
-		sl_free_sprite(sprite);
-		return (NULL);
-	}
-	sprite->image->addr = mlx_get_data_addr(\
-		sprite->image->img, &sprite->image->bits_per_pixel,
-			&sprite->image->line_length, &sprite->image->endian);
-	return (sprite);
-}
-
-static void	add_sprite_to_store(t_list **store, t_sl_sprite *sprite)
-{
-	t_list					*node;
+	t_list	*node;
 
 	if ((*store) && (*store)->content == NULL)
 		(*store)->content = sprite;
@@ -83,30 +42,20 @@ static void	add_sprite_to_store(t_list **store, t_sl_sprite *sprite)
 		}
 		ft_lstadd_back(store, node);
 	}
-}
+} */
 
-t_sl_sprite	*sl_load_sprite(char *path)
+// TODO: SPRITE SCALING
+t_engine_sprite	*engine_sprites_load_sprite_from_disk(char *path)
 {
-	t_sl_sprite				*sprite;
-	t_sl_window				*window;
-	t_sl_sprite_store		*store;
+	t_engine_sprite	*sprite;
 
-	window = get_window_ctx();
-	store = get_sprite_store_ctx();
-	if (!window || !path || !store)
-		return (NULL);
-	sprite = sl_get_sprite(path);
-	if (sprite)
-		return (sprite);
-	sprite = define_sprite(window, path);
+	sprite = ft_calloc(1, sizeof(t_engine_sprite));
 	if (!sprite)
 		return (NULL);
-	if (sprite->dimensions.x != SPRITE_SIZE
-		|| sprite->dimensions.y != SPRITE_SIZE)
-	{
-		sprite->dimensions = vec2(SPRITE_SIZE, SPRITE_SIZE);
-		gfx_resize_image(window->mlx, &sprite->image, sprite->dimensions);
-	}
-	add_sprite_to_store(&store, sprite);
+	sprite->path = ft_strdup(path);
+	sprite->asset = engine()->gfx->new_image_from_path(path);
+	if (!sprite->asset)
+		return (free(sprite->path), free(sprite), NULL);
+	sprite->size = vec2i(sprite->asset->width, sprite->asset->height);
 	return (sprite);
 }

@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:09:49 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 14:10:02 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:18:21 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,27 @@ void	gfx_resize_image(t_gfx_image *image, t_vec2 new_size)
 	mlx_destroy_image(get_window()->mlx, image->img);
 	*image = *new_image;
 	free(new_image);
+}
+
+t_gfx_image	*gfx_new_image_from_path(char *path)
+{
+	t_gfx_window	*window;
+	t_gfx_image		*image;
+
+	window = get_window();
+	if (!window || !window->mlx || !path)
+		return (NULL);
+	image = ft_calloc(1, sizeof(t_gfx_image));
+	if (!image)
+		return (NULL);
+	image->img = mlx_xpm_file_to_image(window->mlx, path, \
+		&image->width, &image->height);
+	if (!image->img)
+		return (free(image), NULL);
+	image->data = mlx_get_data_addr(\
+		image->img, &image->bpp, &image->size_line, &image->endian \
+	);
+	if (!image->data)
+		return (mlx_destroy_image(window->mlx, image->img), free(image), NULL);
+	return (image);
 }

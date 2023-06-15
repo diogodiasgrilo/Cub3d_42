@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:12:22 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 23:31:29 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:43:12 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <time.h>
+# include <sys/time.h>
 # include <sys/file.h>
 # include <sys/types.h>
 # include <math/vec.h>

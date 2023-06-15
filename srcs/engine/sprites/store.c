@@ -6,40 +6,23 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 23:24:47 by martiper          #+#    #+#             */
-/*   Updated: 2023/05/09 14:52:28 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:43:42 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "gfx/sprites/store.h"
+#include "engine/sprites/store.h"
 #include <context/context.h>
 
-static void	*sprite_store_create(void)
-{
-	return (ft_lstnew(NULL));
-}
+t_engine_sprites_store_renderer	*__engine_sprites_get_renderer(void);
 
-static void	sprite_store_destroy(t_sl_sprite_store *registry)
+static t_engine_sprite	*__get(char *path)
 {
-	ft_lstclear(&registry, (void (*)(void *))sl_free_sprite);
-}
+	t_engine_sprites_store	*store;
+	t_list					*node;
+	t_engine_sprite			*sprite;
 
-t_sl_sprite_store	*get_sprite_store_ctx(void)
-{
-	return (get_context(\
-		CONTEXT_ID_SPRITE_STORE, \
-		sprite_store_create, \
-		(void (*)(void *))sprite_store_destroy \
-	));
-}
-
-t_sl_sprite	*sl_get_sprite(char *path)
-{
-	t_sl_sprite_store	*store;
-	t_list				*node;
-	t_sl_sprite			*sprite;
-
-	store = get_sprite_store_ctx();
-	node = store->next;
+	store = engine_sprites_get_store();
+	node = store->list;
 	while (node)
 	{
 		sprite = node->content;
@@ -47,5 +30,43 @@ t_sl_sprite	*sl_get_sprite(char *path)
 			return (sprite);
 		node = node->next;
 	}
-	return (NULL);
+	sprite = engine_sprites_load_sprite_from_disk(path);
+	if (sprite)
+	{
+		node = ft_lstnew(sprite);
+		if (!node)
+			return (engine_sprites_free_sprite(sprite), NULL);
+		ft_lstadd_back(&store->list, node);
+	}
+	return (sprite);
+}
+
+static void	*sprites_store_create(void)
+{
+	t_engine_sprites_store	*store;
+
+	store = ft_calloc(1, sizeof(t_engine_sprites_store));
+	if (!store)
+		return (NULL);
+	store->list = NULL;
+	store->renderer = __engine_sprites_get_renderer();
+	store->get = __get;
+	return (store);
+}
+
+static void	sprites_store_destroy(t_engine_sprites_store *store)
+{
+	if (!store)
+		return ;
+	ft_lstclear(&store->list, (void (*)(void *))engine_sprites_free_sprite);
+	free(store);
+}
+
+t_engine_sprites_store	*engine_sprites_get_store(void)
+{
+	return (get_context(\
+		CONTEXT_ID_SPRITES_STORE, \
+		sprites_store_create, \
+		(t_context_destruct_fn)sprites_store_destroy \
+	));
 }

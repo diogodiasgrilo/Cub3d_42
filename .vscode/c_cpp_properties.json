@@ -10,7 +10,7 @@
 				"${workspaceFolder}/libs/libft/includes"
             ],
             "defines": [
-				"STM32F411xx"
+				"__USE_GNU"
 			],
             "compilerPath": "/usr/bin/clang",
             "cStandard": "c17",

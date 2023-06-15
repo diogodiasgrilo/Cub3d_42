@@ -13,7 +13,11 @@ ENGINE_SRC_FILES = \
 	engine/components/transform.c \
 	engine/components/identity.c \
 	engine/components/camera.c \
+	engine/sprites/sprite.c \
+	engine/sprites/store.c \
+	engine/sprites/draw.c \
 	engine/object.c \
+	engine/updater.c \
 	engine/engine.c
 
 GFX_SRC_FILES = \
@@ -36,6 +40,8 @@ UTILS_SRC_FILES = \
 	utils/logger/ctx.c \
 	utils/logger/logger.c \
 	utils/logger/functions.c \
+	utils/time.c \
+	utils/random.c
 
 SRC_FILES = \
 	$(CONTEXT_SRC_FILES) \

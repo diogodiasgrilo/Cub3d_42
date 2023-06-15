@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:57:10 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 13:31:50 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:54:44 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ typedef struct s_gfx_image
 }	t_gfx_image;
 
 t_gfx_image	*gfx_new_image(int width, int height);
+t_gfx_image	*gfx_new_image_from_path(char *path);
 void		gfx_put_pixel_in_image(\
 	t_gfx_image *image, \
 	t_vec2 pos, \
 	u_int32_t color, \
 	bool	draw_black \
 );
-void		gfx_draw_image(t_gfx_image *image, t_vec2 position);
+void		gfx_draw_image(t_gfx_image *render, t_gfx_image *image, t_vec2 position);
 void		gfx_clear_image(t_gfx_image *image);
 void		gfx_destroy_image(t_gfx_image *image);
 u_int32_t	gfx_get_pixel_from_image(t_gfx_image *image, t_vec2 pos);

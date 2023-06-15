@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:45:13 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 14:23:30 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:44:32 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,15 @@ void	__window_start(void)
 		return ;
 	window->started = true;
 	mlx_loop(window->mlx);
+}
+
+void	__window_hook_new_frame(int (*f)(void))
+{
+	t_gfx_window	*window;
+
+	window = get_window();
+	if (!window || !window->mlx || !window->win || \
+		!window->render_buffer || window->started)
+		return ;
+	mlx_loop_hook(window->mlx, f, NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:25:38 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 14:23:44 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:44:50 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,16 @@ static void	*window_create(void)
 	window->render = __window_render;
 	window->setup = __window_setup;
 	window->start = __window_start;
+	window->hook_new_frame = __window_hook_new_frame;
 	window->draw_pixel = __window_draw_pixel;
 	window->draw_line = __window_draw_line;
 	window->draw_rect = __window_draw_rect;
 	window->draw_circle = __window_draw_circle;
 	window->draw_image = __window_draw_image;
+	window->draw_image_rect = __window_draw_image_rect;
+	window->new_image = gfx_new_image;
+	window->new_image_from_path = gfx_new_image_from_path;
+	window->destroy_image = gfx_destroy_image;
 	return (window);
 }
 

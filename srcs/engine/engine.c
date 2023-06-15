@@ -6,13 +6,16 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:50:42 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 14:24:11 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:36:57 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <context/context.h>
 #include <std.h>
 #include "engine/engine.h"
+
+int		__engine_on_new_frame(void);
+void	__engine_update(double delta_time);
 
 static bool	__engine_init(char *title, t_vec2 size)
 {
@@ -33,6 +36,7 @@ static void	__engine_start(void)
 	e = engine();
 	if (!e || !e->gfx)
 		return ;
+	e->gfx->hook_new_frame(__engine_on_new_frame);
 	e->gfx->start();
 }
 
@@ -44,8 +48,10 @@ static void	*engine_create(void)
 	if (!engine)
 		return (NULL);
 	engine->gfx = get_window();
+	engine->assets = engine_sprites_get_store();
 	engine->init = __engine_init;
 	engine->start = __engine_start;
+	engine->update = __engine_update;
 	return (engine);
 }
 
