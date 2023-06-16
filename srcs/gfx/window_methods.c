@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:45:13 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 18:44:32 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/16 15:00:47 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ bool	__window_setup(t_vec2 size, char *title)
 	return (true);
 }
 
+static int	__window_on_focus_change(void	*focused)
+{
+	get_window()->focused = (bool)focused;
+	return (0);
+}
+
 void	__window_start(void)
 {
 	t_gfx_window	*window;
@@ -69,6 +75,8 @@ void	__window_start(void)
 		!window->render_buffer || window->started)
 		return ;
 	window->started = true;
+	mlx_hook(window->win, 9, 1L << 21, __window_on_focus_change, (void *)1);
+	mlx_hook(window->win, 10, 1L << 21, __window_on_focus_change, (void *)0);
 	mlx_loop(window->mlx);
 }
 

@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:50:42 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 18:36:57 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:06:51 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	__engine_start(void)
 	e = engine();
 	if (!e || !e->gfx)
 		return ;
+	e->input->start();
 	e->gfx->hook_new_frame(__engine_on_new_frame);
 	e->gfx->start();
 }
@@ -49,6 +50,7 @@ static void	*engine_create(void)
 		return (NULL);
 	engine->gfx = get_window();
 	engine->assets = engine_sprites_get_store();
+	engine->input = engine_input_init();
 	engine->init = __engine_init;
 	engine->start = __engine_start;
 	engine->update = __engine_update;

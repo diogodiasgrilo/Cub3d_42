@@ -12,7 +12,7 @@
             "defines": [
 				"__USE_GNU"
 			],
-            "compilerPath": "/usr/bin/clang",
+            "compilerPath": "/usr/bin/cc",
             "cStandard": "c17",
             "cppStandard": "c++14",
             "intelliSenseMode": "linux-clang-x64"

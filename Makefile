@@ -16,6 +16,7 @@ ENGINE_SRC_FILES = \
 	engine/sprites/sprite.c \
 	engine/sprites/store.c \
 	engine/sprites/draw.c \
+	engine/input.c \
 	engine/object.c \
 	engine/updater.c \
 	engine/engine.c

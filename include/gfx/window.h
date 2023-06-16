@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:08:03 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 18:35:43 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/16 14:50:45 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_gfx_window
 	t_gfx_image						*render_buffer;
 	t_vec2							size;
 	bool							started;
+	bool							focused;
 
 	void							(*clear)(bool draw);
 	void							(*render)(void);
