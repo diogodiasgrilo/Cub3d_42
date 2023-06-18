@@ -30,8 +30,11 @@
 		"libs/**/*": true
 	},
 	"files.associations": {
+		".env.production": "dotenv",
 		"**/*.c": "c",
 		"**/*.h": "c",
+		"cerrno": "c",
+		"chrono": "c"
 	}
   }
 }

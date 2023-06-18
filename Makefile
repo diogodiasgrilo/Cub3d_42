@@ -16,6 +16,10 @@ ENGINE_SRC_FILES = \
 	engine/sprites/sprite.c \
 	engine/sprites/store.c \
 	engine/sprites/draw.c \
+	engine/parser/handle.c \
+	engine/parser/handle2.c \
+	engine/parser/parser.c \
+	engine/materials.c \
 	engine/input.c \
 	engine/object.c \
 	engine/updater.c \

@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:50:42 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/16 14:06:51 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/18 23:32:06 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static void	*engine_create(void)
 	engine->gfx = get_window();
 	engine->assets = engine_sprites_get_store();
 	engine->input = engine_input_init();
+	engine->parser = get_parser();
+	engine->materials = get_materials();
 	engine->init = __engine_init;
 	engine->start = __engine_start;
 	engine->update = __engine_update;
