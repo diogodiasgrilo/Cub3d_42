@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   all.h                                              :+:      :+:    :+:   */
+/*   c_material.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 13:45:44 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/20 16:17:40 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/20 15:29:28 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/20 16:20:56 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALL_H
-# define ALL_H
+#ifndef C_MATERIAL_H
+# define C_MATERIAL_H
 
-# include "c_identity.h"
-# include "c_transform.h"
-# include "c_camera.h"
-# include "c_physics.h"
-# include "c_material.h"
-# include "textures/c_texture.h"
+#include <engine/materials.h>
+
+typedef struct s_material_component	t_material_component;
+
+struct s_material_component
+{
+	t_engine_material	*mat;
+	t_engine_sprite		*sprite;
+	void				(*set)(char *name);
+	void				(*update)(double delta_time);
+};
+
+t_material_component	*new_material_component(t_engine_material *mat);
 
 #endif

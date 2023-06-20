@@ -13,12 +13,19 @@ ENGINE_SRC_FILES = \
 	engine/components/transform.c \
 	engine/components/identity.c \
 	engine/components/camera.c \
+	engine/components/material.c \
+	engine/components/physics.c \
+	engine/object/getters.c \
+	engine/object/setters.c \
+	engine/object/updater.c \
+	engine/object/rendering.c \
 	engine/sprites/sprite.c \
 	engine/sprites/store.c \
 	engine/sprites/draw.c \
 	engine/parser/handle.c \
 	engine/parser/handle2.c \
 	engine/parser/parser.c \
+	engine/objects/player.c \
 	engine/materials.c \
 	engine/input.c \
 	engine/object.c \
@@ -109,7 +116,7 @@ $(error $(__SYSTEM__) is not supported)
 endif
 
 INCLUDES += -Iinclude -I$(LIBFT_INCLUDES) -I$(MLX_PATH)
-CFLAGS = $(INCLUDES) -Wall -Wextra -Werror -Ofast -g -fsanitize=address
+CFLAGS = $(INCLUDES) -Wall -Wextra -Werror -Ofast -g #-fsanitize=address
 
 ## RULES ##
 

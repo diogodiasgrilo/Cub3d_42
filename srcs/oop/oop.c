@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:45:08 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 23:30:11 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:30:28 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,29 @@
 static void	*__push(void *self)
 {
 	t_oop	*this;
+	t_list	*new;
 
 	this = oop();
-	if (!this)
+	if (!this || (this->object && this->object == self))
 		return (NULL);
 	if (this->object)
-		ft_lstadd_front(&this->objects, this->object);
+	{
+		new = ft_lstnew(this->object);
+		if (!new)
+			return (NULL);
+		ft_lstadd_front(&this->objects, new);
+	}
 	this->object = self;
 	return (self);
 }
 
-static void	*__pop(void)
+static void	*__pop(void *self)
 {
 	void	*obj;
 	t_oop	*this;
 
 	this = oop();
-	if (!this || !this->object)
+	if (!this || !this->object || (self && this->object != self))
 		return (NULL);
 	obj = this->object;
 	if (this->objects)

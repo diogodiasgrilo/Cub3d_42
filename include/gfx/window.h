@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:08:03 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/16 14:50:45 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:06:15 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # include "image.h"
 # include <math/vec.h>
 # include "gfx/draw.h"
+
+# define WINDOW_TITLE "Cub3D"
+# define WINDOW_WIDTH 700
+# define WINDOW_HEIGHT 700
 
 typedef bool	(*t_gfx_window_setup)(t_vec2 size, char *title);
 typedef void	(*t_gfx_window_draw_pixel)(t_vec2 pos, u_int32_t color);

@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 23:14:35 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 17:46:05 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:23:38 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ t_engine_sprite	*engine_sprites_load_sprite_from_disk(char *path)
 	if (!sprite->asset)
 		return (free(sprite->path), free(sprite), NULL);
 	sprite->size = vec2i(sprite->asset->width, sprite->asset->height);
+	sprite->ratio = (double)sprite->size.x / (double)sprite->size.y;
 	return (sprite);
 }

@@ -1,47 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   object.h                                           :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 12:57:41 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:13 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/20 15:46:54 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/20 16:49:39 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJECT_H
-# define OBJECT_H
+#ifndef PLAYER_H
+# define PLAYER_H
 
-# include <engine/transform.h>
-# include <engine/component.h>
-# include <engine/components/all.h>
-# include <std.h>
+# include <engine/objects/entity.h>
+# include <engine/raycaster.h>
 
-typedef struct s_object		t_object;
-typedef struct s_new_object	t_new_object;
-typedef enum e_object_types	t_object_types;
+# define PLAYER_FOV FOV
 
-struct s_new_object
+typedef struct s_player		t_player;
+typedef struct s_new_player	t_new_player;
+
+struct s_new_player
 {
-	size_t			size;
-	char			*tag;
-	bool			empty_transform;
-	t_vec3f			position;
-	double			rotation;
+	t_new_entity	ent;
 };
 
-typedef bool				(*t_object_a_comp)(\
-	t_comp_labels label, \
-	void *data, \
-	bool frozen \
-);
-typedef bool				(*t_object_r_comp)(t_comp_labels label);
-typedef void				*(*t_object_g_comp)(t_comp_labels label);
-typedef bool				(*t_object_h_comp)(t_comp_labels label);
-typedef bool				(*t_object_i_comp_f)(t_comp_labels label);
-
-struct s_object
+struct s_player
 {
 	t_list					*__components;
 	t_object_a_comp			add_component;
@@ -65,12 +50,14 @@ struct s_object
 	void					(*set_position)(t_vec3f position);
 	void					(*set_rotation)(double rotation);
 
+	t_camera_component		*(*get_camera)(void);
+	t_physics_component		*(*get_physics)(void);
 };
 
-t_object	*object(void);
-t_object	*obj(void);
-t_object	*this(void);
+t_player	*player(void);
+t_player	*ply(void);
+t_player	*pthis(void);
 
-t_object	*new_object(t_new_object definition);
+t_player	*new_player(t_new_player def);
 
 #endif

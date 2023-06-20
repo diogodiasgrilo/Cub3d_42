@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 23:06:20 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 17:20:18 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:23:25 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_sprite
 {
 	char		*path;
 	t_vec2		size;
+	double		ratio;
 	t_gfx_image	*asset;
 }				t_engine_sprite;
 

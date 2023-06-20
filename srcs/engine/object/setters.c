@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   all.h                                              :+:      :+:    :+:   */
+/*   setters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 13:45:44 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/20 16:17:40 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/20 15:25:17 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/20 15:25:43 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ALL_H
-# define ALL_H
+#include <engine/object.h>
 
-# include "c_identity.h"
-# include "c_transform.h"
-# include "c_camera.h"
-# include "c_physics.h"
-# include "c_material.h"
-# include "textures/c_texture.h"
-
-#endif
+void	__object_set_position(t_vec3f position)
+{
+	this()->get_transform()->position = position;
+}
+void	__object_set_rotation(double rotation)
+{
+	this()->get_transform()->rotation = rotation;
+}

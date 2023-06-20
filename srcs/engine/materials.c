@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 23:14:42 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/18 23:33:51 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:52:41 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,8 @@ static t_mat	*__load_mat(char *name)
 	t_mat					*mat;
 	char					file_path[512];
 	char					*line;
-	u_int32_t				sprite_count;
 
-	ft_sprintf(file_path, 512, "%s%s", name, PARSER_EXT);
+	ft_sprintf(file_path, 512, "%s%s%s", MATERIALS_PATH, name, PARSER_EXT);
 	file = engine()->parser->begin(file_path);
 	if (!file)
 		return (NULL);
@@ -49,9 +48,9 @@ static t_mat	*__load_mat(char *name)
 	line = file->get_prop("count");
 	if (!line)
 		return (file->end(), engine_materials_destroy_material(mat), NULL);
-	sprite_count = ft_atoi(line);
+	mat->count = ft_atoi(line);
 	free(line);
-	mat->sprites = ft_calloc(sprite_count + 1, sizeof(t_engine_sprite *));
+	mat->sprites = ft_calloc(mat->count + 1, sizeof(t_engine_sprite *));
 	if (!mat->sprites)
 		return (file->end(), engine_materials_destroy_material(mat), NULL);
 	line = file->get_prop("duration");
@@ -60,15 +59,15 @@ static t_mat	*__load_mat(char *name)
 	mat->animator_duration = ft_atoi(line);
 	free(line);
 	file->skip_to_list();
-	sprite_count = 0;
+	mat->count = 0;
 	while (1)
 	{
 		line = file->get_next();
 		if (!line)
 			break ;
-		mat->sprites[sprite_count++] = engine()->assets->get(line);
+		mat->sprites[mat->count++] = engine()->assets->get(line);
 		free(line);
-		if (!mat->sprites[sprite_count - 1])
+		if (!mat->sprites[mat->count - 1])
 			return (file->end(), engine_materials_destroy_material(mat), NULL);
 	}
 	file->end();

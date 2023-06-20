@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:00:28 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 17:55:19 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:01:09 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,7 @@ void	gfx_draw_image(t_gfx_image *render, t_gfx_image *image, t_vec2 position)
 
 	if (!render || !image || !image->img)
 		return ;
-	end = vec2i_clamp(vec2i_add(position, vec2i(image->width, image->height)), \
-		vec2i(0, 0), vec2i(render->width, \
-		render->height));
+	end = vec2i_add(position, vec2i(image->width, image->height));
 	iter = position;
 	while (iter.y < end.y)
 	{

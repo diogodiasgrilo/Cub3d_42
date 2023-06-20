@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 22:56:57 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/18 23:14:28 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:37:07 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	*__engine_parser_handle_get_prop(char *prop)
 				free(line);
 				continue ;
 			}
-			val++;
-			return (free(line), ft_strdup(val));
+			val = ft_strdup(val + 1);
+			return (free(line), val);
 		}
 	}
 	return (NULL);

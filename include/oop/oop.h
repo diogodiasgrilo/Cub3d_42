@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   oop.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:21:01 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/13 14:37:38 by marvin           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:19:25 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ struct s_oop_interface
 	t_list	*objects;
 	void	*object;
 	void	*(*push)(void *self);
-	void	*(*pop)(void);
+	void	*(*pop)(void *self);
 	void	*(*get)(void);
 	void	(*flush)(void);
 };

@@ -1,47 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   object.h                                           :+:      :+:    :+:   */
+/*   entity.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/12 12:57:41 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:13 by martiper         ###   ########.fr       */
+/*   Created: 2023/06/20 15:46:54 by martiper          #+#    #+#             */
+/*   Updated: 2023/06/20 15:50:07 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJECT_H
-# define OBJECT_H
+#ifndef ENTITY_H
+# define ENTITY_H
 
-# include <engine/transform.h>
-# include <engine/component.h>
-# include <engine/components/all.h>
-# include <std.h>
+# include <engine/object.h>
 
-typedef struct s_object		t_object;
-typedef struct s_new_object	t_new_object;
-typedef enum e_object_types	t_object_types;
+typedef struct s_entity		t_entity;
+typedef struct s_new_entity	t_new_entity;
 
-struct s_new_object
+struct s_new_entity
 {
-	size_t			size;
-	char			*tag;
-	bool			empty_transform;
-	t_vec3f			position;
-	double			rotation;
+	t_new_object	obj;
 };
 
-typedef bool				(*t_object_a_comp)(\
-	t_comp_labels label, \
-	void *data, \
-	bool frozen \
-);
-typedef bool				(*t_object_r_comp)(t_comp_labels label);
-typedef void				*(*t_object_g_comp)(t_comp_labels label);
-typedef bool				(*t_object_h_comp)(t_comp_labels label);
-typedef bool				(*t_object_i_comp_f)(t_comp_labels label);
-
-struct s_object
+struct s_entity
 {
 	t_list					*__components;
 	t_object_a_comp			add_component;
@@ -67,10 +49,10 @@ struct s_object
 
 };
 
-t_object	*object(void);
-t_object	*obj(void);
-t_object	*this(void);
+t_entity	*entity(void);
+t_entity	*ent(void);
+t_entity	*ethis(void);
 
-t_object	*new_object(t_new_object definition);
+t_entity	*new_entity(t_new_entity def);
 
 #endif

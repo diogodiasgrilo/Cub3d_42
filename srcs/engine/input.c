@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 13:54:08 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/16 16:17:23 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:57:58 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	__on_key_press(int keycode)
 {
 	if (keycode < 0 || keycode > INPUT_MAX)
 		return (0);
+	// ft_printf("keycode: %d pressed\n", keycode);
 	engine()->input->keys[keycode] = true;
 	return (0);
 }
@@ -25,6 +26,7 @@ static int	__on_key_release(int keycode)
 {
 	if (keycode < 0 || keycode >= INPUT_MAX)
 		return (0);
+	// ft_printf("keycode: %d released\n", keycode);
 	engine()->input->keys[keycode] = false;
 	return (0);
 }

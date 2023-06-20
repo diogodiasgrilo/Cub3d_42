@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:53:15 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 14:27:05 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:43:13 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ bool	__components_remove_component(t_comp_labels label);
 bool	__components_has_component(t_comp_labels label);
 void	*__components_get_component(t_comp_labels label);
 bool	__components_is_component_frozen(t_comp_labels label);
+
+void	__object_update(double delta_time);
+void	__object_render(double delta_time);
+
+t_identity_component	*__object_get_identity(void);
+t_transform				*__object_get_transform(void);
+t_vec3f					*__object_get_position(void);
+double					*__object_get_rotation(void);
+void					__object_set_position(t_vec3f position);
+void					__object_set_rotation(double rotation);
 
 t_object	*object(void)
 {
@@ -61,6 +71,15 @@ static bool	__setup_initial_components(t_new_object def)
 	identity->tag = ft_strdup(def.tag);
 	if (!this()->add_component(COMPONENT_IDENTITY, identity, true))
 		return (false);
+	this()->id = &identity->id;
+	this()->tag = identity->tag;
+	this()->transform = transform;
+	this()->get_identity = __object_get_identity;
+	this()->get_transform = __object_get_transform;
+	this()->get_position = __object_get_position;
+	this()->get_rotation = __object_get_rotation;
+	this()->set_position = __object_set_position;
+	this()->set_rotation = __object_set_rotation;
 	return (true);
 }
 
@@ -68,6 +87,8 @@ t_object	*new_object(t_new_object def)
 {
 	t_object	*object;
 
+	if (def.size == 0)
+		def.size = sizeof(t_object);
 	object = ft_calloc(1, def.size);
 	if (!object)
 		return (NULL);
@@ -77,12 +98,10 @@ t_object	*new_object(t_new_object def)
 	object->get_component = __components_get_component;
 	object->has_component = __components_has_component;
 	object->is_component_frozen = __components_is_component_frozen;
+	object->update = __object_update;
+	object->render = __object_render;
 	oop()->push(object);
 	if (!__setup_initial_components(def))
-	{
-		oop()->pop();
-		free(object);
-		return (NULL);
-	}
+		return (oop()->pop(object), free(object), NULL);
 	return (object);
 }

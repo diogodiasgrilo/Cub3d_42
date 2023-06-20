@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:26:20 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 20:41:29 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:03:35 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,7 @@
 #include <engine/object.h>
 #include <engine/component.h>
 
-typedef struct s_physics_component	t_physics_component;
-
-struct s_physics_component
-{
-	double	mass;
-	t_vec3f	velocity;
-	t_vec3f	acceleration;
-	void	(*update)(void);
-	void	(*apply_force)(t_vec3f direction, double force);
-	void	(*halt)(void);
-};
-
-static void	__update(void)
+static void	__update(double delta_time)
 {
 	t_physics_component		*physics;
 	t_transform_component	*transform;
@@ -36,16 +24,25 @@ static void	__update(void)
 	transform = this()->get_transform();
 	if (!physics || !transform)
 		return ;
-	transform->position.x += physics->velocity.x;
-	transform->position.y += physics->velocity.y;
+	transform->position.x += physics->velocity.x * cos(transform->rotation);
+	transform->position.y += physics->velocity.y * sin(transform->rotation);
 	transform->position.z += physics->velocity.z;
 	physics->velocity.x += physics->acceleration.x;
 	physics->velocity.y += physics->acceleration.y;
 	physics->velocity.z += physics->acceleration.z;
-	physics->acceleration = vec3_sub(\
-		physics->acceleration, \
-		vec3_mul_scal(physics->acceleration, 0.1));
-	if (transform->position.z <= 0)
+
+	physics->acceleration.x = 0;
+	physics->acceleration.y = 0;
+	physics->acceleration.z = 0;
+
+	// make velocity decay quadratically when no acceleration is applied
+	physics->velocity.x *= 0.666;
+	physics->velocity.y *= 0.666;
+	physics->velocity.z *= 0.666;
+
+	if (transform->position.z > 0)
+		physics->acceleration.z = -9.81 * physics->mass * delta_time;
+	else
 	{
 		transform->position.z = 0;
 		physics->velocity.z = 0;

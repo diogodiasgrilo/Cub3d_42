@@ -6,12 +6,13 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 18:33:04 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/16 16:43:18 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:05:54 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "engine/engine.h"
 #include <utils/time.h>
+#include <oop/oop.h>
 
 int	__engine_on_new_frame(void)
 {
@@ -22,53 +23,86 @@ int	__engine_on_new_frame(void)
 	time = now();
 	delta_time = time - last_frame;
 	last_frame = time;
+	engine()->delta_time = delta_time;
 	engine()->input->update(delta_time);
 	engine()->update(delta_time);
+	engine()->render(delta_time);
 	return (0);
 }
 
 void	__engine_update(double delta_time)
 {
 	t_engine		*e;
-	static t_vec2	pos = { 400, 300 };
-	static double	angle;
+	t_list			*iter;
+	t_object		*obj;
+	// static t_vec2	pos = { 400, 300 };
+	// static double	angle;
 
 	e = engine();
 	if (!e || !e->gfx->focused)
 		return ;
 
+	t_vec3f	*acceleration = &pthis()->get_physics()->acceleration;
+
 	if (e->input->is_pressed(INPUT_KEYCODE_A))
-		pos.x -= (int)ceil(0.1 * delta_time);
+		acceleration->x = -0.001f * delta_time;
 	if (e->input->is_pressed(INPUT_KEYCODE_D))
-		pos.x += (int)ceil(0.1 * delta_time);
+		acceleration->x = 0.001F * delta_time;
 	if (e->input->is_pressed(INPUT_KEYCODE_W))
-		pos.y -= (int)ceil(0.1 * delta_time);
+		acceleration->y = 0.001f * delta_time;
 	if (e->input->is_pressed(INPUT_KEYCODE_S))
-		pos.y += (int)ceil(0.1 * delta_time);
-	pos = vec2i_clamp(pos, vec2i(0,0), e->gfx->size);
-	if (e->input->mouse_pos.x < 100 || e->input->mouse_pos.x > 700)
-		e->input->set_mouse_pos(vec2i(400, 300));
-	angle += e->input->mouse_delta.x * 0.0005 * delta_time;
-	angle = fmod(angle, 2 * M_PI);
-	e->gfx->clear(false);
-	/* e->gfx->draw_circle((t_gfx_circle){
-		.center = pos,
-		.radius = 20 + 10 * sin(angle) * cos(angle),
-		.color = 0xFFFFFFFF
-	}); */
-	t_vec2	size = vec2i(20 + 10 * sin(angle), 20 + 10 * sin(angle));
-	e->gfx->draw_rect((t_gfx_rect){
-		.start = vec2i_sub(pos, vec2i_div_scal(size, 2)),
-		.size = size,
-		.color = 0xFFFFFFFF,
-		.fill = false
-	});
-	e->gfx->draw_line((t_gfx_line){
-		.start = pos,
-		.direction = vec2f(cos(angle), sin(angle)),
-		.color = 0xFFFF0000,
-		.length = 45.0
-	});
+		acceleration->y = -0.001 * delta_time;
+	if (e->input->is_pressed(INPUT_KEYCODE_ARROW_RIGHT))
+		pthis()->get_transform()->rotation += (0.001f * delta_time);
+	else if (e->input->is_pressed(INPUT_KEYCODE_ARROW_LEFT))
+		pthis()->get_transform()->rotation -= (0.001f * delta_time);
+	if (pthis()->transform->rotation > 2 * PI)
+		pthis()->get_transform()->rotation -= 2 * PI;
+	else if (pthis()->transform->rotation < 0)
+		pthis()->get_transform()->rotation += 2 * PI;
+
+	iter = e->objects;
+	while (iter)
+	{
+		obj = iter->content;
+		if (obj->update)
+		{
+			oop()->push(obj);
+			obj->update(delta_time);
+			oop()->pop(obj);
+		}
+		iter = iter->next;
+	}
+	/* ft_printf("Player pos: (%f, %f, %f) angle: %f\n", \
+		pthis()->get_position()->x, \
+		pthis()->get_position()->y, \
+		pthis()->get_position()->z, \
+		*pthis()->get_rotation() * 180 / PI
+	); */
+}
+
+void	__engine_render(double delta_time)
+{
+	t_engine	*e;
+	t_object	*obj;
+	t_list		*iter;
+
+	e = engine();
+	if (!e || !e->gfx->focused)
+		return ;
+	iter = e->objects;
 	e->input->hide_mouse();
+	e->gfx->clear(false);
+	while (iter)
+	{
+		obj = iter->content;
+		if (obj->render)
+		{
+			oop()->push(obj);
+			obj->render(delta_time);
+			oop()->pop(obj);
+		}
+		iter = iter->next;
+	}
 	e->gfx->render();
 }

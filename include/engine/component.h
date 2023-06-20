@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 13:12:18 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/12 19:50:36 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:32:32 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ enum e_comp_labels
 	COMPONENT_TRANSFORM,
 	COMPONENT_CAMERA,
 	COMPONENT_COLLIDER,
-	COMPONENT_PHYSICS
+	COMPONENT_PHYSICS,
+	COMPONENT_MATERIAL
 };
 
 struct s_component
