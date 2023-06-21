@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:29:26 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:27:26 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,50 @@ void	handle_angles(t_game *g, int key)
 
 void	change_directions(float *newx, float *newy, float oldx, float oldy)
 {
-	*newx = oldx * 3;
-	*newy = oldy * 3;
+	*newx = oldx;
+	*newy = oldy;
+}
+
+bool	check_hitbox_point(t_game *g, float angle)
+{
+	int		pos[2];
+
+	pos[0] = g->px + cos(angle) * 0.15;
+	pos[1] = g->py + sin(angle) * 0.15;
+
+	return (\
+		pos[0] >= find_biggest_column(g->map) || \
+		pos[1] >= find_biggest_column(g->map) || \
+		pos[0] < 0 || pos[1] < 0 || \
+		g->map[(int)floor(pos[1])][(int)floor(pos[0])] == '1' \
+	);
+}
+
+
+
+bool	check_hitbox(t_game *g, t_handle_directions *direc)
+{
+	float	angle;
+
+	angle = atan2(direc->ndy, direc->ndx);
+
+	if (check_hitbox_point(g, angle))
+		return (true);
+	angle += PI / 4;
+	if (check_hitbox_point(g, angle))
+		return (true);
+	angle -= PI / 2;
+	if (check_hitbox_point(g, angle))
+		return (true);
+	return (false);
 }
 
 void	finalize_directions(t_handle_directions *direc, t_game *g)
 {
 	direc->npx = g->px + direc->ndx * 0.1;
 	direc->npy = g->py + direc->ndy * 0.1;
-	if (direc->npx >= find_biggest_column(g->map) || direc->npy >= find_biggest_column(g->map) \
-		|| direc->npx < 0 || direc->npy < 0 || \
-		g->map[(int)direc->npy][(int)direc->npx] == '1')
+
+	if (check_hitbox(g, direc))
 		return ;
 	g->px = direc->npx;
 	g->py = direc->npy;
@@ -182,13 +215,9 @@ int	on_new_frame(void)
 	mlx_mouse_hide(game->id, game->w_id);
 	mlx_mouse_get_pos(game->id, game->w_id, &mx, &my);
 	if (mx < MOUSE_SAFE_AREA_LEFT || mx > MOUSE_SAFE_AREA_RIGHT)
-	{
 		mlx_mouse_move(game->id, game->w_id, HALF_WIDTH, HALF_HEIGHT);
-		return (0);
-	}
-	if (fabs(mx - HALF_WIDTH) < MOUSE_SENSITIVITY)
-		return (0);
-	on_mouse_move((mx - HALF_WIDTH) / (float)(HALF_WIDTH));
+	else if (fabs(mx - HALF_WIDTH) > MOUSE_SENSITIVITY)
+		on_mouse_move((mx - HALF_WIDTH) / (float)(HALF_WIDTH));
 	draw_rays(game);
 	return (0);
 }

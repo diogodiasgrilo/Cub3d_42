@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:19:52 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:02:01 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,17 +237,27 @@ void	draw_rays(t_game *g)
 
 		proj.color = 0xFFFFFFFF;
 		proj.proj_height = SCREEN_DIST / (g->depth + 0.0001);
+		// if (proj.proj_height > HEIGHT)
+			// proj.proj_height = HEIGHT;
 		proj.texture_y = (int)(g->textures->offset * (texture->height - SCALE));
-		proj.y = HALF_HEIGHT - (floor)(proj.proj_height / 2);
-		proj.end_y = HALF_HEIGHT + (floor)(proj.proj_height / 2);
+		proj.y = HALF_HEIGHT - (int)(proj.proj_height / 2);
+		proj.end_y = HALF_HEIGHT + (int)(proj.proj_height / 2);
+		if (proj.y < 0)
+			proj.y = 0;
+		else if (proj.y >= HEIGHT)
+			proj.y = HEIGHT - 1;
+		if (proj.end_y < 0)
+			proj.end_y = 0;
+		else if (proj.end_y >= HEIGHT)
+			proj.end_y = HEIGHT - 1;
 		while (proj.y < proj.end_y)
 		{
 			proj.texture_x = (proj.y - (HALF_HEIGHT - (int)(proj.proj_height / 2))) * (texture->width - SCALE) / (int)proj.proj_height;
 			proj.color = (*(unsigned int*)(texture->data + ((proj.texture_x * texture->size_line) + (proj.texture_y * (texture->bpp / 8)))));
-			put_pixel(&g->scene, i, proj.y, proj.color);
+			put_pixel(&g->scene, i * SCALE, proj.y, proj.color);
 			proj.y++;
 		}
-		create_floor_sky(g, proj, i);
+		create_floor_sky(g, proj, i * SCALE);
 		g->ray_angle += DELTA_ANGLE;
 	}
 	put_portal_gun(g);
