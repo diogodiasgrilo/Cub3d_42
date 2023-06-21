@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:44:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/20 16:16:56 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:06:37 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	line_check(char **line, t_map_errors *errors)
 	if (!*line)
 		return (EXIT_FAILURE);
 	i = 0;
-	while ((*line)[i] && (*line)[i] == 32)
+	while ((*line)[i] && ((*line)[i] == 32 || (*line)[i] == '\t'))
 		i++;
 	if ((*line)[i] == '\n' || (*line)[i] == '\0' || 
 		(strncmp(*line + i, "NO ", 3) == 0 && insert_value(errors, *line, "NO", i) != EXIT_FAILURE) ||
