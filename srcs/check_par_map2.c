@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:37:33 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 11:37:53 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:15:59 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		count_rows(char **map)
 	while (map[y])
 	{
 		x = 0;
-		while (map[y][x] && map[y][x] == 32)
+		while (map[y][x] && (map[y][x] == 32 || map[y][x] == '\t'))
 			x++;
 		if (map[y][x] != '1')
 			break ;
