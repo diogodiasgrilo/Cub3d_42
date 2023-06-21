@@ -65,7 +65,7 @@ $(error $(__SYSTEM__) is not supported)
 endif
 
 INCLUDES += -Iinclude -I$(LIBFT_INCLUDES) -I$(MLX_PATH)
-CFLAGS = $(INCLUDES) -Wall -Wextra -Werror -Ofast -g -fsanitize=address
+CFLAGS = $(INCLUDES) -Wall -Wextra -Werror -Ofast -g #-fsanitize=address
 
 ## RULES ##
 

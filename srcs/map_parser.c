@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:44:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 15:55:47 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:42:00 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	insert_value(t_map_errors *errors, char *line, char *check, int i)
 	trim_line = ft_strtrim((line + i), "\n");
 	test = open(trim_line, O_RDONLY);
 	if (test < 0 && color_or_texture > 1)
-		return (EXIT_FAILURE);
-	else
+		return (free(trim_line), EXIT_FAILURE);
+	else if (test > -1)
 		close(test);
 	if (find_type(errors, trim_line, check))
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+		return (free(trim_line), EXIT_FAILURE);
+	return (free(trim_line), EXIT_SUCCESS);
 }
 
 int	line_check(char **line, t_map_errors *errors)
@@ -94,7 +94,10 @@ t_map_errors	*map_parser(char *file)
 	errors = init_parser();
 	errors->current_fd = open(file, O_RDONLY);
 	if (errors->current_fd < 0)
+	{
+		ft_printf("Error\nFile not found\n");
 		return (NULL);
+	}	
 	while (1)
 		if (line_check(&line, errors) == EXIT_FAILURE)
 			break ;
