@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_objects.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 21:51:16 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/20 21:02:25 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:10:43 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*create_player(void *mlx)
 
 void	create_rows(t_image_creator *ic, char **map)
 {
-	while (ic->x < ft_strlen(map[ic->y / MAP_SIZE]) * MAP_SIZE)
+	while (ic->x < (int)ft_strlen(map[ic->y / MAP_SIZE]) * MAP_SIZE)
 	{
 		ic->pix_index = (ic->x * ic->bpp / 8) + (ic->y * ic->size_line);
 		if (map[ic->y / MAP_SIZE][ic->x / MAP_SIZE] == '1')
@@ -54,8 +54,8 @@ void	create_rows(t_image_creator *ic, char **map)
 
 int	find_biggest_column(char **map)
 {
-	int	i;
-	int	biggest_column;
+	int		i;
+	size_t	biggest_column;
 
 	i = 0;
 	biggest_column = 0;

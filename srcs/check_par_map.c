@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 13:31:05 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:31:41 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		check_walls(char **map, t_lay *lay)
 		while (map[y][++x])
 		{
 			// printf("x = %d, strlen y - 1: %d strleny + 1: %d / we are at :%c\n", x, ft_strlen(map[y - 1]), ft_strlen(map[y + 1]), map[y][x]);
-			if (((x >= ft_strlen(map[y + 1]) || x >= ft_strlen(map[y - 1])) && map[y][x] != '1' && map[y][x] == '0') || \
+			if (((x >= (int)ft_strlen(map[y + 1]) || x >= (int)ft_strlen(map[y - 1])) && map[y][x] != '1' && map[y][x] == '0') || \
 				(map[y][x] != '1' && map[y][x] == '0' && (map[y - 1][x] == 32 || map[y + 1][x] == 32 || (x == 0 && map[y][x] != '1') || \
 				(!map[y][x + 1] && map[y][x + 1] != '1' && map[y][x] == '0'))))
 					return (EXIT_FAILURE);
@@ -66,7 +66,7 @@ char	**check_map(int fd, t_lay *lay)
 	map_err = ft_newmap_error();
 	*lay = ft_newlayout(lay->map_first_line);
 	ft_readlayout(fd, &map_err, lay, &map_str);
-	map = ft_split(map_str, '\n');
+	map = ft_split(map_str, "\n");
 	if (check_walls(map, lay))
 		map_err.inv_borders = 1;
 	ft_print_map_error(&map_err, &map_str);

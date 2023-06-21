@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:02:54 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:29:26 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ int	ft_input(int key, void *param)
 	}
 	else if (key == 65307)
 		exit(0);
-	draw_rays(g);
 	return (0);
 }
 
@@ -151,7 +150,6 @@ int	ft_release(int key, void *param)
 		g->keys[2] = 0;
 	else if (key == 100)
 		g->keys[3] = 0;
-	draw_rays(g);
 	return (0);
 }
 
@@ -170,7 +168,6 @@ static void	on_mouse_move(float dir)
 	game->sky_offset_x = fmodf(game->sky_offset_x + 4.5 * (dir * PLAYER_CAMERA_SPEED), WIDTH) * 1.1;
 	game->pdx = cos(game->pa) + 0.0001;
 	game->pdy = sin(game->pa) + 0.0001;
-	draw_rays(game);
 }
 
 int	on_new_frame(void)
@@ -182,8 +179,9 @@ int	on_new_frame(void)
 	game = get_game();
 	if (!game)
 		return (0);
+	mlx_mouse_hide(game->id, game->w_id);
 	mlx_mouse_get_pos(game->id, game->w_id, &mx, &my);
-	if (mx < 0 || mx > WIDTH || my < 0 || my > HEIGHT)
+	if (mx < MOUSE_SAFE_AREA_LEFT || mx > MOUSE_SAFE_AREA_RIGHT)
 	{
 		mlx_mouse_move(game->id, game->w_id, HALF_WIDTH, HALF_HEIGHT);
 		return (0);
@@ -191,5 +189,6 @@ int	on_new_frame(void)
 	if (fabs(mx - HALF_WIDTH) < MOUSE_SENSITIVITY)
 		return (0);
 	on_mouse_move((mx - HALF_WIDTH) / (float)(HALF_WIDTH));
+	draw_rays(game);
 	return (0);
 }

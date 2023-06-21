@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:02:17 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:19:52 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ void	draw_rays(t_game *g)
 	draw_map(&g->map_buffer, g->lay, g->map);
 	g->x_map = (int)g->px;
 	g->y_map = (int)g->py;
-	put_sky(g);
 	while (++i < NUM_RAYS)
 	{
 		g->x_hor = g->px;
@@ -143,9 +142,9 @@ void	draw_rays(t_game *g)
 		while (++j < WIDTH * 5)
 		{
 			if (g->y_hor >= g->lay->n_row || g->x_hor >= \
-				ft_strlen(g->map[(int)g->y_hor]) || \
+				(int)ft_strlen(g->map[(int)g->y_hor]) || \
 				g->y_hor < 0 || g->x_hor < 0 || \
-				((int)g->x_hor < ft_strlen(g->map[(int)g->y_hor]) \
+				((int)g->x_hor < (int)ft_strlen(g->map[(int)g->y_hor]) \
 				&& g->map[(int)g->y_hor][(int)g->x_hor] == '1'))
 			{
 				g->textures->texture_hor = g->textures->south;
@@ -176,9 +175,9 @@ void	draw_rays(t_game *g)
 		while (++j < WIDTH * 5)
 		{
 			if (g->y_vert >= g->lay->n_row || ((int)g->y_vert > 0 && \
-				g->x_vert >= ft_strlen(g->map[(int)g->y_vert])) \
+				g->x_vert >= (int)ft_strlen(g->map[(int)g->y_vert])) \
 				|| g->y_vert < 0 || g->x_vert < 0 || \
-				((int)g->x_vert < ft_strlen(g->map[(int)g->y_vert]) \
+				((int)g->x_vert < (int)ft_strlen(g->map[(int)g->y_vert]) \
 				&& g->map[(int)g->y_vert][(int)g->x_vert] == '1'))
 			{
 				g->textures->texture_vert = g->textures->south;

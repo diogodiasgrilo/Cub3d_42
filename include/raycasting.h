@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:01:22 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:29:09 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@
 # define PLAYER_SPEED		0.1
 # define MOUSE_SENSITIVITY	0.01 * WIDTH
 # define PLAYER_CAMERA_SPEED	0.05
+
+# define MOUSE_SAFE_AREA_LEFT (WIDTH * 0.125)
+# define MOUSE_SAFE_AREA_RIGHT (WIDTH - MOUSE_SAFE_AREA_LEFT)
 
 typedef struct s_line_drawing
 {
