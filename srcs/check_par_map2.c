@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 11:37:33 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 13:15:59 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:15:32 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ t_err	ft_newmap_error(void)
 	return (map_err);
 }
 
-int		count_rows(char **map)
+int	count_rows(char **map)
 {
 	int	y;
 	int	x;
-	
+
 	y = 0;
 	while (map[y])
 	{

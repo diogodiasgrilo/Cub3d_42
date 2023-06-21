@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   check_par_map.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 13:31:41 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:36:30 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/raycasting.h"
 
-int		check_top_bottom_row(char **map, int *y, int x)
+int	check_top_bottom_row(char **map, int *y, int x)
 {
 	x = 0;
-
 	while (map[*y][x] && map[*y][x] == 32)
 		x++;
 	if (!map[*y][x])
@@ -28,7 +27,20 @@ int		check_top_bottom_row(char **map, int *y, int x)
 	return (EXIT_SUCCESS);
 }
 
-int		check_walls(char **map, t_lay *lay)
+int	check_open_walls(char **map, int y, int x)
+{
+	if (((x >= (int)ft_strlen(map[y + 1]) || x >= \
+	(int)ft_strlen(map[y - 1])) \
+	&& map[y][x] != '1' && map[y][x] == '0') || \
+	(map[y][x] != '1' && map[y][x] == '0' && \
+	(map[y - 1][x] == 32 || map[y + 1][x] == 32 || \
+	(x == 0 && map[y][x] != '1') || (!map[y][x + 1] && \
+	map[y][x + 1] != '1' && map[y][x] == '0'))))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	check_walls(char **map, t_lay *lay)
 {
 	int	y;
 	int	x;
@@ -41,13 +53,8 @@ int		check_walls(char **map, t_lay *lay)
 	{
 		x = -1;
 		while (map[y][++x])
-		{
-			// printf("x = %d, strlen y - 1: %d strleny + 1: %d / we are at :%c\n", x, ft_strlen(map[y - 1]), ft_strlen(map[y + 1]), map[y][x]);
-			if (((x >= (int)ft_strlen(map[y + 1]) || x >= (int)ft_strlen(map[y - 1])) && map[y][x] != '1' && map[y][x] == '0') || \
-				(map[y][x] != '1' && map[y][x] == '0' && (map[y - 1][x] == 32 || map[y + 1][x] == 32 || (x == 0 && map[y][x] != '1') || \
-				(!map[y][x + 1] && map[y][x + 1] != '1' && map[y][x] == '0'))))
-					return (EXIT_FAILURE);
-		}
+			if (check_open_walls(map, y, x))
+				return (EXIT_FAILURE);
 		y++;
 	}
 	if (check_top_bottom_row(map, &y, x))

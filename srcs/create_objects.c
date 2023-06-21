@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_objects.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 21:51:16 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:10:43 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:38:43 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ t_image_creator	create_image(void *mlx, t_lay lay, char **map)
 	int				biggest_column;
 
 	biggest_column = find_biggest_column(map);
-	ic.img = mlx_new_image(mlx, biggest_column * MAP_SIZE, lay.n_row * MAP_SIZE);
+	ic.img = mlx_new_image(mlx, biggest_column * MAP_SIZE, \
+		lay.n_row * MAP_SIZE);
 	ic.data = mlx_get_data_addr(ic.img, &ic.bpp, &ic.size_line, &ic.endian);
 	ic.width = biggest_column * MAP_SIZE;
 	ic.height = lay.n_row * MAP_SIZE;
-	// draw_map(&ic, &lay, map);
 	return (ic);
 }

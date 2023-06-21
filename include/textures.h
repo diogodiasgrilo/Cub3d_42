@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:22:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/20 12:40:40 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:49:13 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@
 # define TEXTURE_SIZE 256
 # define HALF_TEXTURE_SIZE floor(TEXTURE_SIZE / 2)
 # define PLAYER_SIZE_SCALE 60
+
+typedef struct s_portal_gun
+{
+	int		gun_width;
+	int		gun_height;
+	int		x_start;
+	int		y_start;
+	int		x;
+	int		y;
+	int		color;
+	char	*gun_data;
+}				t_portal_gun;
+
 
 typedef	struct	s_texture
 {
