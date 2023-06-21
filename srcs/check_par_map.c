@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 14:07:21 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:22:11 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ int		check_walls(char **map, t_lay *lay)
 		while (map[y][++x])
 		{
 			// printf("x = %d, strlen y - 1: %d strleny + 1: %d / we are at :%c\n", x, ft_strlen(map[y - 1]), ft_strlen(map[y + 1]), map[y][x]);
-			if (((x >= ft_strlen(map[y + 1]) || x >= ft_strlen(map[y - 1])) && map[y][x] != '1') || ( \
-				map[y][x] != '1' && (map[y - 1][x] == 32 || map[y + 1][x] == 32 || (x == 0 && map[y][x] != '1') || \
-				(!map[y][x + 1] && map[y][x + 1] != '1'))))
-				return (EXIT_FAILURE);
+			if (((x >= ft_strlen(map[y + 1]) || x >= ft_strlen(map[y - 1])) && map[y][x] != '1' && map[y][x] == '0') || \
+				(map[y][x] != '1' && map[y][x] == '0' && (map[y - 1][x] == 32 || map[y + 1][x] == 32 || (x == 0 && map[y][x] != '1') || \
+				(!map[y][x + 1] && map[y][x + 1] != '1' && map[y][x] == '0'))))
+				{
+					return (EXIT_FAILURE);
+				}
 		}
 		y++;
 	}
