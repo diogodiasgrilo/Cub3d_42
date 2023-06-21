@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:42:56 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/20 18:05:31 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:28:14 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	main(int ac, char **av)
 		.tag = "demo",
 		.size = 0
 	});
-
 	demo->add_component(COMPONENT_MATERIAL, \
 		new_material_component(engine()->materials->get("demo", true)), \
 		false \

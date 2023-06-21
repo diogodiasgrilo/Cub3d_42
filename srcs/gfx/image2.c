@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:09:49 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/15 17:18:21 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:43:15 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ u_int32_t	gfx_get_pixel_from_image(t_gfx_image *image, t_vec2 pos)
 	if (!image || !image->data)
 		return (0);
 	if (
-		pos.x < 0 || pos.y >= image->width || \
+		pos.x < 0 || pos.x >= image->width || \
 		pos.y < 0 || pos.y >= image->height
 	)
 		return (0);

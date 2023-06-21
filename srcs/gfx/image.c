@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 14:00:28 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/20 18:01:09 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:43:00 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	gfx_put_pixel_in_image(\
 	if (!draw_black && color == 0xFF000000)
 		return ;
 	if (
-		pos.x < 0 || pos.y >= image->width || \
+		pos.x < 0 || pos.x >= image->width || \
 		pos.y < 0 || pos.y >= image->height
 	)
 		return ;
@@ -74,9 +74,10 @@ void	gfx_draw_image(t_gfx_image *render, t_gfx_image *image, t_vec2 position)
 		iter.x = position.x;
 		while (iter.x < end.x)
 		{
-			gfx_put_pixel_in_image(render, \
-				iter, gfx_get_pixel_from_image(image, \
-				vec2i(iter.x - position.x, iter.y - position.y)), \
+			gfx_put_pixel_in_image(\
+				render, \
+				iter, \
+				gfx_get_pixel_from_image(image, vec2i_sub(iter, position)), \
 				false \
 			);
 			iter.x++;
@@ -88,11 +89,21 @@ void	gfx_draw_image(t_gfx_image *render, t_gfx_image *image, t_vec2 position)
 void	gfx_clear_image(t_gfx_image *image)
 {
 	t_gfx_window	*window;
-
+	t_vec2			iter;
 	window = get_window();
 	if (!window || !window->render_buffer || !image || !image->img)
 		return ;
-	ft_bzero(image->data, image->width * image->height * (image->bpp / 8));
+	iter = vec2i(0, 0);
+	while (iter.y < image->height)
+	{
+		iter.x = 0;
+		while (iter.x < image->width)
+		{
+			gfx_put_pixel_in_image(image, iter, 0xFF000000, true);
+			iter.x++;
+		}
+		iter.y++;
+	}
 }
 
 void	gfx_destroy_image(t_gfx_image *image)
