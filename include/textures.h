@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 11:22:53 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/14 16:33:36 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:40:40 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ typedef struct	s_textures
 	void		*texture;
     void		*texture_hor;
 	void		*texture_vert;
-	t_texture	*port;
-    t_texture	*vwall;
-	t_texture	*piping;
-	t_texture	*gate;
+	t_texture	*north;
+    t_texture	*south;
+	t_texture	*east;
+	t_texture	*west;
 	t_texture	*sky;
 	t_texture	*portal_gun;
+	char		*floor_color;
+	char		*ceiling_color;
 }				t_textures;
 
 #endif

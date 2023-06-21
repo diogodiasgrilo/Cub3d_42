@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/14 16:37:50 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:52:14 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include "layout.h"
 # include "game.h"
-# include "check.h"
+# include "parsed.h"
 # include "errors.h"
 # include "colors.h"
 # include "textures.h"
@@ -110,13 +110,14 @@ void			*create_player(void *mlx);
 void			draw_line(t_gfx_line line);
 int				ft_input(int key, void *param);
 int				ft_input(int key, void *param);
+int				find_biggest_column(char **map);
 int				ft_release(int key, void *param);
 void			handle_angles(t_game *g, int key);
 void    		determine_color (t_put_on_screen *sc);
+void			create_rows(t_image_creator *ic, char **map);
 t_image_creator	create_image(void *mlx, t_lay lay, char **map);
 void			draw_map(t_image_creator *ic, t_lay *lay, char **map);
-void			create_rows(t_image_creator *ic, t_lay lay, char **map);
-void			*create_floor(t_game *g, t_put_on_screen proj, int i);
+void			*create_floor_sky(t_game *g, t_put_on_screen proj, int i);
 void			put_pixel(t_image_creator *image, int x, int y, int color);
 void			my_mlx_pixel_put(t_image_creator *data, float x, float y, int color);
 void			mlx_clear_image (t_image_creator *data, int color, int width, int height);
