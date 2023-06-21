@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 11:54:15 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:56:52 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,16 @@ int		check_top_bottom_row(char **map, int *y, int x)
 	return (EXIT_SUCCESS);
 }
 
-int		check_walls(char **map)
+int		check_walls(char **map, t_lay *lay)
 {
 	int	y;
 	int	x;
-	int num_row;
 	
 	y = 0;
 	x = 0;
 	if (check_top_bottom_row(map, &y, x))
 		return (EXIT_FAILURE);
-	num_row = count_rows(map);
-	while (y < num_row - 1)
+	while (y < lay->n_row - 1)
 	{
 		x = -1;
 		while (map[y][++x])
@@ -67,7 +65,7 @@ char	**check_map(int fd, t_lay *lay)
 	*lay = ft_newlayout(lay->map_first_line);
 	ft_readlayout(fd, &map_err, lay, &map_str);
 	map = ft_split(map_str, '\n');
-	if (check_walls(map))
+	if (check_walls(map, lay))
 		map_err.inv_borders = 1;
 	ft_print_map_error(&map_err, &map_str);
 	free(map_str);
