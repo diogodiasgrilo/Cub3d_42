@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:44:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 15:55:47 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:44:43 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	insert_value(t_map_errors *errors, char *line, char *check, int i)
 	test = open(trim_line, O_RDONLY);
 	if (test < 0 && color_or_texture > 1)
 		return (EXIT_FAILURE);
-	else
+	else if (test > -1)
 		close(test);
 	if (find_type(errors, trim_line, check))
 		return (EXIT_FAILURE);
