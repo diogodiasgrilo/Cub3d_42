@@ -6,35 +6,11 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 21:51:16 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/12 19:35:46 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:02:25 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/raycasting.h"
-
-void    determine_color (t_put_on_screen        *sc)
-{
-	t_determine_color dc;
-	
-    dc.max_distance = 0.0f;
-    dc.min_distance = 200.0f;
-    dc.height = 0.0f;
-    sc->color = 0xFFFFFF;
-    if (sc->proj_height > dc.min_distance) {
-        dc.height = dc.min_distance;
-    } else if (sc->proj_height < dc.max_distance) {
-        dc.height = dc.max_distance;
-    }
-    else
-        dc.height = sc->proj_height;
-    dc.ratio = (dc.height - dc.min_distance) / (dc.max_distance - dc.min_distance);
-    dc.white = 0xFFFFFF;
-    dc.grey = 0x808080;
-    dc.red = (int)(((dc.white >> 16) & 0xFF) * (1.0f - dc.ratio) + ((dc.grey >> 16) & 0xFF) * dc.ratio);
-    dc.green = (int)(((dc.white >> 8) & 0xFF) * (1.0f - dc.ratio) + ((dc.grey >> 8) & 0xFF) * dc.ratio);
-    dc.blue = (int)((dc.white & 0xFF) * (1.0f - dc.ratio) + (dc.grey & 0xFF) * dc.ratio);
-    sc->color = (dc.red << 16) | (dc.green << 8) | dc.blue;
-}
 
 void	create_player_rows(t_image_creator *ic, int ratio)
 {
@@ -62,9 +38,9 @@ void	*create_player(void *mlx)
 	return (ic.img);
 }
 
-void	create_rows(t_image_creator *ic, t_lay lay, char **map)
+void	create_rows(t_image_creator *ic, char **map)
 {
-	while (ic->x < lay.n_col * MAP_SIZE)
+	while (ic->x < ft_strlen(map[ic->y / MAP_SIZE]) * MAP_SIZE)
 	{
 		ic->pix_index = (ic->x * ic->bpp / 8) + (ic->y * ic->size_line);
 		if (map[ic->y / MAP_SIZE][ic->x / MAP_SIZE] == '1')
@@ -76,14 +52,32 @@ void	create_rows(t_image_creator *ic, t_lay lay, char **map)
 	}
 }
 
+int	find_biggest_column(char **map)
+{
+	int	i;
+	int	biggest_column;
+
+	i = 0;
+	biggest_column = 0;
+	while (map[i])
+	{
+		if (ft_strlen(map[i]) > biggest_column)
+			biggest_column = ft_strlen(map[i]);
+		i++;
+	}
+	return (biggest_column);
+}
+
 t_image_creator	create_image(void *mlx, t_lay lay, char **map)
 {
 	t_image_creator	ic;
+	int				biggest_column;
 
-	ic.img = mlx_new_image(mlx, lay.n_col * MAP_SIZE, lay.n_row * MAP_SIZE);
+	biggest_column = find_biggest_column(map);
+	ic.img = mlx_new_image(mlx, biggest_column * MAP_SIZE, lay.n_row * MAP_SIZE);
 	ic.data = mlx_get_data_addr(ic.img, &ic.bpp, &ic.size_line, &ic.endian);
-	ic.width = lay.n_col * MAP_SIZE;
+	ic.width = biggest_column * MAP_SIZE;
 	ic.height = lay.n_row * MAP_SIZE;
-	draw_map(&ic, &lay, map);
+	// draw_map(&ic, &lay, map);
 	return (ic);
 }

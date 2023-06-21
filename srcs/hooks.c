@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/14 16:30:08 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:55:18 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	finalize_directions(t_handle_directions *direc, t_game *g)
 {
 	direc->npx = g->px + direc->ndx * 0.1;
 	direc->npy = g->py + direc->ndy * 0.1;
-	if (direc->npx >= g->lay->n_col || direc->npy >= g->lay->n_col \
+	if (direc->npx >= find_biggest_column(g->map) || direc->npy >= find_biggest_column(g->map) \
 		|| direc->npx < 0 || direc->npy < 0 || \
 		g->map[(int)direc->npy][(int)direc->npx] == '1')
 		return ;

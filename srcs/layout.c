@@ -6,13 +6,13 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:28:07 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/09 19:22:48 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:05:23 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/raycasting.h"
 
-t_lay	ft_newlayout(void)
+t_lay	ft_newlayout(char *map_first_line)
 {
 	t_lay	lay;
 
@@ -20,6 +20,7 @@ t_lay	ft_newlayout(void)
 	lay.n_col = 0;
 	lay.n_pl = 0;
 	lay.n_collect = 0;
+	lay.map_first_line = map_first_line;
 	return (lay);
 }
 
@@ -50,37 +51,39 @@ void	ft_readlayout(int fd, t_err *map_err, t_lay *lay, char **map_str)
 	last_line = NULL;
 	while (1)
 	{
-		line = get_next_line(fd);
+		if (lay->map_first_line)
+		{
+			line = lay->map_first_line;
+			lay->map_first_line = NULL;
+		}
+		else
+			line = get_next_line(fd);
 		if (!line)
 		{
 			if (!lay->n_col)
 				empty_map(line, last_line, map_str);
 			else
-				ft_checklayout(last_line, map_err, lay, 1);
+				ft_checklayout(last_line, map_err, lay);
 			free(last_line);
 			break ;
 		}
 		free(last_line);
-		if (ft_checklayout(line, map_err, lay, !lay->n_row))
+		// change_spaces_to_ones(&line);
+		if (ft_checklayout(line, map_err, lay))
 			invalid_char(map_err, map_str, line);
 		last_line = ft_substr(line, 0, ft_strlen(line));
 		*map_str = ft_strenlarge(*map_str, line);
 		lay->n_row++;
 		free(line);
 	}
+	free(lay->map_first_line);
+	close(fd);
 }
 
-int	ft_checklayout(char *line, t_err *map_err, t_lay *lay, int is_last)
+int	ft_checklayout(char *line, t_err *map_err, t_lay *lay)
 {
 	if (!lay->n_col)
 		lay->n_col = ft_strlen(line) - 1;
-	if (lay->n_col && ((lay->n_col != (int)ft_strlen(line) - 1 && \
-			ft_strchr(line, '\n')) || (lay->n_col != (int)ft_strlen(line) && \
-			!ft_strchr(line, '\n'))))
-		map_err->inv_rowlen = 1;
-	if (line[0] != '1' || line[lay->n_col - 1] != '1' || \
-			(ft_countchar(line, '1') != lay->n_col && is_last))
-		map_err->inv_borders = 1;
 	lay->n_pl += ft_countchar(line, 'N');
 	lay->n_pl += ft_countchar(line, 'S');
 	lay->n_pl += ft_countchar(line, 'E');
@@ -88,7 +91,7 @@ int	ft_checklayout(char *line, t_err *map_err, t_lay *lay, int is_last)
 	lay->n_gh += ft_countchar(line, 'G');
 	map_err->inv_n_players = (lay->n_pl < 1 || lay->n_pl > 1);
 	while (line && *line)
-		if (!ft_strchr("01NSEW\n", *(line++)))
+		if (!ft_strchr("01NSEW \n", *(line++)))
 			return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/14 16:42:13 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/20 20:56:14 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	draw_map(t_image_creator *ic, t_lay *lay, char **map)
 	while (ic->y < lay->n_row * MAP_SIZE)
 	{
 		ic->x = 0;
-		create_rows(ic, *lay, map);
+		create_rows(ic, map);
 		ic->y++;
 	}
 }
@@ -109,7 +109,7 @@ void	draw_rays(t_game *g)
 	i = -1;
 	g->ray_angle = g->pa - HALF_FOV + 0.0001;
 	mlx_clear_image(&g->scene, 0xFF000000, WIDTH, HEIGHT);
-	mlx_clear_image(&g->map_buffer, 0xFF000000, g->lay->n_col * MAP_SIZE, g->lay->n_row * MAP_SIZE);
+	mlx_clear_image(&g->map_buffer, 0xFF000000, find_biggest_column(g->map) * MAP_SIZE, g->lay->n_row * MAP_SIZE);
 	draw_map(&g->map_buffer, g->lay, g->map);
 	g->x_map = (int)g->px;
 	g->y_map = (int)g->py;
@@ -142,11 +142,13 @@ void	draw_rays(t_game *g)
 		j = -1;
 		while (++j < WIDTH * 5)
 		{ 
-			if (g->y_hor >= g->lay->n_row || g->x_hor >= g->lay->n_col || \
+			if (g->y_hor >= g->lay->n_row || g->x_hor >= \
+				ft_strlen(g->map[(int)g->y_hor]) || \
 				g->y_hor < 0 || g->x_hor < 0 || \
-				g->map[(int)g->y_hor][(int)g->x_hor] == '1')
+				((int)g->x_hor < ft_strlen(g->map[(int)g->y_hor]) \
+				&& g->map[(int)g->y_hor][(int)g->x_hor] == '1'))
 			{
-				g->textures->texture_hor = g->textures->vwall;
+				g->textures->texture_hor = g->textures->south;
 				break ;
 			}
 			g->x_hor += g->dx;
@@ -173,11 +175,13 @@ void	draw_rays(t_game *g)
 		j = -1;
 		while (++j < WIDTH * 5)
 		{
-			if (g->y_vert >= g->lay->n_row || g->x_vert >= g->lay->n_col \
+			if (g->y_vert >= g->lay->n_row || ((int)g->y_vert > 0 && \
+				g->x_vert >= ft_strlen(g->map[(int)g->y_vert])) \
 				|| g->y_vert < 0 || g->x_vert < 0 || \
-				g->map[(int)g->y_vert][(int)g->x_vert] == '1')
+				((int)g->x_vert < ft_strlen(g->map[(int)g->y_vert]) \
+				&& g->map[(int)g->y_vert][(int)g->x_vert] == '1'))
 			{
-				g->textures->texture_vert = g->textures->vwall;
+				g->textures->texture_vert = g->textures->south;
 				break ;
 			}
 			g->x_vert += g->dx;
@@ -195,12 +199,12 @@ void	draw_rays(t_game *g)
 			if (g->cos_a > 0)
 			{
 				g->textures->offset = g->y_vert;
-				texture = g->textures->piping;
+				texture = g->textures->west;
 			}
 			else
 			{
 				g->textures->offset = 1 - g->y_vert;	
-				texture = g->textures->port;
+				texture = g->textures->east;
 			}		
 		}
 		else
@@ -211,12 +215,12 @@ void	draw_rays(t_game *g)
 			if (g->sin_a > 0)
 			{
 				g->textures->offset = 1 - g->x_hor;
-				texture = g->textures->gate;
+				texture = g->textures->north;
 			}
 			else
 			{
 				g->textures->offset = g->x_hor;
-				texture = g->textures->vwall;
+				texture = g->textures->south;
 			}
 		}
 		draw_line((t_gfx_line){
@@ -244,7 +248,7 @@ void	draw_rays(t_game *g)
 			put_pixel(&g->scene, i, proj.y, proj.color);
 			proj.y++;
 		}
-		create_floor(g, proj, i);
+		create_floor_sky(g, proj, i);
 		g->ray_angle += DELTA_ANGLE;
 	}
 	put_portal_gun(g);
