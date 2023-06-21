@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 13:56:52 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 14:07:21 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int		check_top_bottom_row(char **map, int *y, int x)
 	
 	while (map[*y][x] && map[*y][x] == 32)
 		x++;
+	if (!map[*y][x])
+		return (EXIT_FAILURE);
 	while (map[*y][x] && (map[*y][x] == '1' || map[*y][x] == 32))
 		x++;
 	if (map[*y][x])
