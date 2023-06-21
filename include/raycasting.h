@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:29:09 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:48:18 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,28 @@
 # include "textures.h"
 # include <mlx.h>
 # include <libft.h>
+
+/* t_settings settings(void)
+{
+	static t_settings var;
+
+	var.PI = PI;
+	var.HALF_PI = PI / 2;
+	var.DR = DR;
+	var.WIDTH = WIDTH;
+	var.HEIGHT = HEIGHT;
+	var.FOV = PI / 3;
+	var.HALF_FOV = FOV / 2;
+	var.NUM_RAYS = WIDTH;
+	var.HALF_NUM_RAYS = floor(NUM_RAYS / 2);
+	var.DELTA_ANGLE = FOV / NUM_RAYS;
+	var.HALF_WIDTH = floor(WIDTH / 2);
+	var.HALF_HEIGHT = floor(HEIGHT / 2);
+	var.SCREEN_DIST = HALF_WIDTH / tan(HALF_FOV);
+	var.SCALE = floor(WIDTH / NUM_RAYS);
+	var.WALL_HEIGHT = WALL_HEIGHT;
+	var.MAP_SIZE = MAP_SIZE;
+} */
 
 # define PI					3.1415926535
 # define HALF_PI			PI / 2
