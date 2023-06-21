@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 21:51:16 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 17:13:09 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:57:38 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ t_image_creator	create_image(void *mlx, t_lay lay, char **map)
 	int				biggest_column;
 
 	biggest_column = find_biggest_column(map);
-	ic.img = mlx_new_image(mlx, biggest_column * settings()->map_size, lay.n_row * settings()->map_size);
+	ic.img = mlx_new_image(mlx, biggest_column * settings()->map_size, \
+		lay.n_row * settings()->map_size);
 	ic.data = mlx_get_data_addr(ic.img, &ic.bpp, &ic.size_line, &ic.endian);
 	ic.width = biggest_column * settings()->map_size;
 	ic.height = lay.n_row * settings()->map_size;
-	// draw_map(&ic, &lay, map);
 	return (ic);
 }

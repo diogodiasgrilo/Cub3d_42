@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 17:16:30 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:56:57 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,25 +105,32 @@ typedef struct s_put_on_screen
 	float	proj_height;
 }				t_put_on_screen;
 
+t_game			*get_game(void);
+int				on_new_frame(void);
 void			put_sky(t_game *g);
 void			draw_rays(t_game *g);
+void			draw_rect(t_gfx_rect rect);
 void			put_portal_gun(t_game *g);
 void			*create_player(void *mlx);
 void			draw_line(t_gfx_line line);
+void			do_for_each_ray(t_game *g);
 int				ft_input(int key, void *param);
 int				ft_input(int key, void *param);
 int				find_biggest_column(char **map);
-int				ft_release(int key, void *param);
 void			handle_angles(t_game *g, int key);
+void			draw_whole_image_again(t_game *g);
 void			determine_color(t_put_on_screen *sc);
 void			create_rows(t_image_creator *ic, char **map);
 t_image_creator	create_image(void *mlx, t_lay lay, char **map);
 void			draw_map(t_image_creator *ic, t_lay *lay, char **map);
 void			*create_floor_sky(t_game *g, t_put_on_screen proj, int i);
 void			put_pixel(t_image_creator *image, int x, int y, int color);
+void			create_image_on_screen(t_texture	*texture, t_game *g, int i);
 void			my_mlx_pixel_put(t_image_creator *data, float x, float y, int color);
 void			mlx_clear_image(t_image_creator *data, int color, int width, int height);
 int				on_new_frame(void);
 t_game			*get_game(void);
+void			assign_pixel_color_and_put(t_put_on_screen *prog, t_game *g, \
+					t_texture *texture, int i);
 
 #endif

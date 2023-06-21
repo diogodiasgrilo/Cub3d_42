@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:03:46 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:01:14 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:45:40 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "raycasting.h"
 # include "textures.h"
 # include "parsed.h"
+# include "stdlib.h"
 
 typedef struct s_image_creator
 {
@@ -67,7 +68,6 @@ typedef struct s_game
 	char		**map;
 	float		prev_height;
 	int			direction;
-	int			keys[6];
 	t_textures	*textures;
 	double		sky_offset_x;
 	t_map_errors	*parsed;
@@ -85,12 +85,16 @@ typedef struct s_handle_directions
 	float	ry;
 }				t_handle_directions;
 
+void			on_mouse_move(float dir);
 int				free_map_exit(void *game);
+void			find_angle_direction(t_game *g);
 void			free_parsed(t_map_errors *parsed);
 void			check_parsed(t_map_errors *parsed);
 void			find_player(t_game *g, char **map);
 void			ft_newgame(t_game *g, char **m, t_lay *lay);
 void			load_textures(t_game *g, t_map_errors *parsed);
+int				check_hitbox(t_game *g, t_handle_directions *direc);
 void			start_game(char **map, t_lay lay, t_map_errors *parsed);
+void			change_directions(float *newx, float *newy, float oldx, float oldy);
 
 #endif

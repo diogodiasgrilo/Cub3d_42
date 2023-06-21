@@ -6,11 +6,29 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:41:56 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/20 16:11:42 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:23:52 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/raycasting.h"
+
+int	free_map_exit(void *game)
+{
+	int		i;
+	t_game	*g;
+
+	i = -1;
+	g = (t_game *)game;
+	mlx_loop_end(g->id);
+	while (g->map[++i])
+		free(g->map[i]);
+	free(g->map);
+	mlx_destroy_image(g->id, g->player);
+	mlx_destroy_window(g->id, g->w_id);
+	mlx_destroy_display(g->id);
+	free(g->id);
+	exit(0);
+}
 
 void	free_parsed(t_map_errors *parsed)
 {

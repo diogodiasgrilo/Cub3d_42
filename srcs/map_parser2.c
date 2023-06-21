@@ -6,16 +6,16 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:06:51 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 11:04:22 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 16:16:24 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/raycasting.h"
 
-t_map_errors	*init_parser()
+t_map_errors	*init_parser(void)
 {
-	t_map_errors *errors;
-	
+	t_map_errors	*errors;
+
 	errors = (t_map_errors *)malloc(sizeof(t_map_errors));
 	errors->inv_north = -1;
 	errors->inv_south = -1;
@@ -36,9 +36,9 @@ void	inset_file(int *add_direc, char **dest, char*origin)
 	*dest = ft_strdup(origin);
 }
 
-int find_color(char *origin, int i, int *grand_total)
+int	find_color(char *origin, int i, int *grand_total)
 {
-	int total;
+	int	total;
 
 	total = 0;
 	while (origin[i])
@@ -60,18 +60,18 @@ int find_color(char *origin, int i, int *grand_total)
 			break ;
 		i++;
 	}
-    return (EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }
 
 void	inset_color(int *add_color, int *dest, char*origin)
 {
 	int	i;
 	int	grand_total;
-	
+
 	i = 0;
 	grand_total = 0;
 	if (find_color(origin, i, &grand_total) == EXIT_FAILURE)
-        return ;
+		return ;
 	*add_color += 1;
 	*dest = grand_total;
 }

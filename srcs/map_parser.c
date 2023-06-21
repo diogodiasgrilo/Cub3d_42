@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:44:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:17:11 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:55:47 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	find_type(t_map_errors *errors, char *trim_line, char *check)
 
 int	insert_value(t_map_errors *errors, char *line, char *check, int i)
 {
-	int test;
-	int	color_or_texture;
-	char *trim_line;
+	int		test;
+	int		color_or_texture;
+	char	*trim_line;
 
 	color_or_texture = 0;
 	while (line[i + color_or_texture] && line[i + color_or_texture] != 32)
@@ -61,7 +61,7 @@ int	line_check(char **line, t_map_errors *errors)
 	int	i;
 
 	if (*line)
-			free(*line);
+		free(*line);
 	*line = get_next_line(errors->current_fd);
 	if (!*line)
 		return (EXIT_FAILURE);
@@ -69,25 +69,30 @@ int	line_check(char **line, t_map_errors *errors)
 	while ((*line)[i] && ((*line)[i] == 32 || (*line)[i] == '\t'))
 		i++;
 	if ((*line)[i] == '\n' || (*line)[i] == '\0' ||
-		(ft_strncmp(*line + i, "NO ", 3) == 0 && insert_value(errors, *line, "NO", i) != EXIT_FAILURE) ||
-		(ft_strncmp(*line + i, "SO ", 3) == 0 && insert_value(errors, *line, "SO", i) != EXIT_FAILURE) ||
-		(ft_strncmp(*line + i, "WE ", 3) == 0 && insert_value(errors, *line, "WE", i) != EXIT_FAILURE) ||
-		(ft_strncmp(*line + i, "EA ", 3) == 0 && insert_value(errors, *line, "EA", i) != EXIT_FAILURE) ||
-		(ft_strncmp(*line + i, "F ", 2) == 0 && insert_value(errors, *line, "F", i) != EXIT_FAILURE) ||
-		(ft_strncmp(*line + i, "C ", 2) == 0 && insert_value(errors, *line, "C", i) != EXIT_FAILURE))
+		(ft_strncmp(*line + i, "NO ", 3) == 0 && \
+		insert_value(errors, *line, "NO", i) != EXIT_FAILURE) ||
+		(ft_strncmp(*line + i, "SO ", 3) == 0 && \
+		insert_value(errors, *line, "SO", i) != EXIT_FAILURE) ||
+		(ft_strncmp(*line + i, "WE ", 3) == 0 && \
+		insert_value(errors, *line, "WE", i) != EXIT_FAILURE) ||
+		(ft_strncmp(*line + i, "EA ", 3) == 0 && \
+		insert_value(errors, *line, "EA", i) != EXIT_FAILURE) ||
+		(ft_strncmp(*line + i, "F ", 2) == 0 && \
+		insert_value(errors, *line, "F", i) != EXIT_FAILURE) ||
+		(ft_strncmp(*line + i, "C ", 2) == 0 && \
+		insert_value(errors, *line, "C", i) != EXIT_FAILURE))
 		return (EXIT_SUCCESS);
-	else
-		return (EXIT_FAILURE);
+	return (EXIT_FAILURE);
 }
 
-t_map_errors *map_parser(char *file)
+t_map_errors	*map_parser(char *file)
 {
-    char    	*line;
-	t_map_errors *errors;
+	char			*line;
+	t_map_errors	*errors;
 
 	line = NULL;
 	errors = init_parser();
-    errors->current_fd = open(file, O_RDONLY);
+	errors->current_fd = open(file, O_RDONLY);
 	if (errors->current_fd < 0)
 		return (NULL);
 	while (1)

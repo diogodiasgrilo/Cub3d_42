@@ -9,8 +9,8 @@ VECTORS_SRC_FILES = vectors/2/float/vec2.c vectors/2/float/vec2_1.c vectors/2/fl
 					vectors/2/integer/vec2.c vectors/2/integer/vec2_1.c vectors/2/integer/vec2_2.c \
 					vectors/3/vec3.c vectors/3/vec3_1.c vectors/3/vec3_2.c
 GFX_SRC_FILES =		gfx.c
-OTHER_SRC_FILES =	settings.c check_par_map.c check_par_map2.c create_objects.c create_objects2.c drawing.c errors.c \
-					game.c hooks.c layout.c main.c map_parser.c map_parser2.c my_mlx.c textures.c
+OTHER_SRC_FILES =	settings.c check_par_map.c check_par_map2.c create_objects.c create_objects2.c drawing.c drawing2.c drawing3.c prepare_game.c \
+					drawing4.c errors.c game.c hooks.c hooks2.c layout.c layout2.c main.c map_parser.c map_parser2.c my_mlx.c textures.c textures2.c
 SRC_FILES =  $(OTHER_SRC_FILES)# $(VECTORS_SRC_FILES) $(SPRITES_SRC_FILES) $(GFX_SRC_FILES)
 
 SRCS = $(addprefix $(SRC_PATH)/, $(SRC_FILES))

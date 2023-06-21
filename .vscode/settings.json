@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "textures.h": "c",
+        "raycasting.h": "c",
+        "array": "c",
+        "vector": "c"
+    }
+}

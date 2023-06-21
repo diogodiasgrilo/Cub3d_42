@@ -6,99 +6,16 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 17:16:13 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:00:03 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/raycasting.h"
 
-int	free_map_exit(void *game)
-{
-	int		i;
-	t_game	*g;
-
-	i = -1;
-	g = (t_game *)game;
-	mlx_loop_end(g->id);
-	while (g->map[++i])
-		free(g->map[i]);
-	free(g->map);
-	mlx_destroy_image(g->id, g->player);
-	mlx_destroy_window(g->id, g->w_id);
-	mlx_destroy_display(g->id);
-	free(g->id);
-	exit(0);
-}
-
-void	handle_angles(t_game *g, int key)
-{
-	if (key == 65363)
-	{
-		g->keys[5] = 1;
-		g->pa += PI / 12;
-		if (g->pa > 2 * PI)
-			g->pa = fmod(g->pa, 2 * PI);
-		g->pdx = cos(g->pa);
-		g->pdy = sin(g->pa);
-		g->sky_offset_x += 180;
-	}
-	else if (key == 65361)
-	{
-		g->keys[4] = 1;
-		g->pa -= PI / 12;
-		if (g->pa < 0)
-			g->pa = 2 * PI + g->pa;
-		g->pdx = cos(g->pa);
-		g->pdy = sin(g->pa);
-		g->sky_offset_x -= 180;
-	}
-}
-
-void	change_directions(float *newx, float *newy, float oldx, float oldy)
-{
-	*newx = oldx;
-	*newy = oldy;
-}
-
-bool	check_hitbox_point(t_game *g, float angle)
-{
-	int		pos[2];
-
-	pos[0] = g->px + cos(angle) * 0.15;
-	pos[1] = g->py + sin(angle) * 0.15;
-
-	return (\
-		pos[0] >= find_biggest_column(g->map) || \
-		pos[1] >= find_biggest_column(g->map) || \
-		pos[0] < 0 || pos[1] < 0 || \
-		g->map[(int)floor(pos[1])][(int)floor(pos[0])] == '1' \
-	);
-}
-
-
-
-bool	check_hitbox(t_game *g, t_handle_directions *direc)
-{
-	float	angle;
-
-	angle = atan2(direc->ndy, direc->ndx);
-
-	if (check_hitbox_point(g, angle))
-		return (true);
-	angle += PI / 4;
-	if (check_hitbox_point(g, angle))
-		return (true);
-	angle -= PI / 2;
-	if (check_hitbox_point(g, angle))
-		return (true);
-	return (false);
-}
-
 void	finalize_directions(t_handle_directions *direc, t_game *g)
 {
 	direc->npx = g->px + direc->ndx * 0.1;
 	direc->npy = g->py + direc->ndy * 0.1;
-
 	if (check_hitbox(g, direc))
 		return ;
 	g->px = direc->npx;
@@ -107,7 +24,7 @@ void	finalize_directions(t_handle_directions *direc, t_game *g)
 
 void	handle_directions(t_game *g, char dir)
 {
-	t_handle_directions direc;
+	t_handle_directions	direc;
 
 	direc.fx = g->pdx;
 	direc.fy = g->pdy;
@@ -142,65 +59,16 @@ int	ft_input(int key, void *param)
 	if (key == 65363 || key == 65361)
 		handle_angles(g, key);
 	else if (key == 119)
-	{
-		g->keys[0] = 1;
 		handle_directions(g, 'f');
-	}
 	else if (key == 115)
-	{
-		g->keys[1] = 1;
 		handle_directions(g, 'b');
-	}
 	else if (key == 97)
-	{
-		g->keys[2] = 1;
 		handle_directions(g, 'l');
-	}
 	else if (key == 100)
-	{
-		g->keys[3] = 1;
 		handle_directions(g, 'r');
-	}
 	else if (key == 65307)
 		exit(0);
 	return (0);
-}
-
-int	ft_release(int key, void *param)
-{
-	t_game	*g;
-
-	g = (t_game *)param;
-	if (key == 65363)
-		g->keys[5] = 0;
-	else if (key == 65361)
-		g->keys[4] = 0;
-	else if (key == 119)
-		g->keys[0] = 0;
-	else if (key == 115)
-		g->keys[1] = 0;
-	else if (key == 97)
-		g->keys[2] = 0;
-	else if (key == 100)
-		g->keys[3] = 0;
-	return (0);
-}
-
-static void	on_mouse_move(float dir)
-{
-	t_game	*game;
-
-	game = get_game();
-	if (!game)
-		return ;
-	game->pa += dir * settings()->player_camera_speed;
-	if (game->pa < 0)
-		game->pa = 2 * PI;
-	else if (game->pa > 2 * PI)
-		game->pa -= game->pa;
-	game->sky_offset_x = fmodf(game->sky_offset_x + 4.5 * (dir * settings()->player_camera_speed), settings()->width) * 1.1;
-	game->pdx = cos(game->pa) + 0.0001;
-	game->pdy = sin(game->pa) + 0.0001;
 }
 
 int	on_new_frame(void)
