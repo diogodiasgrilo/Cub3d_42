@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   my_mlx.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:17:36 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/07 17:17:54 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:16:13 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void	my_mlx_pixel_put(t_image_creator *data, float x, float y, int color)
 	x_i = x;
 	y_i = y;
 
-	if (x_i >= 0 && x_i < WIDTH && y_i >= 0 && y_i < HEIGHT)
+	if (x_i >= 0 && x_i < settings()->width && y_i >= 0 && y_i < settings()->height)
 		(*(unsigned int*)(data->data + ((y_i * data->size_line) + (x_i * (data->bpp / 8))))) = color;
-	
+
 }
 
 void	mlx_clear_image (t_image_creator *data, int color, int width, int height)

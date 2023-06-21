@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 13:27:26 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:16:13 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,12 +193,12 @@ static void	on_mouse_move(float dir)
 	game = get_game();
 	if (!game)
 		return ;
-	game->pa += dir * PLAYER_CAMERA_SPEED;
+	game->pa += dir * settings()->player_camera_speed;
 	if (game->pa < 0)
 		game->pa = 2 * PI;
 	else if (game->pa > 2 * PI)
 		game->pa -= game->pa;
-	game->sky_offset_x = fmodf(game->sky_offset_x + 4.5 * (dir * PLAYER_CAMERA_SPEED), WIDTH) * 1.1;
+	game->sky_offset_x = fmodf(game->sky_offset_x + 4.5 * (dir * settings()->player_camera_speed), settings()->width) * 1.1;
 	game->pdx = cos(game->pa) + 0.0001;
 	game->pdy = sin(game->pa) + 0.0001;
 }
@@ -214,10 +214,10 @@ int	on_new_frame(void)
 		return (0);
 	mlx_mouse_hide(game->id, game->w_id);
 	mlx_mouse_get_pos(game->id, game->w_id, &mx, &my);
-	if (mx < MOUSE_SAFE_AREA_LEFT || mx > MOUSE_SAFE_AREA_RIGHT)
-		mlx_mouse_move(game->id, game->w_id, HALF_WIDTH, HALF_HEIGHT);
-	else if (fabs(mx - HALF_WIDTH) > MOUSE_SENSITIVITY)
-		on_mouse_move((mx - HALF_WIDTH) / (float)(HALF_WIDTH));
+	if (mx < settings()->mouse_safe_area_left || mx > settings()->mouse_safe_area_right)
+		mlx_mouse_move(game->id, game->w_id, settings()->half_width, settings()->half_height);
+	else if (fabs(mx - settings()->half_width) > settings()->mouse_sensitivity)
+		on_mouse_move((mx - settings()->half_width) / (float)(settings()->half_width));
 	draw_rays(game);
 	return (0);
 }

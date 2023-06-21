@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:02:37 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:16:13 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ void	start_game(char **map, t_lay lay, t_map_errors *parsed)
 	g->sky_offset_x = 0;
 	g->id = mlx_init();
 	load_textures(g, parsed);
-	g->w_id = mlx_new_window(g->id, WIDTH, HEIGHT,
+	g->w_id = mlx_new_window(g->id, settings()->width, settings()->height,
 			"Raycaster");
-	g->scene.img = mlx_new_image(g->id, WIDTH * 2, HEIGHT * 2);
+	g->scene.img = mlx_new_image(g->id, settings()->width * 2, settings()->height * 2);
 	g->scene.data = mlx_get_data_addr(g->scene.img, &g->scene.bpp,
 			&g->scene.size_line, &g->scene.endian);
-	g->scene.width = WIDTH * 2;
-	g->scene.height = HEIGHT * 2;
+	g->scene.width = settings()->width * 2;
+	g->scene.height = settings()->height * 2;
 	g->demo_tex.img = mlx_xpm_file_to_image(g->id, "textures/demo.xpm",
 			&g->demo_tex.width, &g->demo_tex.height);
 	g->demo_tex.data = mlx_get_data_addr(g->demo_tex.img, &g->demo_tex.bpp,
@@ -59,9 +59,9 @@ void	start_game(char **map, t_lay lay, t_map_errors *parsed)
 	ft_newgame(g, map, &lay);
 	find_player(g, map);
 	mlx_put_image_to_window(g->id, g->w_id, g->player, \
-		g->px * MAP_SIZE, g->py * MAP_SIZE);
-	g->pdx = (cos(g->pa) * MAP_SIZE);
-	g->pdy = (sin(g->pa) * MAP_SIZE);
+		g->px * settings()->map_size, g->py * settings()->map_size);
+	g->pdx = (cos(g->pa) * settings()->map_size);
+	g->pdy = (sin(g->pa) * settings()->map_size);
 	find_angle_direction(g);
 	g->pdx = cos(g->pa);
 	g->pdy = sin(g->pa);

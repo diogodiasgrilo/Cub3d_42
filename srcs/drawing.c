@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 13:02:01 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:19:00 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	draw_line(t_gfx_line line)
 void	draw_map(t_image_creator *ic, t_lay *lay, char **map)
 {
 	ic->y = 0;
-	while (ic->y < lay->n_row * MAP_SIZE)
+	while (ic->y < lay->n_row * settings()->map_size)
 	{
 		ic->x = 0;
 		create_rows(ic, map);
@@ -107,13 +107,13 @@ void	draw_rays(t_game *g)
 	int			j;
 
 	i = -1;
-	g->ray_angle = g->pa - HALF_FOV + 0.0001;
-	mlx_clear_image(&g->scene, 0xFF000000, WIDTH, HEIGHT);
-	mlx_clear_image(&g->map_buffer, 0xFF000000, find_biggest_column(g->map) * MAP_SIZE, g->lay->n_row * MAP_SIZE);
+	g->ray_angle = g->pa - settings()->half_fov + 0.0001;
+	mlx_clear_image(&g->scene, 0xFF000000, settings()->width, settings()->height);
+	mlx_clear_image(&g->map_buffer, 0xFF000000, find_biggest_column(g->map) * settings()->map_size, g->lay->n_row * settings()->map_size);
 	draw_map(&g->map_buffer, g->lay, g->map);
 	g->x_map = (int)g->px;
 	g->y_map = (int)g->py;
-	while (++i < NUM_RAYS)
+	while (++i < settings()->num_rays)
 	{
 		g->x_hor = g->px;
 		g->y_hor = g->py;
@@ -139,7 +139,7 @@ void	draw_rays(t_game *g)
 		g->dx = g->delta_depth * g->cos_a;
 
 		j = -1;
-		while (++j < WIDTH * 5)
+		while (++j < settings()->width * 5)
 		{
 			if (g->y_hor >= g->lay->n_row || g->x_hor >= \
 				(int)ft_strlen(g->map[(int)g->y_hor]) || \
@@ -172,7 +172,7 @@ void	draw_rays(t_game *g)
 		g->dy = g->delta_depth * g->sin_a;
 
 		j = -1;
-		while (++j < WIDTH * 5)
+		while (++j < settings()->width * 5)
 		{
 			if (g->y_vert >= g->lay->n_row || ((int)g->y_vert > 0 && \
 				g->x_vert >= (int)ft_strlen(g->map[(int)g->y_vert])) \
@@ -224,11 +224,11 @@ void	draw_rays(t_game *g)
 		}
 		draw_line((t_gfx_line){
 			.buffer = &g->map_buffer,
-			.start_x = g->px * MAP_SIZE,
-			.start_y = g->py * MAP_SIZE,
+			.start_x = g->px * settings()->map_size,
+			.start_y = g->py * settings()->map_size,
 			.direction_x = g->cos_a,
 			.direction_y = g->sin_a,
-			.length = g->depth * MAP_SIZE,
+			.length = g->depth * settings()->map_size,
 			.color = 0xFFFFFFFF
 		});
 		g->depth *= cos(g->ray_angle - g->pa);
@@ -236,33 +236,33 @@ void	draw_rays(t_game *g)
 		t_put_on_screen	proj;
 
 		proj.color = 0xFFFFFFFF;
-		proj.proj_height = SCREEN_DIST / (g->depth + 0.0001);
-		// if (proj.proj_height > HEIGHT)
-			// proj.proj_height = HEIGHT;
-		proj.texture_y = (int)(g->textures->offset * (texture->height - SCALE));
-		proj.y = HALF_HEIGHT - (int)(proj.proj_height / 2);
-		proj.end_y = HALF_HEIGHT + (int)(proj.proj_height / 2);
+		proj.proj_height = settings()->screen_dist / (g->depth + 0.0001);
+		// if (proj.proj_height > settings()->height)
+			// proj.proj_height = settings()->height;
+		proj.texture_y = (int)(g->textures->offset * (texture->height - settings()->scale));
+		proj.y = settings()->half_height - (int)(proj.proj_height / 2);
+		proj.end_y = settings()->half_height + (int)(proj.proj_height / 2);
 		if (proj.y < 0)
 			proj.y = 0;
-		else if (proj.y >= HEIGHT)
-			proj.y = HEIGHT - 1;
+		else if (proj.y >= settings()->height)
+			proj.y = settings()->height - 1;
 		if (proj.end_y < 0)
 			proj.end_y = 0;
-		else if (proj.end_y >= HEIGHT)
-			proj.end_y = HEIGHT - 1;
+		else if (proj.end_y >= settings()->height)
+			proj.end_y = settings()->height - 1;
 		while (proj.y < proj.end_y)
 		{
-			proj.texture_x = (proj.y - (HALF_HEIGHT - (int)(proj.proj_height / 2))) * (texture->width - SCALE) / (int)proj.proj_height;
+			proj.texture_x = (proj.y - (settings()->half_height - (int)(proj.proj_height / 2))) * (texture->width - settings()->scale) / (int)proj.proj_height;
 			proj.color = (*(unsigned int*)(texture->data + ((proj.texture_x * texture->size_line) + (proj.texture_y * (texture->bpp / 8)))));
-			put_pixel(&g->scene, i * SCALE, proj.y, proj.color);
+			put_pixel(&g->scene, i * settings()->scale, proj.y, proj.color);
 			proj.y++;
 		}
-		create_floor_sky(g, proj, i * SCALE);
-		g->ray_angle += DELTA_ANGLE;
+		create_floor_sky(g, proj, i * settings()->scale);
+		g->ray_angle += settings()->delta_angle;
 	}
 	put_portal_gun(g);
 	mlx_put_image_to_window(g->id, g->w_id, g->scene.img, 0, 0);
 	mlx_put_image_to_window(g->id, g->w_id, g->map_buffer.img, 0, 0);
 	mlx_put_image_to_window(g->id, g->w_id, g->player, \
-		g->px * MAP_SIZE - HALF_PLAYER_SIZE, g->py * MAP_SIZE - HALF_PLAYER_SIZE);
+		g->px * settings()->map_size - settings()->half_player_size, g->py * settings()->map_size - settings()->half_player_size);
 }

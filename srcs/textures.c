@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 10:48:30 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 12:07:10 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:16:13 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void put_sky(t_game *g)
     int color;
 
     y = -1;
-    while (++y < HEIGHT / 2)
+    while (++y < settings()->height / 2)
     {
         x = -1;
-        while (++x < WIDTH)
+        while (++x < settings()->width)
         {
             sky_x = ((int)(x + g->sky_offset_x) % g->textures->sky->width \
 				+ g->textures->sky->width) % g->textures->sky->width;
-            sky_y = y * g->textures->sky->height / (HEIGHT / 1.5);
+            sky_y = y * g->textures->sky->height / (settings()->height / 1.5);
             color = *(int*)(g->textures->sky->data + sky_y * \
 				g->textures->sky->size_line + sky_x * g->textures->sky->bpp / 8);
             my_mlx_pixel_put(&g->scene, x, y, color);
@@ -47,8 +47,8 @@ void put_portal_gun(t_game *g)
 
     gun_width = g->textures->portal_gun->width;
     gun_height = g->textures->portal_gun->height;
-    x_start = WIDTH - gun_width / 1.7;
-    y_start = HEIGHT - gun_height / 1.1;
+    x_start = settings()->width - gun_width / 1.7;
+    y_start = settings()->height - gun_height / 1.1;
     y = -1;
     while (++y < gun_height)
     {
@@ -75,7 +75,7 @@ void	*create_floor_sky(t_game *g, t_put_on_screen proj, int i)
 		put_pixel(&g->scene, i, ic.y, g->parsed->ceiling_color);
 		ic.y++;
 	}
-	ic.y = HEIGHT;
+	ic.y = settings()->height;
 	while (ic.y >= proj.y - 3)
 	{
 		ic.x = 0;
