@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:03:46 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 18:08:17 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:57:36 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct s_game
 	void			*w_id;
 	t_image_creator	map_buffer;
 	t_image_creator	scene;
-	t_image_creator	demo_tex;
 	void			*player;
 	void			*sky;
 	t_lay			*lay;

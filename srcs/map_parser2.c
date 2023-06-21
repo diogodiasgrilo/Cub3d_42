@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:06:51 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 16:16:24 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:33:16 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ t_map_errors	*init_parser(void)
 {
 	t_map_errors	*errors;
 
-	errors = (t_map_errors *)malloc(sizeof(t_map_errors));
+	errors = (t_map_errors *)ft_calloc(1, sizeof(t_map_errors));
+	if (!errors)
+		return (NULL);
 	errors->inv_north = -1;
 	errors->inv_south = -1;
 	errors->inv_west = -1;

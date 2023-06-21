@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:41:56 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 16:23:52 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:41:22 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,7 @@ int	free_map_exit(void *game)
 
 	i = -1;
 	g = (t_game *)game;
-	mlx_loop_end(g->id);
-	while (g->map[++i])
-		free(g->map[i]);
-	free(g->map);
-	mlx_destroy_image(g->id, g->player);
-	mlx_destroy_window(g->id, g->w_id);
-	mlx_destroy_display(g->id);
-	free(g->id);
+	destroy_all_mlx_images();
 	exit(0);
 }
 
@@ -40,6 +33,8 @@ void	free_parsed(t_map_errors *parsed)
 		free(parsed->west_texture);
 	if (parsed->east_texture != NULL)
 		free(parsed->east_texture);
+	if (parsed->line_of_map)
+		free(parsed->line_of_map);
 	free(parsed);
 }
 
@@ -59,7 +54,8 @@ void	check_parsed(t_map_errors *parsed)
 		ft_printf("Error\ninvalid ceiling color!\n");
 	else
 		return ;
-	free_parsed(parsed);
+	free_map_file(parsed->current_fd);
+	destroy_all_mlx_images();
 	exit(EXIT_FAILURE);
 }
 
@@ -68,6 +64,8 @@ int	error_msg_params(char *msg, char **map_str)
 	if (map_str && *map_str)
 		free(*map_str);
 	ft_printf("Error\n%s\n", msg);
+	free_map_file(get_game()->parsed->current_fd);
+	destroy_all_mlx_images();
 	exit(0);
 	return (0);
 }

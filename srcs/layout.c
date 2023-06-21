@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:28:07 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 17:46:28 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:26:41 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	ft_readlayout(int fd, t_err *map_err, t_lay *lay, char **map_str)
 		last_line = cleanup_and_prepare_for_next(map_err, map_str, line, lay);
 	}
 	free(lay->map_first_line);
-	close(fd);
+	lay->map_first_line = NULL;
+	free_map_file(fd);
 }
 
 int	ft_checklayout(char *line, t_err *map_err, t_lay *lay)

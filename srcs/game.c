@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 18:10:58 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:57:23 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ void	get_game_ready(t_game *g, char **map, t_lay lay, t_map_errors *parsed)
 			&g->scene.size_line, &g->scene.endian);
 	g->scene.width = settings()->width * 2;
 	g->scene.height = settings()->height * 2;
-	g->demo_tex.img = mlx_xpm_file_to_image(g->id, "textures/demo.xpm", \
-			&g->demo_tex.width, &g->demo_tex.height);
-	g->demo_tex.data = mlx_get_data_addr(g->demo_tex.img, &g->demo_tex.bpp, \
-			&g->demo_tex.size_line, &g->demo_tex.endian);
 	g->map_buffer = create_image(g->id, lay, map);
 	g->player = create_player(g->id);
 }

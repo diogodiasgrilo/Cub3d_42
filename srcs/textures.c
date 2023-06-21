@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 10:48:30 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 18:01:21 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:43:40 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ void	init_textures(t_game *g)
 	g->textures->west = (t_texture *)malloc(sizeof(t_texture));
 	g->textures->sky = (t_texture *)malloc(sizeof(t_texture));
 	g->textures->portal_gun = (t_texture *)malloc(sizeof(t_texture));
+	if (!g->textures->north || !g->textures->south || !g->textures->east || \
+		!g->textures->west || !g->textures->sky || !g->textures->portal_gun)
+	{
+		destroy_all_mlx_images();
+		exit(1);
+	}
 }
 
 void	load_wall_textures(t_game *g, t_map_errors *parsed)

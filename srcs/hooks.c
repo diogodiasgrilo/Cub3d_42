@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 18:04:49 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:09:43 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ int	ft_input(int key, void *param)
 	else if (key == 100)
 		handle_directions(g, 'r');
 	else if (key == 65307)
+	{
+		destroy_all_mlx_images();
 		exit(0);
+	}
 	return (0);
 }
 
@@ -80,13 +83,8 @@ int	on_new_frame(void)
 	game = get_game();
 	if (!game)
 		return (0);
-	mlx_mouse_hide(game->id, game->w_id);
 	mlx_mouse_get_pos(game->id, game->w_id, &mx, &my);
-	if (mx < settings()->mouse_safe_area_left || \
-		mx > settings()->mouse_safe_area_right)
-		mlx_mouse_move(game->id, game->w_id, \
-			settings()->half_width, settings()->half_height);
-	else if (fabs(mx - settings()->half_width) > settings()->mouse_sensitivity)
+	if (fabs(mx - settings()->half_width) > settings()->mouse_sensitivity)
 		on_mouse_move((mx - settings()->half_width) / \
 			(float)(settings()->half_width));
 	draw_rays(game);

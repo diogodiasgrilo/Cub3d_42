@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 18:05:58 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:26:01 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,7 @@ int				on_new_frame(void);
 t_game			*get_game(void);
 void			assign_pixel_color_and_put(t_put_on_screen *prog, t_game *g, \
 					t_texture *texture, int i);
+void			destroy_all_mlx_images(void);
+void			free_map_file(int fd);
 
 #endif

@@ -2,17 +2,12 @@ PROJECT_NAME = Cub3D
 
 SRC_PATH = srcs
 
+NO_LEAKS = 0
+
 ## MODULES ##
 
-SPRITES_SRC_FILES = sprites/sprite.c sprites/store.c
-VECTORS_SRC_FILES = vectors/2/float/vec2.c vectors/2/float/vec2_1.c vectors/2/float/vec2_2.c \
-					vectors/2/integer/vec2.c vectors/2/integer/vec2_1.c vectors/2/integer/vec2_2.c \
-					vectors/3/vec3.c vectors/3/vec3_1.c vectors/3/vec3_2.c
-GFX_SRC_FILES =		gfx.c
-OTHER_SRC_FILES =	settings.c check_par_map.c check_par_map2.c create_objects.c create_objects2.c drawing.c drawing2.c drawing3.c prepare_game.c \
-					drawing4.c errors.c game.c hooks.c hooks2.c layout.c layout2.c main.c map_parser.c map_parser2.c my_mlx.c textures.c textures2.c
-SRC_FILES =  $(OTHER_SRC_FILES)# $(VECTORS_SRC_FILES) $(SPRITES_SRC_FILES) $(GFX_SRC_FILES)
-
+SRC_FILES = settings.c check_par_map.c check_par_map2.c create_objects.c create_objects2.c drawing.c drawing2.c drawing3.c prepare_game.c \
+			drawing4.c errors.c game.c hooks.c hooks2.c layout.c layout2.c main.c map_parser.c map_parser2.c my_mlx.c textures.c textures2.c
 SRCS = $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -51,7 +46,7 @@ LIBFT_ARCH = $(addprefix $(LIBFT_BIN)/,libft.a)
 MLX_PATH = $(addprefix libs/mlx_, $(__SYSTEM__))
 MLX_ARCH = $(addprefix $(MLX_PATH)/,libmlx.a)
 
-PROGRAM_FLAGS = -L$(LIBFT_BIN) -L$(MLX_PATH) -lft -lmlx
+PROGRAM_FLAGS = -L$(LIBFT_BIN) -L$(MLX_PATH) -lft -lmlx -D HIDE_MOUSE=$(NO_LEAKS)
 ifeq ($(__SYSTEM__), $(__S_LINUX__))
 	INCLUDES =			-I /usr/include -D OS=0
 	PROGRAM_FLAGS +=	-L/usr/lib -lXext -lX11 -lm -lz

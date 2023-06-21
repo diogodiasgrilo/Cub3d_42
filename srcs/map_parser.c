@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:44:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 18:42:00 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:18:32 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,14 @@ t_map_errors	*map_parser(char *file)
 
 	line = NULL;
 	errors = init_parser();
+	if (!errors)
+		return (NULL);
 	errors->current_fd = open(file, O_RDONLY);
 	if (errors->current_fd < 0)
 	{
 		ft_printf("Error\nFile not found\n");
 		return (NULL);
-	}	
+	}
 	while (1)
 		if (line_check(&line, errors) == EXIT_FAILURE)
 			break ;

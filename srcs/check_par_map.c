@@ -6,7 +6,7 @@
 /*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 17:36:30 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:35:44 by diogpere         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,13 @@ char	**check_map(int fd, t_lay *lay)
 	*lay = ft_newlayout(lay->map_first_line);
 	ft_readlayout(fd, &map_err, lay, &map_str);
 	map = ft_split(map_str, "\n");
-	if (check_walls(map, lay))
-		map_err.inv_borders = 1;
-	ft_print_map_error(&map_err, &map_str);
-	free(map_str);
 	if (!map)
 		error_msg_params("Error\nMemory allocation error!", 0);
+	if (check_walls(map, lay))
+		map_err.inv_borders = 1;
+	get_game()->map = map;
+	ft_print_map_error(&map_err, &map_str);
+	free(map_str);
 	return (map);
 }
 
