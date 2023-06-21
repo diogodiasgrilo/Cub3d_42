@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 21:51:16 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 17:57:38 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:07:51 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	*create_player(void *mlx)
 	t_image_creator	ic;
 
 	ic.y = 0;
-	ic.img = mlx_new_image(mlx, settings()->player_size, settings()->player_size);
+	ic.img = mlx_new_image(mlx, \
+		settings()->player_size, settings()->player_size);
 	ic.data = mlx_get_data_addr(ic.img, &ic.bpp, &ic.size_line, &ic.endian);
 	while (ic.y < settings()->player_size)
 	{
@@ -40,13 +41,17 @@ void	*create_player(void *mlx)
 
 void	create_rows(t_image_creator *ic, char **map)
 {
-	while (ic->x < (int)ft_strlen(map[ic->y / settings()->map_size]) * settings()->map_size)
+	while (ic->x < (int)ft_strlen(map[ic->y / settings()->map_size]) * \
+		settings()->map_size)
 	{
 		ic->pix_index = (ic->x * ic->bpp / 8) + (ic->y * ic->size_line);
-		if (map[ic->y / settings()->map_size][ic->x / settings()->map_size] == '1')
+		if (map[ic->y / settings()->map_size] \
+			[ic->x / settings()->map_size] == '1')
 			*(unsigned int *)(ic->data + ic->pix_index) = GREY;
-		else if (map[ic->y / settings()->map_size][ic->x / settings()->map_size] == '0' || \
-			map[ic->y / settings()->map_size][ic->x / settings()->map_size] == 'C')
+		else if (map[ic->y / settings()->map_size] \
+			[ic->x / settings()->map_size] == '0' || \
+			map[ic->y / settings()->map_size] \
+			[ic->x / settings()->map_size] == 'C')
 			*(unsigned int *)(ic->data + ic->pix_index) = BLACK;
 		ic->x++;
 	}

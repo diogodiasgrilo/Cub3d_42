@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:09:45 by martiper          #+#    #+#             */
-/*   Updated: 2023/06/21 17:17:32 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:12:04 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,14 @@ t_settings	*settings(void)
 	static t_settings	var;
 
 	if (!var.pi)
+	{
 		var = (t_settings){
 			.pi = PI, .half_pi = PI / 2,
 			.width = WIDTH, .height = HEIGHT,
-			.fov = PI / 3, .half_fov = FOV / 2,
+			.fov = PI / 3,
 			.num_rays = WIDTH,
-			.delta_angle = FOV / NUM_RAYS,
 			.half_width = floor(WIDTH / 2),
 			.half_height = floor(HEIGHT / 2),
-			.screen_dist = HALF_WIDTH / tan(HALF_FOV),
 			.scale = floor(WIDTH / NUM_RAYS),
 			.map_size = MAP_SIZE,
 			.player_size = PLAYER_SIZE,
@@ -33,7 +32,11 @@ t_settings	*settings(void)
 			.mouse_sensitivity = 0.01 * WIDTH,
 			.player_camera_speed = PLAYER_CAMERA_SPEED,
 			.mouse_safe_area_left = (WIDTH * 0.125),
-			.mouse_safe_area_right = (WIDTH - MOUSE_SAFE_AREA_LEFT),
 		};
+		var.half_fov = var.fov / 2;
+		var.delta_angle = var.fov / var.num_rays;
+		var.screen_dist = var.half_width / tan(var.half_fov);
+		var.mouse_safe_area_right = var.width - var.mouse_safe_area_left;
+	}
 	return (&var);
 }

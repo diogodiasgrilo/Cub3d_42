@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 17:58:09 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:02:19 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,14 @@ void	draw_rays(t_game *g)
 	int			i;
 
 	i = -1;
-	g->ray_angle = g->pa - HALF_FOV + 0.0001;
+	g->ray_angle = g->pa - settings()->half_fov + 0.0001;
 	mlx_clear_image(&g->scene, 0xFF000000, WIDTH, HEIGHT);
 	mlx_clear_image(&g->map_buffer, 0xFF000000, find_biggest_column(g->map) \
 		* MAP_SIZE, g->lay->n_row * MAP_SIZE);
 	draw_map(&g->map_buffer, g->lay, g->map);
 	g->x_map = (int)g->px;
 	g->y_map = (int)g->py;
-	while (++i < NUM_RAYS)
+	while (++i < settings()->num_rays)
 	{
 		do_for_each_ray(g);
 		get_texture_and_put_on_screen(g, i);

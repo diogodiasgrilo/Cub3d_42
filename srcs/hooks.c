@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 11:30:49 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 18:00:03 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:04:49 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,13 @@ int	on_new_frame(void)
 		return (0);
 	mlx_mouse_hide(game->id, game->w_id);
 	mlx_mouse_get_pos(game->id, game->w_id, &mx, &my);
-	if (mx < settings()->mouse_safe_area_left || mx > settings()->mouse_safe_area_right)
-		mlx_mouse_move(game->id, game->w_id, settings()->half_width, settings()->half_height);
+	if (mx < settings()->mouse_safe_area_left || \
+		mx > settings()->mouse_safe_area_right)
+		mlx_mouse_move(game->id, game->w_id, \
+			settings()->half_width, settings()->half_height);
 	else if (fabs(mx - settings()->half_width) > settings()->mouse_sensitivity)
-		on_mouse_move((mx - settings()->half_width) / (float)(settings()->half_width));
+		on_mouse_move((mx - settings()->half_width) / \
+			(float)(settings()->half_width));
 	draw_rays(game);
 	return (0);
 }

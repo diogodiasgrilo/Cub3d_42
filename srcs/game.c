@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 17:59:48 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:10:58 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	get_game_ready(t_game *g, char **map, t_lay lay, t_map_errors *parsed)
 	load_textures(g, parsed);
 	g->w_id = mlx_new_window(g->id, settings()->width, settings()->height,
 			"Raycaster");
-	g->scene.img = mlx_new_image(g->id, settings()->width * 2, settings()->height * 2);
+	g->scene.img = mlx_new_image(g->id, \
+		settings()->width * 2, settings()->height * 2);
 	g->scene.data = mlx_get_data_addr(g->scene.img, &g->scene.bpp, \
 			&g->scene.size_line, &g->scene.endian);
 	g->scene.width = settings()->width * 2;
