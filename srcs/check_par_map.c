@@ -46,9 +46,7 @@ int		check_walls(char **map, t_lay *lay)
 			if (((x >= ft_strlen(map[y + 1]) || x >= ft_strlen(map[y - 1])) && map[y][x] != '1' && map[y][x] == '0') || \
 				(map[y][x] != '1' && map[y][x] == '0' && (map[y - 1][x] == 32 || map[y + 1][x] == 32 || (x == 0 && map[y][x] != '1') || \
 				(!map[y][x + 1] && map[y][x + 1] != '1' && map[y][x] == '0'))))
-				{
 					return (EXIT_FAILURE);
-				}
 		}
 		y++;
 	}
