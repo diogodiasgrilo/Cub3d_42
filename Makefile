@@ -101,6 +101,8 @@ watch:
 	@echo "$(TAG) watching for changes.."
 	@while true; do ($(MAKE) -q --no-print-directory || $(MAKE) --no-print-directory); sleep 1; done;
 
+bonus: all
+
 re: fclean all
 
 vg: $(NAME)
