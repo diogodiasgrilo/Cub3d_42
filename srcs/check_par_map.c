@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 15:41:39 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:04:16 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,29 @@ int	check_top_bottom_row(char **map, int *y, int x)
 
 int	check_open_walls(char **map, int y, int x)
 {
-	if (((x >= (int)ft_strlen(map[y + 1]) || x >= \
-	(int)ft_strlen(map[y - 1])) \
-	&& map[y][x] != '1' && map[y][x] == '0') || \
-	(map[y][x] != '1' && map[y][x] == '0' && \
-	(map[y - 1][x] == 32 || map[y + 1][x] == 32 || \
-	(x == 0 && map[y][x] != '1') || (!map[y][x + 1] && \
-	map[y][x + 1] != '1' && map[y][x] == '0'))))
+	if (((x >= (int)ft_strlen(map[y + 1]) || \
+		x >= (int)ft_strlen(map[y - 1])) && map[y][x] != '1' && \
+		map[y][x] == '0') || \
+		(map[y][x] != '1' && map[y][x] == '0' && \
+			(map[y - 1][x] == 32 || map[y + 1][x] == 32 || \
+				map[y - 1][x] == '\0' || map[y + 1][x] == '\0' || \
+				(x == 0 && map[y][x] != '1') || \
+				(!map[y][x + 1] && map[y][x + 1] != '1' && \
+					map[y][x] == '0') \
+			) \
+		) || (\
+			x > 0 && map[y][x] == ' ' && \
+			(map[y][x - 1] == '0' || map[y][x + 1] == '0' || \
+				map[y][x + 1] == '\0') \
+		) || \
+		(
+			ft_strchr("NSWE", map[y][x]) && \
+			((x > 0 && ft_strchr(" ", map[y][x - 1])) || \
+				ft_strchr(" ", map[y][x + 1]) || \
+				(y > 0 && ft_strchr(" ", map[y - 1][x])) || \
+				ft_strchr(" ", map[y + 1][x])) \
+		)
+	)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -49,7 +65,7 @@ int	check_walls(char **map, t_lay *lay)
 	x = 0;
 	if (check_top_bottom_row(map, &y, x))
 		return (EXIT_FAILURE);
-	while (y < lay->n_row - 1)
+	while (y < lay->n_row - 1 && map[y])
 	{
 		x = -1;
 		while (map[y][++x])
@@ -57,7 +73,7 @@ int	check_walls(char **map, t_lay *lay)
 				return (EXIT_FAILURE);
 		y++;
 	}
-	if (check_top_bottom_row(map, &y, x))
+	if (map[y] && check_top_bottom_row(map, &y, x))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
