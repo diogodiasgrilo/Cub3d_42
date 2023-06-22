@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 11:02:50 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:17:33 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void			put_sky(t_game *g);
 void			draw_rays(t_game *g);
 void			draw_rect(t_gfx_rect rect);
 void			put_portal_gun(t_game *g);
-void			*create_player(void *mlx);
 void			draw_line(t_gfx_line line);
+void			draw_rect(t_gfx_rect rect);
 void			do_for_each_ray(t_game *g);
 int				ft_input(int key, void *param);
 int				ft_input(int key, void *param);

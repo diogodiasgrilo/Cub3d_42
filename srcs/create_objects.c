@@ -6,38 +6,11 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 21:51:16 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:17:32 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "raycasting.h"
-
-void	create_player_rows(t_image_creator *ic, int ratio)
-{
-	while (ic->x < ratio)
-	{
-		ic->pix_index = (ic->x * ic->bpp / 8) + (ic->y * ic->size_line);
-		*(unsigned int *)(ic->data + ic->pix_index) = NEWWHITE;
-		ic->x++;
-	}
-}
-
-void	*create_player(void *mlx)
-{
-	t_image_creator	ic;
-
-	ic.y = 0;
-	ic.img = mlx_new_image(mlx, \
-		settings()->player_size, settings()->player_size);
-	ic.data = mlx_get_data_addr(ic.img, &ic.bpp, &ic.size_line, &ic.endian);
-	while (ic.y < settings()->player_size)
-	{
-		ic.x = 0;
-		create_player_rows(&ic, settings()->player_size);
-		ic.y++;
-	}
-	return (ic.img);
-}
 
 void	create_rows(t_image_creator *ic, char **map)
 {

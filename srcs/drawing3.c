@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:55:26 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:18:55 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,16 @@
 void	draw_whole_image_again(t_game *g)
 {
 	put_portal_gun(g);
+	draw_rect((t_gfx_rect){
+		.buffer = &g->map_buffer,
+		.start_x = g->px * MAP_SIZE - settings()->half_player_size,
+		.start_y = g->py * MAP_SIZE - settings()->half_player_size,
+		.width = settings()->player_size,
+		.height = settings()->player_size,
+		.color = 0xFFFFFFFF
+	});
 	mlx_draw_image_to_image(&g->scene, &g->map_buffer, 0, 0);
 	mlx_put_image_to_window(g->id, g->w_id, g->scene.img, 0, 0);
-	mlx_put_image_to_window(g->id, g->w_id, g->player, \
-		g->px * MAP_SIZE - settings()->half_player_size, g->py * \
-		MAP_SIZE - settings()->half_player_size);
 }
 
 void	draw_map(t_image_creator *ic, t_lay *lay, char **map)

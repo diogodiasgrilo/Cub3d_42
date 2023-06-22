@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:26:30 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:18:03 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ void	destroy_all_mlx_images(void)
 		mlx_destroy_image(g->id, g->map_buffer.img);
 	if (g->scene.img)
 		mlx_destroy_image(g->id, g->scene.img);
-	if (g->player)
-		mlx_destroy_image(g->id, g->player);
 	if (g->map)
 		ft_split_free(g->map);
 	if (g->parsed)

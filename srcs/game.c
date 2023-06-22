@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:17:57 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	get_game_ready(t_game *g, char **map, t_lay lay, t_map_errors *parsed)
 	g->scene.width = settings()->width * 2;
 	g->scene.height = settings()->height * 2;
 	g->map_buffer = create_image(g->id, lay, map);
-	g->player = create_player(g->id);
 }
 
 void	start_game(char **map, t_lay lay, t_map_errors *parsed)
@@ -41,8 +40,6 @@ void	start_game(char **map, t_lay lay, t_map_errors *parsed)
 	get_game_ready(g, map, lay, parsed);
 	ft_newgame(g, map, &lay);
 	find_player(g, map);
-	mlx_put_image_to_window(g->id, g->w_id, g->player, \
-		g->px * settings()->map_size, g->py * settings()->map_size);
 	g->pdx = (cos(g->pa) * settings()->map_size);
 	g->pdy = (sin(g->pa) * settings()->map_size);
 	find_angle_direction(g);
