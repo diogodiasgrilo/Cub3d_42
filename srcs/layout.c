@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   layout.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:28:07 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 19:26:41 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/raycasting.h"
+#include "raycasting.h"
 
 void	check_for_map_first_line(t_lay *lay, char **line, int fd)
 {

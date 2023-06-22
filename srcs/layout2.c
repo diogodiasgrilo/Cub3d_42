@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   layout2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:46:35 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 19:36:54 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/raycasting.h"
+#include "raycasting.h"
 
 t_lay	ft_newlayout(char *map_first_line)
 {

@@ -52,7 +52,8 @@
 		"check.h": "c",
 		"errors.h": "c",
 		"colors.h": "c",
-		"mlx.h": "c"
+		"mlx.h": "c",
+		"profiler.h": "c"
 	}
   }
 }

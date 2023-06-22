@@ -6,11 +6,11 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:33:42 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 18:02:19 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/raycasting.h"
+#include "raycasting.h"
 
 t_texture	*if_hor_is_bigger(t_game *g)
 {
@@ -78,8 +78,7 @@ void	draw_rays(t_game *g)
 
 	i = -1;
 	g->ray_angle = g->pa - settings()->half_fov + 0.0001;
-	mlx_clear_image(&g->scene, 0xFF000000, WIDTH, HEIGHT);
-	mlx_clear_image(&g->map_buffer, 0xFF000000, find_biggest_column(g->map) \
+	mlx_clear_image(&g->map_buffer, 0xFF000000, g->lay->n_col \
 		* MAP_SIZE, g->lay->n_row * MAP_SIZE);
 	draw_map(&g->map_buffer, g->lay, g->map);
 	g->x_map = (int)g->px;

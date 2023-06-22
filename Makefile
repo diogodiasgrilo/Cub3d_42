@@ -7,7 +7,8 @@ NO_LEAKS = 0
 ## MODULES ##
 
 SRC_FILES = settings.c check_par_map.c check_par_map2.c create_objects.c create_objects2.c drawing.c drawing2.c drawing3.c prepare_game.c \
-			drawing4.c errors.c game.c hooks.c hooks2.c layout.c layout2.c main.c map_parser.c map_parser2.c my_mlx.c textures.c textures2.c
+			drawing4.c errors.c game.c hooks.c hooks2.c layout.c layout2.c main.c map_parser.c map_parser2.c my_mlx.c textures.c textures2.c \
+			profiler.c
 SRCS = $(addprefix $(SRC_PATH)/, $(SRC_FILES))
 OBJ_DIR = objs
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

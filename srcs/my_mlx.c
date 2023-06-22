@@ -6,11 +6,11 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 17:17:36 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 18:00:53 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/raycasting.h"
+#include "raycasting.h"
 
 void	my_mlx_pixel_put(t_image_creator *data, float x, float y, int color)
 {
@@ -41,5 +41,27 @@ void	mlx_clear_image(t_image_creator *data, int color, \
 			x++;
 		}
 		y++;
+	}
+}
+
+void	mlx_draw_image_to_image(t_image_creator *buff, \
+	t_image_creator *img, int x, int y)
+{
+	int		i;
+	int		j;
+	int		color;
+
+	i = 0;
+	while (i < img->height)
+	{
+		j = 0;
+		while (j < img->width)
+		{
+			color = (*(unsigned int *)(img->data + \
+				((i * img->size_line) + (j * (img->bpp / 8)))));
+			my_mlx_pixel_put(buff, x + j, y + i, color);
+			j++;
+		}
+		i++;
 	}
 }

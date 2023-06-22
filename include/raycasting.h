@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 11:34:24 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 19:26:01 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:02:50 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ void			my_mlx_pixel_put(t_image_creator *data, \
 	float x, float y, int color);
 void			mlx_clear_image(t_image_creator *data, \
 	int color, int width, int height);
+void			mlx_draw_image_to_image(t_image_creator *buff, \
+	t_image_creator *img, int x, int y);
 int				on_new_frame(void);
 t_game			*get_game(void);
 void			assign_pixel_color_and_put(t_put_on_screen *prog, t_game *g, \

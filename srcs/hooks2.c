@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hooks2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogpere <diogpere@student.42.fr>          +#+  +:+       +#+        */
+/*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:18:16 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/21 16:50:31 by diogpere         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/raycasting.h"
+#include "raycasting.h"
 
 void	on_mouse_move(float dir)
 {
@@ -24,8 +24,6 @@ void	on_mouse_move(float dir)
 		game->pa = 2 * PI;
 	else if (game->pa > 2 * PI)
 		game->pa -= game->pa;
-	game->sky_offset_x = fmodf(game->sky_offset_x + 4.5 * \
-	(dir * PLAYER_CAMERA_SPEED), WIDTH) * 1.1;
 	game->pdx = cos(game->pa) + 0.0001;
 	game->pdy = sin(game->pa) + 0.0001;
 }
