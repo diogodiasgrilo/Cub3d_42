@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:41:56 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 13:55:14 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:55:36 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	free_map_exit(void *game)
 	i = -1;
 	g = (t_game *)game;
 	destroy_all_mlx_images();
-	exit(0);
+	exit(1);
 }
 
 void	free_parsed(t_map_errors *parsed)
