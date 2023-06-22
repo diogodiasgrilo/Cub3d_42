@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 18:41:56 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 12:32:10 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:45:18 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ int	error_msg_params(char *msg, char **map_str)
 	if (map_str && *map_str)
 		free(*map_str);
 	ft_printf("Error\n%s\n", msg);
-	free_map_file(get_game()->parsed->current_fd);
+	if (get_game()->parsed)
+		free_map_file(get_game()->parsed->current_fd);
 	destroy_all_mlx_images();
 	exit(0);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:26:30 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 11:18:03 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:47:45 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int	main(int argc, char *argv[])
 		error_msg_params("Invalid number of arguments!", 0);
 	parsed = map_parser(argv[1]);
 	if (!parsed)
-		return (0);
+		return (1);
 	get_game()->parsed = parsed;
 	check_parsed(parsed);
 	lay.map_first_line = ft_strdup(parsed->line_of_map);

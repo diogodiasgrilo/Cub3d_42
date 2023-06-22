@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:44:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 11:10:20 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:47:49 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ t_map_errors	*map_parser(char *file)
 	errors->current_fd = open(file, O_RDONLY);
 	if (errors->current_fd < 0)
 	{
+		free(errors);
 		ft_printf("Error\nFile not found\n");
 		return (NULL);
 	}

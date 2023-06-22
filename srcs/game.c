@@ -6,7 +6,7 @@
 /*   By: martiper <martiper@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 13:09:21 by diogpere          #+#    #+#             */
-/*   Updated: 2023/06/22 13:39:06 by martiper         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:42:45 by martiper         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ void	get_game_ready(t_game *g, char **map, t_lay lay, t_map_errors *parsed)
 	g->scene.width = settings()->width * 2;
 	g->scene.height = settings()->height * 2;
 	g->map_buffer = create_image(g->id, lay, map);
-	mlx_mouse_move(g->id, g->w_id, settings()->width / 2, settings()->height / 2);
+	mlx_mouse_move(g->id, g->w_id, \
+		settings()->width / 2, settings()->height / 2);
 }
 
 void	start_game(char **map, t_lay lay, t_map_errors *parsed)
